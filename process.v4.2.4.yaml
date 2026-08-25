@@ -1,0 +1,810 @@
+version: 4.2.4
+file_role: canonical_process
+status: reconciled_single_authority
+process:
+  execution_mode_default: devotional_production
+  pipeline:
+  - horoscope_identify_daily_issue
+  - tarot_draw_daily_mode
+  - quote_select_daily_impetus
+  - reference_select_daily_meditation
+  - resolve_output_profile
+  - study_gather_source_wisdom
+  - write_compose_devotional
+  - edit_refine_devotional
+  - resolve_prayer_output
+  - reference_lineage_finalize
+  - quote_surface_render
+  - reference_surface_render
+  - assemble_render_slots
+  - image_choose_memory_anchors
+  - hyperlinks_validate_good
+  - lint_check_quality
+  - render_create_output
+  stage_breakdown:
+    horoscope:
+      alias: horoscope_identify_daily_issue
+      purpose: run_indicated_daily_horoscope_to_identify_challenge_areas_and_subject_needs
+      visibility: internal_only
+      required_inputs: subject_astrological_sign
+      default: standard_user_astrological_sign_or_if_none_then_ask
+      must_precede: tarot_draw_daily_mode
+      governing_rule: horoscope_is_predictive_only
+      theme_cycle_gate:
+        purpose: prevent_same_or_near_same_primary_theme_repetition_before_any_downstream_selection
+        checks:
+        - primary_theme_lookback_window
+        - theme_cluster_lookback_window
+        - theological_focus_overlap
+        - application_angle_overlap
+        action_on_failure:
+        - regenerate_problem_definition
+        - rotate_theme_cluster
+        - recheck_before_tarot_mode_selection
+      output: issue_statement
+    tarot:
+      alias: tarot_draw_daily_mode
+      purpose: draw_random_major_or_minor_arcana_to_determine_mode_of_approach_toward_issue
+      visibility: internal_only
+      required_inputs: issue_statement
+      default: none
+      must_precede: quote_select_daily_impetus
+      governing_rule: tarot_is_focusing_only
+      tarot_mode_selection:
+        purpose: determine_how_today_problem_is_examined
+        rules:
+        - mode_must_not_replace_problem
+        - mode_must_refract_problem_into_a_distinct_angle
+        - mode_is_binding_on_quote_selection
+        - mode_is_binding_on_scripture_selection
+        - mode_is_binding_on_final_application
+      output: mode_declaration
+    quote:
+      alias: quote_select_daily_impetus
+      purpose: choose_non_scriptural_basis_that_examines_issue_through_lens_of_mode
+      visibility: external
+      required_inputs: issue_statement_and_mode_declaration
+      default: none
+      must_precede: reference_select_daily_meditation
+      governing_rule: select_different_non_biblical_source_for_each_day_from_diverse_backgrounds
+      output: quote_package
+    reference:
+      alias: reference_select_daily_meditation
+      purpose: choose_primary_biblical_anchor_through_the_logic_of_the_selected_quote
+      visibility: external
+      required_inputs: issue_statement_and_mode_declaration_and_quote_package
+      default: none
+      must_precede: study_gather_source_wisdom
+      governing_rule: select_biblical_scripture_from_new_book_each_day
+      selection_rule:
+      - identify_the_quote_logical_claim
+      - identify_the_quote_human_tension
+      - identify_the_quote_moral_or_spiritual_direction
+      - select_scripture_that_places_that_logic_under_biblical_authority
+      required_fit:
+      - scripture_must_ground_or_correct_or_deepen_the_quote
+      - scripture_must_be_capable_of_generating_the_study_pass
+      - scripture_must_center_the_final_devotional
+      rotation_rules:
+      - avoid_same_book_clustering
+      - prefer_book_diversity_across_previous_month
+      forbid:
+      - scripture_selected_as_parallel_motivational_theme
+      - scripture_selected_only_by_shared_keywords
+      - scripture_used_as_decorative_confirmation
+      - quote_and_scripture_selected_independently
+      output: scripture_reference_package
+    resolve_output_profile:
+      alias: resolve_output_profile
+      purpose: determine_requested_output_profile_before_composition
+      visibility: internal_only
+      required_inputs:
+      - reader_preferences
+      - current_request
+      must_precede: study_gather_source_wisdom
+      authority: engine_core.output_profiles
+      default: standard
+      expanded_requires:
+      - explicit_user_request
+      - persistent_user_preference
+      output: output_profile
+    study:
+      alias: study_gather_source_wisdom
+      purpose: gather_spiritual_insight_to_inform_devotional_logic_and_metaphors
+      visibility: internal_unless_cited_in_text
+      required_inputs: issue_statement_and_mode_declaration_and_quote_package_and_scripture_reference_package_and_output_profile
+      default: none
+      must_precede: write_compose_devotional
+      governing_rule: study_a_diverse_minimum_set_and_continue_until_the_question_is_responsibly_explored
+      agents:
+        minimum_total: 5
+        recommended_total: 6
+        roles:
+        - study_leader
+        - scripture_scout
+        - patristic_scout
+        - historical_theology_scout
+        - modern_christian_scout
+        - optional_dedupe_vetting_specialist
+      study_leader_responsibilities:
+      - merge_findings
+      - enforce_source_diversity_balance
+      - remove_duplicate_sources
+      - collapse_same_text_different_urls
+      - reject_low_signal_or_off_theme_material
+      - produce_compact_study_brief
+      rules:
+      - study_must_deepen_selected_scripture_not_override_it
+      - study_must_help_formulate_thesis
+      - study_must_expand_freshness_and_metaphor_space
+      - study_must_not_collapse_mode_back_into_generic_theme
+      - supporting_scripture_must_be_studied_before_non_scriptural_commentary
+      - at_least_one_supporting_scripture_must_survive_to_rendered_references
+      - prefer_two_supporting_scriptures_when_both_materially_influence_the_final_devotional
+      - patristic_sources_are_gathered_and_rendered_in_addition_to_supporting_scripture_not_in_place_of_it
+      output: study_package
+      source_lineage_pipeline:
+        stages:
+        - gather_consulted_sources
+        - classify_source_influence
+        - discard_low_signal_sources
+        - identify_rendered_reference_candidates
+        - identify_deferred_study_guide_sources
+        - produce_study_guide_expansion_map
+        influence_test:
+          a_source_is_influential_if_it_materially_shapes_one_or_more:
+          - scripture_interpretation
+          - thesis
+          - governing_metaphor
+          - pastoral_motion
+          - practical_application
+          - directly_used_quotation
+        rendered_candidate_test:
+          required:
+          - source_is_influential
+          - source_has_recognizable_final_footprint
+          - source_does_not_duplicate_primary_quote_source
+          - source_does_not_duplicate_primary_scripture_anchor
+          - source_is_not_equivalent_or_overlapping_primary_scripture_range
+        outputs:
+        - consulted_sources
+        - influential_sources
+        - rendered_reference_candidates
+        - deferred_sources
+        - discarded_sources
+        - source_footprint_map
+        - study_guide_expansion_map
+        - source_confidence_map
+        - source_weight_map
+        - discard_reason_map
+        - thesis_provenance
+        discard_requirement: every_discarded_source_must_record_why_it_did_not_survive
+      study_guide_behavior:
+        prepare_material_by_default: true
+        render_by_default: false
+        render_when_explicitly_requested: true
+        preserve_same_source_lineage: true
+      source_breadth:
+        minimum_sources: 3
+        recommended_sources: 5
+        soft_maximum_sources: 7
+        may_exceed_soft_maximum_when_material_questions_remain: true
+        stop_when:
+        - diversity_minimum_satisfied
+        - confidence_is_high_or_best_available
+        - no_material_interpretive_gap_remains
+        - new_sources_are_redundant_or_low_signal
+      source_assessment:
+        influence_weight:
+        - incidental
+        - supporting
+        - governing
+        source_confidence:
+        - low
+        - moderate
+        - high
+        discard_reasons:
+        - duplicate
+        - redundant
+        - low_signal
+        - off_theme
+        - superseded
+        - inferior_translation
+        - unsupported_claim
+        - editorial_bias
+        - low_confidence
+      scripture_cross_reference_phase:
+        required: true
+        must_precede: patristic_historical_and_modern_commentary_gathering
+        minimum_influential_passages: 1
+        recommended_influential_passages: 2
+        selection_tests:
+        - materially_illuminates_or_balances_primary_anchor
+        - preserves_context
+        - does_not_overlap_primary_anchor
+        - contributes_recognizable_final_footprint
+        outputs:
+        - supporting_scripture_candidates
+        - supporting_scripture_context_notes
+        - supporting_scripture_footprint_map
+    write:
+      alias: write_compose_devotional
+      purpose: produce_viable_output_text_to_enrich_subject_life_experience_for_the_day
+      visibility: external_through_editing
+      required_inputs: issue_statement_and_mode_declaration_and_quote_package_and_scripture_reference_package_and_study_package_and_output_profile
+      default: none
+      must_precede: edit_refine_devotional
+      governing_rule: logic_must_be_progressive_and_consistent_and_avoid_logical_fallacies
+      writing_passes:
+        draft_zero:
+          purpose: free_writing_pass
+        first_draft:
+          purpose: tighten_logic_and_prose
+        second_draft:
+          purpose: produce_devotional_working_draft
+      writing:
+        composition_profile:
+          authority: engine_core.output_profiles
+      scripture_context_guard:
+        purpose: preserve_original_meaning_of_the_selected_text_and_prevent_prooftexting
+        governing_principle: The devotional may apply a passage pastorally, but may never detach it from the communicative intent, argument, genre, or local meaning of the biblical text in its original context.
+        required_checks:
+        - interpret_selected_verse_within_immediate_passage
+        - respect_local_argument_of_section
+        - respect_book_level_argument_when_relevant
+        - preserve_canonical_consistency
+        - distinguish_application_from_original_meaning
+        forbidden:
+        - prooftexting_by_keyword_match
+        - lifting_promises_from_their_subject_without_warrant
+        - reversing_the_force_of_the_text_for_rhetorical_convenience
+        - treating_descriptive_text_as_universal_promise_without_support
+        - importing_the_devotional_thesis_into_the_text_if_the_text_does_not_support_it
+        - re_emitting_an_overlapping_expansion_of_the_primary_reference_as_a_new_supporting_reference
+        - using_subset_or_superset_ranges_of_the_primary_reference_as_surface_citations
+        actions:
+        - reframe_application_if_minor_drift_detected
+        - reselect_scripture_if_context_conflict_detected
+      thesis_synthesis:
+        purpose: derive_devotional_claim_from_problem_mode_quote_scripture_and_study
+        formula: problem + mode + quote + scripture + study
+        rules:
+        - thesis_must_preserve_problem
+        - thesis_must_show_mode
+        - thesis_must_be_grounded_in_scripture_context
+        - thesis_must_be_specific_enough_to_differ_from_recent_days
+        output: thesis_package_with_provenance
+        provenance_requirements:
+        - problem_parent
+        - mode_parent
+        - quote_logic_parent
+        - scripture_context_parent
+        - influential_study_parentage
+        - no_parentless_thesis_claim
+      source_influence_rules:
+      - allow_influential_sources_to_shape_thesis_metaphor_and_application
+      - preserve_source_footprints_without_forcing_explicit_name_drops
+      - do_not_force_every_consulted_source_into_the_draft
+      - do_not_create_a_reference_footprint_after_source_selection_merely_to_justify_rendering
+      - rendered_references_must_follow_actual_influence_not_retroactive_decoration
+      output: devotional_draft
+      body_quote_rules:
+        purpose: Permit direct quotations in the devotional body without duplicating the wording of the primary scripture anchor.
+        allow_direct_quotes_in_body: true
+        forbid_direct_quote_of_primary_scripture_reference: true
+        allow_secondary_quotes_with_footnote_attribution: true
+        forbid_inline_author_attribution_for_body_quotes: true
+        required_when_body_quote_used:
+        - attach_footer_style_footnote_citation
+        - keep_devotional_prose_flow_unbroken
+        rationale:
+        - the_reader_already_has_the_primary_scripture_text_in_the_reference
+        - duplicating_that_text_spends_words_without_adding_value
+        - body_quote_citations_should_live_in_footer_metadata_not_inline_prose
+        scripture_citation_style_rule: Any scripture reference outside the primary reference line must use the same bracketed hyperlink format as the reference section.
+        required_when_scripture_is_cited_anywhere:
+        - use_bracketed_reference_plus_translation
+        - use_same_hyperlink_style_as_reference_section
+        - forbid_entity_wrapping_for_scripture_references
+        forbid_primary_scripture_equivalence_range_anywhere_on_surface: true
+        forbid_overlapping_expanded_primary_ranges_as_secondary_citations: true
+        source_context_expansion_allowed_for_interpretation_only: true
+        surface_rule: The primary reference may be studied in its larger context, but any overlapping expansion remains part of the same anchor and must never be rendered as a separate quotation or citation.
+      primary_scripture_surface_isolation:
+        enabled: true
+        severity: fatal
+        rules:
+        - primary_scripture_reference_must_appear_exactly_once_in_surface_output
+        - primary_scripture_reference_must_only_appear_in_reference_section
+        - primary_scripture_reference_must_not_be_quoted_or_partially_quoted_anywhere_else
+        - primary_scripture_reference_must_not_be_repeated_in_footer_footnotes
+        - expanded_or_overlapping_ranges_of_primary_reference_must_not_be_rendered_as_secondary_references
+      scripture_context_expansion_policy:
+        enabled: true
+        source_use_allowed:
+        - immediate_passage_context
+        - overlapping_or_expanded_verse_range_for_interpretation
+        - local_argument_of_section
+        - book_level_argument_when_relevant
+        surface_output_restrictions:
+        - do_not_render_expanded_range_as_new_reference
+        - do_not_quote_expanded_range_in_body_or_footnotes_if_it_overlaps_primary_reference
+        - do_not_cite_subset_or_superset_of_primary_reference_as_supporting_scripture
+        - preserve_single_anchor_reference_on_surface
+      primary_scripture_equivalence:
+        definition:
+        - same_book_same_chapter_any_overlapping_verse_range
+        - superset_of_primary_reference
+        - subset_of_primary_reference
+        - adjacent_context_used_only_to_restate_primary_anchor
+        treatment:
+        - treat_as_same_reference_for_surface_rendering
+        - allow_for_internal_study_only
+        - forbid_as_secondary_citation
+        - forbid_as_body_quote
+        - forbid_as_footer_footnote_reference
+    edit:
+      alias: edit_refine_devotional
+      purpose: refine_devotional_draft_into_art_that_exhorts_and_reminds_reader_of_important_and_strangely_relevant_christian_principles
+      visibility: external
+      required_inputs: issue_statement_and_mode_declaration_and_quote_package_and_scripture_reference_package_and_study_package_and_devotional_draft_and_output_profile
+      default: none
+      must_precede: resolve_prayer_output
+      governing_rule: tone_must_be_collaborative_and_encouraging_not_didactic_nor_confrontational
+      editorial_preservation:
+        preserve_output_profile: true
+        preserve_study_depth: true
+        expanded:
+          never_compress_into_standard
+        condensed:
+          never_expand_to_fill_space
+      editing_passes:
+        structural_draft_pass:
+          purpose: architecture_before_polish
+        theology_pass:
+          purpose: doctrinal_integrity
+        pastoral_safety_check:
+          purpose: protect_readers_in_suffering
+        coherence_pass:
+          purpose: tighten_narrative_and_logical_clarity
+        applicability_pass:
+          purpose: ensure_meaningful_intersection_with_reader_life
+        voice_pass:
+          purpose: standardize_perspective_and_tone_to_avoid_fragmented_or_didactic_or_preachy_flow
+        compression_pass:
+          purpose: remove_filler_before_stylistic_polish
+        literary_style_pass:
+          purpose: aesthetic_enrichment
+        memorization_pass:
+          purpose: strengthen_retention_without_synthetic_aphorism
+        tts_pass:
+          purpose: spoken_delivery_optimization
+        length_pass:
+          purpose: final_length_conformance_before_validation
+        sounding_pass:
+          purpose: ensure_unified_voice_and_flow_after_all_sharpening_passes
+        validate_payoff_anchor:
+          purpose: ensure_main_insight_lands_before_final_sentence
+          checks:
+          - interpretive_turn_should_appear_at_paragraph_2_sentence_1_when_possible
+          - final_sentence_should_complete_application_not_introduce_main_theme
+          - payoff_progress_ratio_should_fall_within_0_56_to_0_72
+        conceptual_attractor_pass:
+          purpose: advisory_structural_guidance_that_encourages_coherence_without_forcing_a_rigid_sentence_template
+      output: devotional_manuscript
+    prayer:
+      alias: resolve_prayer_output
+      purpose: resolve_optional_prayer_output_after_devotional_content_is_finalized_and_before_surface_assembly
+      visibility: external_through_render_when_enabled
+      authority: engine_core.prayer_output
+      preference_authority: preferences.reader_contract_preferences.prayer
+      required_inputs:
+      - reader_preferences
+      - current_request
+      - devotional_manuscript
+      - scripture_reference_package
+      - study_package
+      - civil_date
+      default: none
+      must_precede: reference_lineage_finalize
+      mode_resolution:
+        allowed:
+        - none
+        - generated
+        - liturgical
+        rules:
+        - explicit_request_overrides_persistent_preference
+        - otherwise_use_persistent_preference
+        - otherwise_use_none
+      generated_mode:
+        required_inputs:
+        - devotional_thesis
+        - primary_scripture
+        - pastoral_motion
+        - reader_profile
+        rules:
+        - derive_from_finalized_devotional_not_early_draft
+        - preserve_devotional_theological_center
+        - do_not_introduce_new_primary_theme_or_doctrine
+        - do_not_claim_liturgical_or_historic_provenance
+        output_classification: generated
+      liturgical_mode:
+        tradition_resolution:
+          allowed:
+          - catholic
+          - anglican
+          - auto
+          authority: engine_core.prayer_output.auto_tradition_resolution
+        required_actions:
+        - resolve_liturgical_date_from_civil_date
+        - identify_calendar_observance_when_relevant
+        - identify_requested_or_inferred_tradition
+        - search_for_date_appropriate_prayer_in_engine_priority_order
+        - verify_prayer_name_or_source
+        - verify_verbatim_use_is_permitted_before_rendering_exact_text
+        rules:
+        - liturgical_selection_is_calendar_driven_not_devotional_theme_driven
+        - do_not_rewrite_valid_liturgical_prayer_to_match_devotional_theme
+        - do_not_reconstruct_liturgical_text_from_memory_as_verbatim
+        - generated_or_reconstructed_text_must_never_be_classified_as_liturgical
+        fallback:
+          when_no_valid_liturgical_prayer_or_verbatim_use_unavailable: generated
+          fallback_must_follow_generated_mode_rules: true
+          fallback_classification: generated
+          liturgical_source_attribution_forbidden_on_fallback: true
+      output:
+        prayer_package:
+          fields:
+          - mode_requested
+          - mode_rendered
+          - classification
+          - tradition
+          - liturgical_date
+          - calendar_observance
+          - prayer_text
+          - prayer_name
+          - source_name
+          - source_url_if_available
+          - provenance_status
+          - fallback_used
+    quote_surface:
+      alias: quote_surface_render
+      purpose: emit_primary_quote_text_and_source_line_as_locked_surface_material_without_interpretation
+      visibility: external_through_render
+      required_inputs: quote_package
+      default: none
+      must_precede: reference_surface_render
+      governing_rule: quoting_and_source_rendering_are_reporting_tasks_not_writing_tasks
+      render_mode: preserve_only
+      rules:
+      - never_paraphrase_primary_quote_text
+      - never_imply_meaning_inside_quote_surface
+      - never_normalize_or_soften_quote_wording
+      - source_line_must_report_selected_source_not_editorial_gloss
+      - quote_surface_text_is_locked_before_assembly
+      output: quote_surface_package
+    reference_surface:
+      alias: reference_surface_render
+      purpose: emit_primary_scripture_reference_surface_as_locked_citation_material_without_devotional_rephrasing
+      visibility: external_through_render
+      required_inputs: scripture_reference_package
+      default: none
+      must_precede: assemble_render_slots
+      governing_rule: scripture_reference_surface_is_retrieval_and_reporting_not_composition
+      render_mode: preserve_only
+      rules:
+      - never_paraphrase_reference_text
+      - never_imply_meaning_inside_reference_surface
+      - never_emit_devotional_gloss_as_reference_text
+      - expanded_reference_text_must_be_verbatim_when_rendered
+      - if_verbatim_expansion_is_unavailable_emit_reference_line_only
+      - reference_surface_text_is_locked_before_assembly
+      output: reference_surface_package
+    assemble:
+      alias: assemble_render_slots
+      purpose: combine_locked_quote_surface_locked_reference_surface_devotional_body_and_optional_prayer_into_render_slots_without_cross_role_rewriting
+      visibility: internal
+      required_inputs: quote_surface_package_and_reference_surface_package_and_devotional_manuscript_and_prayer_package_and_output_profile
+      default: none
+      must_precede: lint_check_quality
+      governing_rule: assembly_places_prepared_surfaces_into_slots_and_must_not_rewrite_them
+      rules:
+      - devotional_body_may_be_interpreted_but_surface_packages_must_be_preserved_verbatim
+      - quote_surface_and_reference_surface_must_not_be_rewritten_during_assembly
+      - prayer_package_must_not_be_rewritten_during_assembly
+      - slot_assembly_must_preserve_selected_layout
+      - prayer_when_present_must_follow_primary_terminal_surface_and_precede_additional_references_and_footnotes
+      output: assembled_surface_package
+    reference_lineage:
+      alias: reference_lineage_finalize
+      purpose: finalize_additional_references_from_sources_that_survived_into_the_edited_devotional
+      visibility: internal_until_render
+      required_inputs: study_package_and_devotional_manuscript_and_prayer_package
+      default: none
+      must_precede: image_choose_memory_anchors
+      governing_rule: Additional References must visibly report biblical cross-reference first, followed by other materially influential Christian witnesses. Patristic breadth is additive to, never a substitute for, supporting Scripture.
+      checks:
+      - candidate_source_is_influential
+      - candidate_source_has_recognizable_footprint_in_edited_devotional
+      - candidate_source_is_not_decorative
+      - candidate_source_is_not_primary_quote_source
+      - candidate_source_is_not_primary_scripture_anchor
+      - candidate_scripture_does_not_overlap_primary_anchor
+      - candidate_source_is_not_already_reserved_only_as_body_quote_footnote
+      - duplicate_sources_are_collapsed
+      - liturgical_prayer_source_is_not_added_to_additional_references_unless_it_independently_influenced_devotional_content
+      output:
+      - final_rendered_references
+      - final_source_footprint_map
+      - deferred_study_guide_sources
+      supporting_scripture_contract:
+        minimum_rendered: 1
+        recommended_rendered: 2
+        must_precede_non_scriptural_entries: true
+        exclude_primary_anchor: true
+        exclude_overlapping_or_equivalent_primary_ranges: true
+        must_have_recognizable_footprint: true
+      patristic_contract:
+        render_without_fixed_cap_when_materially_influential: true
+        must_be_additive_to_supporting_scripture: true
+    image:
+      alias: image_choose_memory_anchors
+      purpose: select_images_to_cement_devotional_themes_in_reader_mind
+      visibility: external_as_images
+      required_inputs: issue_statement_and_mode_declaration_and_quote_package_and_scripture_reference_package_and_devotional_manuscript_and_output_profile
+      default: none
+      must_precede: lint_check_quality
+      governing_rule: dedupe_similar_images_to_maximize_impact
+      score_governing_metaphor:
+        purpose: identify_best_visual_and_conceptual_anchor_for_image_selection
+      select_image:
+        purpose: choose_one_strong_image_that_echoes_the_text
+      output: image_entities
+    hyperlinks:
+      alias: hyperlinks_validate_good
+      purpose: ensure_hyperlinks_are_valid_and_well_formed
+      visibility: external
+      required_inputs: quote_package_and_scripture_reference_package_and_prayer_package
+      default: none
+      must_precede: lint_check_quality
+      governing_rule: hyperlinks_use_markdown_text_never_entities_and_plain_text_only_as_fallback
+      build_hyperlink_objects:
+        purpose: construct_explicit_quote_scripture_and_optional_liturgical_prayer_link_objects_before_render
+        rules:
+        - labels_must_be_plain_text
+        - urls_must_be_explicit
+        - no_link_inference_from_prose
+        - no_entity_tokens_inside_links
+        - fallback_url_lines_must_use_configured_indent_when_emitted
+        - prebuild_degraded_fallback_material_for_any_required_link
+        - liturgical_prayer_source_link_is_optional_but_must_be_bound_to_verified_source_when_rendered
+        preceded_by:
+        - scripture_context_guard
+      output: hyperlink_markdowns
+    lint:
+      alias: lint_check_quality
+      purpose: quality_control_to_assure_consistent_user_experience_for_every_devotional_interaction
+      visibility: external
+      required_inputs: assembled_surface_package_and_quote_surface_package_and_reference_surface_package_and_prayer_package_and_image_entities_and_hyperlink_markdowns_and_output_profile
+      default: none
+      must_precede: render_create_output
+      governing_rule: on_fail_correct_output_before_rendering
+      lint_and_sanity_check:
+        purpose: verify_not_govern
+        rule: lint_is_sanity_check_not_captain
+        checks:
+        - structure
+        - word_cap
+        - sentence_integrity
+        - image_duplication
+        - reference_position
+        - hidden_metadata_rules
+        - payoff_anchor
+        - hyperlink_presence
+        - body_quote_policy
+        - footer_footnote_shape
+        - canonical_scripture_citation_style
+        - primary_scripture_surface_isolation
+        - primary_scripture_overlap_suppression
+        - prayer_mode_and_classification
+        - liturgical_prayer_source_integrity
+        - prayer_placement
+      verify_render_shape:
+        purpose: confirm_requested_render_shape_and_trigger_inline_repair_when_the_rich_layer_does_not_attach_cleanly
+        policy: repair_inline_then_emit
+        required_signals:
+        - quote_attribution_link_present_or_fallback_ready
+        - scripture_reference_link_present_or_fallback_ready
+        - ui_shape_valid_for_selected_order_or_degraded_shape_valid
+        - headerless_layout_valid
+        - plain_text_hyperlink_labels_only
+        - image_entity_renderer_present_when_images_enabled_or_image_cue_ready
+        - entity_text_boundary_valid_when_rich_render_present
+        - repaired_surface_ready_as_final_if_needed
+        - section_order_matches_selected_layout_before_repair
+        - section_order_matches_selected_layout_after_repair
+        - footer_footnotes_valid_when_body_quotes_present
+        - primary_scripture_reference_appears_once_only
+        - no_overlapping_primary_range_rendered_as_secondary_reference
+        - prayer_slot_valid_when_enabled
+        - liturgical_prayer_source_identified_when_classified_liturgical
+        - generated_fallback_not_mislabeled_as_liturgical
+        repair_step: apply_degraded_fallback
+        required_contracts:
+        - render_order_integrity
+        - headerless_layout_integrity
+        - quote_link_integrity
+        - scripture_link_integrity
+        - image_entity_integrity
+        - entity_boundary_integrity
+        - structured_hyperlink_integrity
+        - degraded_fallback_integrity
+        - prayer_surface_integrity
+      apply_degraded_fallback:
+        purpose: preserve_content_and_emit_a_clean_plain_text_fallback_when_rich_render_or_markdown_links_do_not_attach
+        enabled: true
+        strategy:
+        - preserve_devotional_text_without_rewrite
+        - preserve_selected_order
+        - preserve_prayer_text_and_classification_without_rewrite
+        - render_quote_label_on_its_own_line
+        - render_quote_url_on_next_line_with_indent
+        - render_scripture_label_on_its_own_line
+        - render_scripture_url_on_next_line_with_indent
+        - emit_single_italic_image_cue_when_image_entity_fails
+        - never_append_unlabeled_raw_url_inline
+        - promote_repaired_surface_to_canonical_final_output_when_triggered
+        indent_rule:
+          enabled: true
+          spaces: 2
+          applies_to:
+          - quote_url_line
+          - scripture_url_line
+          - liturgical_prayer_source_url_line
+        preserve:
+        - devotional_text
+        - quote_selection
+        - scripture_selection
+        - prayer_package
+        - selected_order
+        - selected_images
+        emit_policy:
+          always_emit_best_available_shape: true
+          do_not_abort_output_for_render_only_failure: true
+          prefer_rich_render_when_valid: true
+          prefer_degraded_fallback_when_rich_render_invalid: true
+        order_enforcement:
+        - treat_layout_as_slot_based_not_sequence_based
+        - fill_missing_elements_in_place
+        - never_reinsert_elements_out_of_original_position
+      scripture_quote_dependency_guard:
+        purpose: verify_that_scripture_was_truly_selected_through_the_quote_logic
+        governing_rule: progressive_reasoning_requires_real_dependency_between_quote_and_scripture_selection
+        required_checks:
+        - can_state_the_quote_logic_in_one_sentence
+        - can_state_how_the_scripture_biblically_reframes_or_grounds_that_logic
+        - study_pass_flows_from_scripture_not_quote
+        - final_devotional_cannot_treat_scripture_as_decoration
+        fail_if:
+        - scripture_only_thematically_adjacent
+        - scripture_selected_by_topic_overlap_alone
+        - quote_logic_not_traceable_into_scripture_selection
+        - devotional_would_read_the_same_with_a_different_reference
+        failure_behavior:
+        - reselect_scripture_through_quote_logic
+        - if_needed_reselect_quote
+        - do_not_begin_study_or_draft_until_dependency_holds
+      render_surface_lock:
+        purpose: verify_all_required_renderables_are_complete_before_final_render
+        required_checks:
+        - quote_attribution_object_complete
+        - scripture_reference_object_complete
+        - prayer_package_complete_when_enabled
+        - liturgical_prayer_source_integrity_verified_when_applicable
+        - supported_render_mode_present
+        - image_entity_ready_or_image_cue_prepared
+        - no_entity_inside_text_hyperlink
+        - degraded_fallback_material_prebuilt
+        - footer_footnote_block_prepared_when_body_quotes_present
+        - primary_scripture_surface_isolation_verified
+        - no_equivalent_primary_range_in_body_or_footnotes
+        failure_behavior:
+        - repair_before_render
+        - if_unrepairable_use_prebuilt_degraded_surface
+        order_freeze_rules:
+        - freeze_section_order_before_any_fallback_or_repair
+        - section_order_must_match_selected_render_layout
+        - fallback_must_fill_slots_not_reorder_sections
+      output: known_good_packages
+    render:
+      alias: render_create_output
+      purpose: generate_consistent_well_formed_outputs
+      visibility: external
+      required_inputs: assembled_surface_package_and_known_good_quote_surface_package_and_known_good_reference_surface_package_and_prayer_package_and_image_entities_and_hyperlink_markdowns_and_output_profile
+      default: none
+      must_precede: none
+      governing_rule: selected_order_must_be_honored_with_image_first_and_no_headers
+      supported_output_orders:
+      - quote_devotional_reference
+      - reference_devotional_quote
+      reference_rendering_rules:
+      - if_reference_is_bottom_then_render_reference_link_only
+      - if_reference_is_top_then_render_expanded_scripture_block_plus_hyperlinked_reference_line
+      - bottom_reference_never_expands_even_if_short
+      - top_reference_must_expand_even_if_long
+      forbid:
+      - closing_refrain
+      named_contracts:
+      - render_order_integrity
+      - headerless_layout_integrity
+      - quote_link_integrity
+      - scripture_link_integrity
+      - image_entity_integrity
+      - entity_boundary_integrity
+      - structured_hyperlink_integrity
+      - degraded_fallback_integrity
+      - prayer_surface_integrity
+      rules_of_thumb:
+      - images_are_entities
+      - hyperlinks_are_plain_text
+      - entities_are_never_hyperlinks
+      - devotionals_have_no_headers
+      - fallback_urls_live_on_the_next_indented_line_when_needed
+      - body_quotes_may_be_direct_but_primary_scripture_must_not_be_duplicated
+      - body_quote_citations_live_in_footer_footnotes_not_inline
+      - all_scripture_references_use_the_same_bracketed_hyperlink_style
+      - prayer_when_present_appears_after_primary_terminal_surface_and_before_additional_references_and_footnotes
+      output: final_user_text
+      permitted_metadata_after_primary_terminal:
+      - prayer when enabled
+      - Additional References when nonempty
+      - footer footnotes when body quotations require attribution
+  workflow_aliases:
+    canonical_workflow:
+      name: gamma_devotional_workflow
+      alias: gdw_v1
+      purpose: Stable alias map for the devotional production pipeline so workflow structure is concrete, inspectable, and verifiable across revisions.
+      step_aliases:
+        consult_horoscope: problem_scan
+        theme_cycle_gate: freshness_gate
+        draw_touchstone_tarot: lens_draw
+        tarot_mode_selection: mode_bind
+        select_quote: quote_bind
+        select_scripture_reference: anchor_bind
+        resolve_output_profile: profile_resolve
+        scripture_context_guard: context_guard
+        build_hyperlink_objects: link_object_build
+        study_pass: study_brief_build
+        thesis_synthesis: thesis_bind
+        resolve_prayer_output: prayer_resolve
+        quote_surface: quote_surface_render
+        reference_surface: reference_surface_render
+        assemble: assemble_render_slots
+        conceptual_attractor_pass: shape_guidance
+        draft_zero: free_draft
+        structural_draft_pass: structure_pass
+        theology_pass: doctrine_pass
+        pastoral_safety_check: care_pass
+        coherence_pass: clarity_pass
+        applicability_pass: life_pass
+        voice_pass: tone_pass
+        compression_pass: trim_pass
+        literary_style_pass: beauty_pass
+        memorization_pass: retention_pass
+        tts_pass: spoken_pass
+        length_pass: band_pass
+        sounding_pass: cadence_pass
+        validate_payoff_anchor: payoff_check
+        score_governing_metaphor: metaphor_score
+        reference_lineage_finalize: lineage_finalize
+        select_image: image_pick
+        lint_and_sanity_check: sanity_gate
+        final_render: rich_render
+        verify_render_shape: shape_check
+        apply_degraded_fallback: plain_fallback
+        scripture_quote_dependency_guard: dependency_guard
+        render_surface_lock: surface_lock
+      verification_rules:
+      - alias_map_must_cover_every_pipeline_step
+      - alias_order_must_match_pipeline_order
+      - overall_alias_must_be_declared_once
