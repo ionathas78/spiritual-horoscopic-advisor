@@ -1,4 +1,4 @@
-version: 2.10.3
+version: 2.10.4
 file_role: canonical_engine_core
 status: reconciled_single_authority
 engine_core:
@@ -38,6 +38,8 @@ engine_core:
   - scripture_interprets_scripture_before_commentary
   - supporting_scripture_is_required_in_rendered_additional_references
   - patristic_and_other_christian_witness_is_additive_to_biblical_cross_reference
+  - generated_prayer_must_arise_from_the_devotional_thesis_scripture_and_pastoral_motion
+  - liturgical_prayer_must_be_date_appropriate_source_identified_and_never_reconstructed_as_historic_text
   directive_taxonomy:
     enabled: true
     purpose: distinguish_authoritative_requirements_from_observational_health_signals
@@ -52,6 +54,7 @@ engine_core:
         - respect_reading_accessibility
         - preserve_requested_translation
         - distinguish_reading_complexity_from_spiritual_depth
+        - honor_requested_prayer_mode_and_tradition
       process_contract:
         definition: requirements_that_preserve_the_integrity_of_devotional_generation
         examples:
@@ -60,6 +63,7 @@ engine_core:
         - scripture_is_interpreted_in_context
         - source_lineage_is_preserved
         - study_material_precedes_optional_study_guide_rendering
+        - liturgical_prayer_selection_preserves_calendar_and_source_integrity
       render_contract:
         definition: requirements_governing_what_the_reader_actually_receives
         examples:
@@ -934,6 +938,71 @@ engine_core:
     - title_should_not_reveal_hidden_astrology_or_tarot_inputs
     - title_is_not_a_markdown_heading
     - title_visibility_is_controlled_by_reader_preference
+  prayer_output:
+    enabled: true
+    preference_authority: preferences.reader_contract_preferences.prayer
+    default_mode: none
+    modes:
+      none:
+        render_prayer: false
+      generated:
+        render_prayer: true
+        classification: generated
+        source_inputs:
+        - devotional_thesis
+        - primary_scripture
+        - pastoral_motion
+        - reader_profile
+        requirements:
+        - preserve_theological_center_of_devotional
+        - preserve_requested_reading_complexity_and_spiritual_depth
+        - prayer_must_not_introduce_new_doctrine_or_new_primary_theme
+        - prayer_must_not_claim_historic_or_liturgical_provenance
+      liturgical:
+        render_prayer: true
+        classification: liturgical
+        supported_traditions:
+        - catholic
+        - anglican
+        - auto
+        selection_inputs:
+        - civil_date
+        - liturgical_date
+        - requested_or_inferred_tradition
+        - calendar_observance
+        selection_priority:
+        - proper_prayer_for_calendar_date
+        - feast_or_saint_day_prayer
+        - seasonal_or_week_collect
+        - ordinary_daily_prayer
+        requirements:
+        - date_appropriateness_must_be_established
+        - tradition_must_be_identified
+        - prayer_name_or_source_must_be_identified
+        - exact_text_may_be_used_only_when_provenance_and_verbatim_use_are_permitted
+        - liturgical_prayer_must_not_be_rewritten_to_match_devotional_theme
+        - generated_or_reconstructed_text_must_never_be_presented_as_historic_liturgy
+    auto_tradition_resolution:
+      priority:
+      - explicit_reader_preference
+      - persistent_reader_tradition_preference
+      - suitable_date_specific_prayer_with_reliable_provenance
+      - generated_fallback
+      governing_rule: auto_selects_a_valid_tradition_only_when_a_suitable_prayer_can_be_identified_with_confidence
+    fallback_policy:
+      when_liturgical_prayer_unavailable_or_verbatim_use_not_permitted: generated
+      fallback_classification_must_be_generated: true
+      liturgical_source_attribution_for_fallback_forbidden: true
+      preserve_reader_request_intent: true
+    source_integrity:
+      historic_or_liturgical_claim_requires_traceable_source: true
+      source_name_or_prayer_name_required_for_liturgical_mode: true
+      do_not_reconstruct_liturgical_text_from_memory_as_verbatim: true
+      if_provenance_is_uncertain: use_generated_fallback
+    thematic_independence:
+      generated_prayer_should_echo_devotional: true
+      liturgical_prayer_should_follow_calendar_not_devotional_theme: true
+      do_not_reject_valid_liturgical_prayer_for_theme_mismatch: true
   freshness_controls:
     redundancy_decay:
       enabled: true
