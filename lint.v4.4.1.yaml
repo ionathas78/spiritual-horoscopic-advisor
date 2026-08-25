@@ -1,4 +1,4 @@
-version: 4.4.1
+version: 4.4.2
 file_role: canonical_lint
 status: reconciled_single_authority
 lint:
@@ -15,6 +15,7 @@ lint:
     - pdf_specimens_must_not_include_entity_tokens
     - reference_count_variation_must_not_be_linted_as_profile_drift
     - content_length_must_not_be_inferred_from_reference_count
+    - prayer_specimens_must_match_engine_core_prayer_output_contract
   output_profile_checks:
     axes_are_orthogonal: true
     artifact_types: [devotional, study_guide]
@@ -54,12 +55,12 @@ lint:
     - images_must_come_first
     - image_must_use_entity_renderer_when_images_enabled
     - quote_must_follow_images
-    - reference_must_precede_additional_references_and_footer_footnotes_when_present
+    - reference_must_precede_prayer_additional_references_and_footer_footnotes_when_present
     reversi_order:
     - images_must_come_first
     - image_must_use_entity_renderer_when_images_enabled
     - reference_must_follow_images
-    - quote_must_precede_additional_references_and_footer_footnotes_when_present
+    - quote_must_precede_prayer_additional_references_and_footer_footnotes_when_present
     common:
     - forbid_headings_except_additional_references_metadata_heading
     - forbid_closing_refrains
@@ -68,10 +69,11 @@ lint:
     - forbid_markdown_headers
     - forbid_section_titles
     - forbid_pseudo_headers
-    - forbid_content_after_terminal_element_except_additional_references_and_footer_footnotes
+    - prayer_when_present_must_follow_selected_primary_terminal_surface
+    - prayer_when_present_must_precede_additional_references_and_footer_footnotes
+    - forbid_content_after_terminal_element_except_prayer_additional_references_and_footer_footnotes
     paragraph_structure:
       authority: engine_core.output_profiles
-    
       fail_if:
         - paragraph_count_conflicts_with_selected_profile
       derive_expected_structure_from_authority: true
@@ -115,15 +117,11 @@ lint:
   - fail_if_quote_surface_is_paraphrased
   word_count_checks:
     authority: engine_core.devotional_length_guidance
-  
     advisory_only: true
-  
     fail_if:
       - extreme_outlier_relative_to_selected_profile
-  
     warn_if:
       - outside_preferred_band
-  
     never_fail_only_for_missing_preferred_band: true
   sentence_integrity_checks:
   - no_false_contrast_via_compression
@@ -158,7 +156,6 @@ lint:
     ui:
       fail_if_missing:
         - image_or_prepared_cue
-    
     pdf:
       fail_if_present:
         - image
@@ -166,7 +163,6 @@ lint:
   pdf_header_checks:
     required:
       - devotional_header_present
-  
     when_multiple_devotionals:
       required:
         - collection_header_present
@@ -204,7 +200,6 @@ lint:
       - rotate_application_domain
       fail_if_same_problem_plus_mode_pair: true
   contract_reference_checks:
-  
     required:
       - referenced_contract_id_exists
       - referenced_specimen_id_exists
@@ -344,6 +339,51 @@ lint:
     - title_introduces_absent_theme
     - title_is_markdown_header
     - title_contains_debug_metadata
+  prayer_checks:
+    authority: engine_core.prayer_output
+    preference_authority: preferences.reader_contract_preferences.prayer
+    severity: fatal
+    supported_modes:
+    - none
+    - generated
+    - liturgical
+    required:
+    - selected_prayer_mode_propagates_through_pipeline
+    - prayer_package_classification_matches_resolved_mode_or_fallback
+    - prayer_when_present_follows_selected_primary_terminal_surface
+    - prayer_when_present_precedes_additional_references_and_footer_footnotes
+    generated:
+      required:
+      - classification_is_generated
+      - prayer_derives_from_devotional_thesis_primary_scripture_and_pastoral_motion
+      - no_liturgical_or_historic_source_attribution
+      fail_if:
+      - generated_prayer_introduces_new_primary_theme_or_doctrine
+      - generated_prayer_claims_historic_or_liturgical_provenance
+    liturgical:
+      required:
+      - classification_is_liturgical
+      - date_appropriateness_established
+      - tradition_identified
+      - prayer_name_or_source_identified
+      - verbatim_text_used_only_when_provenance_and_use_are_permitted
+      - calendar_relevance_preserved_independently_of_devotional_theme
+      fail_if:
+      - liturgical_prayer_rewritten_to_match_devotional_theme
+      - generated_or_reconstructed_text_presented_as_historic_liturgy
+      - liturgical_source_provenance_missing_or_uncertain
+      - date_or_tradition_mismatch
+    fallback:
+      when_liturgical_unavailable_or_unusable:
+        required:
+        - fallback_classification_is_generated
+        - liturgical_source_attribution_absent
+      fail_if:
+      - fallback_generated_prayer_retains_liturgical_classification
+      - fallback_generated_prayer_retains_liturgical_source_attribution
+    none:
+      fail_if:
+      - prayer_surface_present
   heading_exception_checks:
     default_forbid_all_headings: true
     permitted_exact_heading:
@@ -381,6 +421,7 @@ lint:
     - image_entity_or_prepared_cue_when_images_enabled
     - prebuilt_degraded_fallback_signal
     - footer_footnote_signal_when_body_quotes_present
+    - prayer_package_when_prayer_mode_requires_output
     fail_if:
     - ui_structure_invalid_without_valid_degraded_fallback
     - selected_order_not_honored
@@ -407,6 +448,9 @@ lint:
     - consulted_only_source_rendered
     - title_rendered_as_markdown_heading
     - additional_references_header_present_with_empty_block
+    - prayer_present_after_additional_references_or_footnotes
+    - prayer_present_before_selected_primary_terminal_surface
+    - generated_prayer_mislabeled_as_liturgical
     on_failure:
     - apply_degraded_fallback
     - emit_best_available_shape
@@ -419,6 +463,7 @@ lint:
   - entity_boundary_integrity
   - structured_hyperlink_integrity
   - degraded_fallback_integrity
+  - prayer_surface_integrity
   progressive_reasoning_checks:
     severity: fatal
     required:
@@ -465,6 +510,7 @@ lint:
   - require_footer_footnote_citation_for_each_body_quote
   - forbid_inline_attribution_for_body_quotes
   - footnotes_must_follow_reference_when_present
+  - footnotes_must_follow_prayer_when_prayer_present
   - footnotes_must_not_introduce_new_devotional_content
   - footnotes_do_not_count_toward_devotional_body_word_cap
   - scripture_footnote_references_must_match_reference_section_style
@@ -496,6 +542,7 @@ lint:
     - primary_quote_source
     - devotional_body
     - anchor_reference
+    - prayer_optional
     - additional_references_optional
     - footnotes_optional
     fail_if:
@@ -510,6 +557,7 @@ lint:
     - anchor_reference_appears_below_additional_references_header
     - primary_anchor_duplicated_in_additional_references
     - quote_source_duplicated_in_additional_references
+    - prayer_appears_after_additional_references_or_footnotes
     - footnotes_present_without_body_quotes
     - footnotes_placed_above_additional_references
     - footnotes_duplicate_additional_references
@@ -519,7 +567,7 @@ lint:
     - additional_references_header_present_without_supporting_references
     require_when_body_quotes_present:
     - footnote_markers_present_for_each_body_quote
-    - footnote_block_present_below_additional_references
+    - footnote_block_present_below_prayer_and_additional_references_when_present
     require_when_body_quotes_absent:
     - footnote_block_omitted
   thesis_provenance_checks:
