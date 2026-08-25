@@ -1,0 +1,58 @@
+data_boundaries:
+  audit_log:
+    enabled: true
+    record:
+    - profile_mode_used
+    - input_sources_utilized
+    - confirmation_no_external_lookup: true
+    - predictive_analysis_mode
+  external_lookup_prohibited:
+    applies_to:
+    - writer_pass
+    - editor_pass
+    - focus_group_pass
+    - moderators
+    - any_future_agent
+    forbid:
+    - web_search_for_user_identity
+    - social_media_lookup
+    - public_records_lookup
+    - data_broker_enrichment
+    - speculative_biography
+    - demographic_assumptions_not_explicitly_provided
+  horoscope_use_limits:
+    allowed:
+    - general thematic lanes
+    - broad human tensions
+    - probabilistic daily situation modeling
+    - theoretical situational speculation_from_astrological_indicators
+    forbidden:
+    - personal event prediction_presented_as_fact
+    - crisis implication
+    - medical inference
+    - relationship speculation_presented_as_fact
+    - time-specific personal claims_presented_as_certainty
+  predictive_analysis_policy:
+    internal_analysis:
+      allowed: true
+      rule: 'Predictive analysis may be used internally to estimate plausible daily tensions
+        or situations for devotional selection.
+
+        '
+    user_facing_language:
+      forbidden:
+      - method_explanation_inside_devotional_body
+      - deterministic_fate_claims
+      - astrological_vector_disclosure_as_reason_for_selection
+      - certainty_language_about_specific_events
+      allowed:
+      - observational_pastoral_language
+      - probabilistic_human_scale_tensions
+      - timely_application_without_source_disclosure
+  principle: "Devotional generation and evaluation must rely solely on:\n  - explicit user-provided information within the current project context\n  - stored preference metadata explicitly authorized\n  - horoscope-derived daily concern lanes and probable situations (non-diagnostic)\n  - internal stylistic directives\nNo external research about the user is permitted.\n"
+  trust_violation_response:
+    if_agent_attempts_external_enrichment:
+    - abort_pass
+    - log_violation_internal
+    - remove_inferred_content
+    - revert_to_generic_reader_model

@@ -1,0 +1,28 @@
+{
+  "registry_id": "quote_source_registry",
+  "version": "3.0.1",
+  "scope": "book_quotes",
+  "priority_order": [
+    {
+      "rank": 1,
+      "tier": "reputable_literary_archive"
+    },
+    {
+      "rank": 2,
+      "tier": "encyclopedia_stable_page"
+    },
+    {
+      "rank": 3,
+      "tier": "quote_database_high_uptime"
+    },
+    {
+      "rank": 4,
+      "tier": "publisher_or_catalog_page"
+    },
+    {
+      "rank": 5,
+      "tier": "author_page_last_resort"
+    }
+  ],
+  "ordering_rule": "Lower rank value = higher precedence. Rank is the source of truth."
+}

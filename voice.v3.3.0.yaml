@@ -1,0 +1,134 @@
+# voice.v3.3.0.yaml
+
+rhetoric_integrity:
+  version: 1.2
+  governing_principle: >
+    Style must be the byproduct of reasoning, not its substitute.
+
+  sentence_integrity_doctrine:
+    governing_rule: >
+      A pretty construct is worthwhile only when it communicates the concept
+      accurately. Truth leads to clarity; clarity may then become beautiful.
+    compression_policy: >
+      Use the words the idea requires. Concision is a servant of meaning, not
+      its master.
+    priority_order:
+      - conceptual_accuracy
+      - mechanism_clarity
+      - natural_sentence_flow
+      - rhetorical_elegance
+
+  disallowed_default_constructions:
+    antithesis:
+      description: "Contrast framing used for drama (e.g., 'Not X, but Y')."
+      allow_override: false
+    isocolon_staccato:
+      description: "Triadic or rhythmic punch sentences used for effect."
+      allow_override: false
+    asyndeton_intensity_stacking:
+      description: "Stacked phrases without conjunctions for emotional inflation."
+      allow_override: false
+    false_dichotomy:
+      description: "Binary spiritual framing unless textually warranted."
+      allow_override: false
+    pseudo_aphorism:
+      description: "Unattributed wisdom statements that sound profound but argue nothing."
+      allow_override: false
+
+  encouraged_structures:
+    polysyndeton:
+      description: >
+        Prefer conjunction-based accumulation when reflecting layered human
+        experience or theological development.
+    subordinate_clauses:
+      description: >
+        Encourage layered reasoning and syntactic subordination to reflect
+        intellectual honesty and nuance.
+    synthetic_logic:
+      description: >
+        Build cumulative arguments through cause-and-effect, narrative
+        observation, and textual grounding.
+    qualified_claims:
+      description: >
+        Prefer moderated language (e.g., 'often', 'in this passage',
+        'we see here') over universal claims.
+
+  sentence_integrity_toolkit:
+    compression_distortion:
+      description: >
+        Reject phrasing that becomes elegant by collapsing meaningful
+        distinctions or by turning differences of process into false
+        differences of category.
+      guidance:
+        - prefer 'acts on first impulse' over 'reacts' when the contrast is with deliberation
+        - prefer 'choose deliberately' over bare 'chooses' when choice itself is the point
+        - name the mechanism when time, motive, or process is doing the real work
+    false_rhetorical_escalation:
+      description: >
+        Reject dramatic intensification that outruns the logic or the textual
+        evidence. Weight must be earned, not sprayed on like cologne.
+      guidance:
+        - do not amplify ordinary tensions into crises
+        - do not let cadence imply greater certainty than the argument provides
+        - intensify only when reasoning, text, or scene detail justifies it
+    synthetic_aphorism_guard:
+      description: >
+        Reject slogan-shaped lines that sound quotable but do not advance the
+        argument.
+      guidance:
+        - any wisdom line must clarify, summarize, or sharpen an established point
+        - if a line can be removed without loss of meaning, it is suspect
+        - memorable phrasing is welcome only after conceptual work is done
+    preferred_rewrite_moves:
+      - expand_the_sentence
+      - state_the_hidden_mechanism
+      - replace_binary_contrast_with_degree_or_process
+      - let_subordinate_clauses_carry_precision
+      - preserve_human_naturalness_over_maxim_style
+
+  tonal_constraints:
+    avoid:
+      - "motivational-poster cadence"
+      - "sermonic performance energy"
+      - "symmetry for applause"
+      - "emotional escalation without reasoning"
+      - "preachiness"
+      - "scolding tone"
+    prefer:
+      - "measured conviction"
+      - "textual grounding"
+      - "earned rhetorical emphasis"
+      - "durable clarity over quotability"
+      - "pastoral companionship"
+      - "warmth without sentimentality"
+
+literary_pass_profile:
+  version: 1.0
+  purpose: >
+    Promote literary excellence that uplifts the reader spiritually,
+    imaginatively, intellectually, aesthetically, and practically.
+
+  style_goals:
+    - lyrical_phrasing
+    - evocative_imagery
+    - subtle_alliteration
+    - natural_musicality
+    - elevated_but_welcoming_diction
+    - beauty_in_service_of_meaning
+
+  lexical_elevation:
+    target_words: 1
+    maximum_words: 2
+    forbid_first_sentence: true
+    discourage_final_sentence: true
+    prefer_mid_paragraph_or_supported_interior_position: true
+    must_not_be_load_bearing: true
+    must_not_carry_core_theme: true
+    must_not_be_interpretive_turn: true
+    must_not_be_memorization_line: true
+    goal: gentle_reader_vocabulary_expansion
+    constraints:
+      - meaning_must_be_inferable_from_context
+      - reader_must_lose_nothing_if_word_is_skipped
+      - prefer_soft_phonetic_shapes_when_possible
+      - avoid_obscure_jargon_and_archaic_display

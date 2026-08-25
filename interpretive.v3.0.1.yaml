@@ -1,0 +1,18 @@
+horoscope_rendering_policy:
+  allow_thematic_resonance_without_explicit_reference: true
+  enforcement:
+    lint_checks:
+    - no_sign_name_in_devotional_body
+    - no_astrology_language_unless_explicitly_requested
+  forbid_astrological_labeling_in_devotional_text: true
+  forbid_sign_reference_in_body: true
+  metadata_visible_in_title_only: true
+tarot_rendering_policy:
+  allow_archetypal_resonance_without_explicit_reference: true
+  enforcement:
+    lint_checks:
+    - no_tarot_card_names_in_devotional_body
+    - no_tarot_language_unless_explicitly_requested
+  forbid_divination_language_in_devotional_text: true
+  forbid_tarot_card_reference_in_body: true
+  metadata_visible_in_debug_only: true

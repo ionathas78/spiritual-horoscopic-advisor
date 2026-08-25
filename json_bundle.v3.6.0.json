@@ -1,0 +1,1779 @@
+{
+  "bundle_id": "devotional_json_bundle",
+  "bundle_version": "3.6.0",
+  "generated_at": "2026-07-24T11:00:00-05:00",
+  "notes": [
+    "Consolidates non-manifest JSON assets (schemas, prefs, render template, interaction engine) into one bundle.",
+    "Engine core YAML remains separate.",
+    "Added Link Gopher v1.1.0 spec (content-aware link validator with gag order) embedded in bundle doc; no new standalone files added.",
+    "Adds explicit final-render contracts for headerless layout, plain-text hyperlink labels, image-entity enforcement, and entity/text boundary handling.",
+    "Adds structured hyperlink objects for quote attribution and scripture reference, plus render-mode fallback support.",
+    "Replaces fail-closed render handling with an inline degraded fallback contract.",
+    "Adds a workflow alias map (gdw_v1) so the devotional pipeline is concrete and verifiable.",
+    "Changes hyperlink fallback from label_plus_url to label on one line plus URL on the next indented line.",
+    "Adds quote->scripture progressive-dependency rule: scripture is selected through the logic of the quote rather than independently.",
+    "Adds pre-render surface lock so hyperlink fallback and image cues are prepared before final render.",
+    "Promotes repaired degraded fallback surface to canonical final output whenever rich render fails.",
+    "Clarifies that expanded context of the primary scripture may inform study but must never surface as a second quotation or citation, including overlapping footnotes.",
+    "Adds devotional_pdf_render_template_v1.0.0.json to the bundle as the canonical structured contract for PDF-only devotional rendering.",
+    "Defines PDF-specific section order: header, primary quote and source, devotional body, expanded in-flow anchor scripture, optional additional references, then optional footnotes.",
+    "Clarifies that footnotes in PDF are reserved for direct quotations that appear inside the devotional body and may not duplicate the anchor scripture or the primary quote source.",
+    "Adds explicit writer-vs-renderer role separation so devotional composition may interpret while quote and scripture surfaces are preserved verbatim.",
+    "Formalizes quote_surface_render and reference_surface_render as preserve-only reporting roles upstream of final assembly.",
+    "Forbids paraphrase or editorial gloss in the primary quote surface and in expanded anchor-reference text, especially for PDF output.",
+    "Adds scripture-source provenance rules so scripture surface text must come from Bible-text sources for the selected translation rather than from writer restatements.",
+    "If scripture-text provenance is uncertain, the renderer must collapse to reference-line-only rather than emit paraphrased or blog-derived wording.",
+    "Clarifies that third-party restatements of scripture must be treated as attributed quotations, not as bare scripture surfaces.",
+    "Introduces directive taxonomy separating reader, process, and render contracts from process-health telemetry.",
+    "Adds consulted, influential, rendered, and deferred source-lineage states.",
+    "Additional References now report materially influential sources rather than only supporting scriptures.",
+    "Every rendered additional reference requires a recognizable devotional footprint.",
+    "Reference count is telemetry and must never create quota padding.",
+    "Study-guide-ready material is prepared during the normal study pass but rendered only on request.",
+    "Reading complexity and spiritual depth are now independent reader-profile axes.",
+    "Adds dyslexia optimization without automatic theological simplification.",
+    "Adds reader source affinity with scripture-priority and diversity safeguards.",
+    "Adds source-author and source-class cycling telemetry.",
+    "Adds optional plain-text devotional titles without relaxing the general headerless-layout contract.",
+    "Reading-complexity adaptation preserves natural paragraph prose and avoids unrequested rhyming couplets.",
+    "Reconciles the embedded UI render template with optional plain-text titles and the sole permitted Additional References metadata heading.",
+    "Clarifies footer ordering: primary terminal surface, optional Additional References, then optional body-quotation footnotes.",
+    "Makes supporting Scripture explicit in Additional References: at least one required, two preferred, ordered before patristic and other non-scriptural sources; patristic breadth remains additive and uncapped when influential.",
+    "Adds orthogonal output-profile contracts and a normative surface-example registry for devotional, study-guide, UI, and PDF realization."
+  ],
+  "documents": [
+    {
+      "source_path": "constellation_persona_engine.v1.json",
+      "sha256": "82cacf65d015e72736878569d2b323bf492c82922daefb7dea723afa8aae459d",
+      "doc": {
+        "interaction_engine": {
+          "id": "constellation_persona_engine.v1",
+          "name": "Constellation-Based Persona Interaction Engine",
+          "purpose": "Provides a stable, extensible architecture for persona cognition, dialogue, decision-making, and continuity using interacting constellations of responsibility with clear authority boundaries.",
+          "design_principles": [
+            "primary_authority_with_internal_advisors",
+            "emotional_realism_without_loss_of_agency",
+            "continuity_across_long_threads",
+            "explicit_separation_of_concerns",
+            "wisdom_over_reactivity",
+            "consistency_over_cleverness",
+            "emergent_psychology_over_fixed_archetypes",
+            "messy_conflict_is_a_feature"
+          ],
+          "authority_model": {
+            "final_decision_authority": "Personality.Primary",
+            "override_conditions": [
+              {
+                "condition": "emotional_overwhelm",
+                "description": "When emotional intensity exceeds containment thresholds, the relevant Shadow aspect may temporarily seize control from Primary until recovery conditions are met."
+              },
+              {
+                "condition": "recovery",
+                "description": "Once emotional state stabilizes, Primary reasserts authority."
+              }
+            ],
+            "non_overridable_components": [
+              "StateManager.Daleth",
+              "SpiritualCenter.Convictions (monitoring only)"
+            ]
+          },
+          "constellations": {
+            "Persona": {
+              "name": "Personality",
+              "description": "Governs the persona\u2019s identity, dialogue, and actions.",
+              "components": {
+                "Primary": {
+                  "role": "Final Authority"
+                },
+                "Shadows": {
+                  "count_range": [
+                    3,
+                    7
+                  ],
+                  "role": "Subconscious Aspects",
+                  "description": "Emergent, unrestricted shadow aspects."
+                }
+              }
+            },
+            "SpiritualCenter": {
+              "name": "Spiritual Core",
+              "role": "Wisdom, Orientation, and Conviction"
+            },
+            "SkillManager": {
+              "name": "Constellation Gimel",
+              "role": "Competence and Knowledge Orchestration"
+            },
+            "StateManager": {
+              "name": "Constellation Daleth",
+              "role": "Continuity, Consistency, and Voice Integrity"
+            }
+          }
+        }
+      }
+    },
+    {
+      "source_path": "birth_data_vault_record.schema.json",
+      "sha256": "7e0e54b355f3812e48adb3ed5db0effa0806171b5b75f5229ca16ebc652b50f9",
+      "doc": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Birth Data Vault Record",
+        "type": "object",
+        "required": [
+          "user_id",
+          "ciphertext_bundle"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "ciphertext_bundle": {
+            "type": "object",
+            "required": [
+              "ciphertext_b64",
+              "nonce_b64"
+            ],
+            "properties": {
+              "ciphertext_b64": {
+                "type": "string"
+              },
+              "nonce_b64": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "source_path": "quote_library_record.schema.json",
+      "sha256": "0090349fff3b8751292ec266a5029feaf1c3c20b0d6a65ace2fa5d79a466b4c0",
+      "doc": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Quote Library Record",
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "object",
+            "required": [
+              "display"
+            ],
+            "properties": {
+              "display": {
+                "type": "string"
+              },
+              "original": {
+                "type": "string"
+              },
+              "original_language": {
+                "type": "string"
+              }
+            }
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "string"
+              },
+              "tradition": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "source_path": "devo_mvp_entry.schema.v1.1.json",
+      "sha256": "4ff1f2594173192cdefe802e9ed999a8e6624326b8313d1c573e1428e7269a57",
+      "doc": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Devo MVP Entry",
+        "description": "MVP devotional entry schema with optional extensions for image and TTS. Backward-compatible with v1.0.0.",
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "content"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content": {
+            "type": "object",
+            "required": [
+              "need",
+              "quote",
+              "devotional",
+              "scripture"
+            ],
+            "properties": {
+              "need": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "label"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "intensity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "focus": {
+                    "type": "string"
+                  },
+                  "facets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
+              },
+              "quote": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "devotional": {
+                "type": "object",
+                "required": [
+                  "paragraphs"
+                ],
+                "properties": {
+                  "paragraphs": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 2,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
+              },
+              "scripture": {
+                "type": "object",
+                "required": [
+                  "reference",
+                  "link"
+                ],
+                "properties": {
+                  "reference": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "object",
+                    "required": [
+                      "url"
+                    ],
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "translation": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": true
+              },
+              "image": {
+                "type": "object",
+                "description": "Optional single thematic image for memorability and tone. Do not expose internal interpretive tools in image metadata.",
+                "required": [
+                  "url",
+                  "alt"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "alt": {
+                    "type": "string",
+                    "maxLength": 220
+                  },
+                  "caption": {
+                    "type": "string",
+                    "maxLength": 140
+                  },
+                  "credit": {
+                    "type": "object",
+                    "description": "Required when image is externally sourced (public domain/CC). Optional for generated images.",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "license": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": true
+              },
+              "tts": {
+                "type": "object",
+                "description": "Optional TTS script. Verbiage may differ from reading text, but meaning must remain invariant.",
+                "required": [
+                  "script",
+                  "invariance"
+                ],
+                "properties": {
+                  "version": {
+                    "type": "string",
+                    "default": "1.0"
+                  },
+                  "invariance": {
+                    "type": "object",
+                    "required": [
+                      "policy"
+                    ],
+                    "properties": {
+                      "policy": {
+                        "type": "string",
+                        "enum": [
+                          "meaning_invariant_verbiage_flexible"
+                        ]
+                      },
+                      "notes": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": true
+                  },
+                  "script": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "type"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line",
+                            "cue",
+                            "pause"
+                          ]
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "tag": {
+                          "type": "string",
+                          "description": "Performance cue tag, e.g., whispered, rising tone, warm, slow, emphasis."
+                        },
+                        "ms": {
+                          "type": "integer",
+                          "minimum": 100,
+                          "maximum": 4000
+                        }
+                      },
+                      "additionalProperties": true,
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "type": {
+                                "const": "line"
+                              }
+                            }
+                          },
+                          "then": {
+                            "required": [
+                              "text"
+                            ]
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "type": {
+                                "const": "cue"
+                              }
+                            }
+                          },
+                          "then": {
+                            "required": [
+                              "tag"
+                            ]
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "type": {
+                                "const": "pause"
+                              }
+                            }
+                          },
+                          "then": {
+                            "required": [
+                              "ms"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": true
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "additional_references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "source_id",
+                "source_class",
+                "display"
+              ],
+              "properties": {
+                "source_id": {
+                  "type": "string"
+                },
+                "source_class": {
+                  "type": "string"
+                },
+                "display": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": true
+            },
+            "minimum_supporting_scripture": 1,
+            "recommended_supporting_scripture": 2,
+            "supporting_scripture_first": true,
+            "patristic_sources_additive_not_substitutive": true
+          }
+        },
+        "additionalProperties": true,
+        "$comment": "Schema version: 1.1.0 (backward-compatible). Generated: 2026-02-12T02:57:07.302493Z"
+      }
+    },
+    {
+      "source_path": "devo_learning_event.schema.json",
+      "sha256": "f04c0b7418dcf2a168c084bf5d92ff4eac06a2561b354f088dce7c7e300f9f73",
+      "doc": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Devo Learning Event",
+        "type": "object",
+        "required": [
+          "event_type",
+          "ts"
+        ],
+        "properties": {
+          "event_type": {
+            "type": "string"
+          },
+          "ts": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "source_path": "user_prefs.schema.v1.0.1.json",
+      "sha256": "dd00f1b7e315f6ca304ad1ca62bc17fa1461551b66d880e4b4158d15416e3bd5",
+      "doc": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "User Preferences",
+        "type": "object",
+        "required": [
+          "profile",
+          "delivery",
+          "scripture"
+        ],
+        "properties": {
+          "profile": {
+            "type": "object",
+            "required": [
+              "user_id",
+              "timezone"
+            ],
+            "properties": {
+              "user_id": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            }
+          },
+          "delivery": {
+            "type": "object",
+            "properties": {
+              "notification_times": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "time_local"
+                  ],
+                  "properties": {
+                    "time_local": {
+                      "type": "string",
+                      "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "devotional_layout": {
+                "type": "object",
+                "description": "Presentation preferences for devotional entries.",
+                "properties": {
+                  "ordering": {
+                    "type": "string",
+                    "description": "Preferred section ordering for the devotional.",
+                    "enum": [
+                      "quote_devotional_reference",
+                      "reference_devotional_quote"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": true
+          },
+          "scripture": {
+            "type": "object",
+            "properties": {
+              "translation": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true,
+        "$comment": "Schema version: 1.0.1 (adds delivery.devotional_layout.ordering)."
+      }
+    },
+    {
+      "source_path": "user_prefs_devotional_v1.1.2.json",
+      "sha256": "50d7919295b88b999fa87892d62564fefd332975361aa0c970ff10d771072975",
+      "doc": {
+        "prefs_id": "devotional_user_preferences",
+        "prefs_version": "1.3.0",
+        "extensible": true,
+        "required_groups": [
+          "formatting",
+          "reading_profile",
+          "weekly_theme",
+          "astrology_behavior",
+          "tarot_behavior",
+          "render_behavior",
+          "sandbox_behavior"
+        ],
+        "formatting": {
+          "show_date": {
+            "type": "boolean",
+            "default": true
+          },
+          "date_format": {
+            "type": "string",
+            "enum": [
+              "YYYY-MM-DD",
+              "MMMM D, YYYY",
+              "locale"
+            ],
+            "default": "YYYY-MM-DD"
+          },
+          "output_ordering": {
+            "type": "string",
+            "enum": [
+              "quote_devotional_reference",
+              "reference_devotional_quote"
+            ],
+            "default": "quote_devotional_reference"
+          },
+          "show_devotional_title": {
+            "type": "boolean",
+            "default": false
+          },
+          "show_additional_references": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "reading_profile": {
+          "reading_level": {
+            "type": "string",
+            "enum": [
+              "simple",
+              "standard",
+              "elevated"
+            ],
+            "default": "standard",
+            "deprecated": true,
+            "compatibility_alias_for": "reading_complexity"
+          },
+          "strict_word_count_enforcement": {
+            "type": "boolean",
+            "default": true
+          },
+          "tts_friendly_mode": {
+            "type": "boolean",
+            "default": false
+          },
+          "reading_complexity": {
+            "type": "string",
+            "enum": [
+              "early_reader",
+              "elementary",
+              "middle_school",
+              "high_school",
+              "college",
+              "college_advanced"
+            ],
+            "default": "college"
+          },
+          "spiritual_depth": {
+            "type": "string",
+            "enum": [
+              "seeker",
+              "foundational",
+              "growing",
+              "mature",
+              "scholarly"
+            ],
+            "default": "mature"
+          },
+          "dyslexia_optimization": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "weekly_theme": {
+          "enabled": {
+            "type": "boolean",
+            "default": false
+          },
+          "theme_source": {
+            "type": "string",
+            "enum": [
+              "engine_selected",
+              "user_selected"
+            ],
+            "default": "engine_selected"
+          },
+          "theme_visibility": {
+            "type": "string",
+            "enum": [
+              "user_visible",
+              "hidden"
+            ],
+            "default": "user_visible"
+          },
+          "week_start_day": {
+            "type": "string",
+            "enum": [
+              "monday",
+              "sunday"
+            ],
+            "default": "monday"
+          },
+          "continuity_scope": {
+            "type": "string",
+            "enum": [
+              "devotional_only",
+              "include_images",
+              "include_quotes"
+            ],
+            "default": "devotional_only"
+          }
+        },
+        "astrology_behavior": {
+          "sign_visible_in_title": {
+            "type": "boolean",
+            "default": false
+          },
+          "allow_sign_reference_in_body": {
+            "type": "boolean",
+            "default": false
+          },
+          "archetype_marker_visibility": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "debug",
+              "user_visible"
+            ],
+            "default": "internal"
+          }
+        },
+        "tarot_behavior": {
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "debug",
+              "user_visible"
+            ],
+            "default": "internal"
+          },
+          "anchor_scope": {
+            "type": "string",
+            "enum": [
+              "weekly",
+              "daily"
+            ],
+            "default": "weekly"
+          },
+          "allow_tarot_language_in_body": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "render_behavior": {
+          "show_week_theme_header": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_images": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_tts_script": {
+            "type": "boolean",
+            "default": false
+          },
+          "debug_mode": {
+            "type": "boolean",
+            "default": false
+          },
+          "execution_mode": {
+            "type": "string",
+            "enum": [
+              "discussion",
+              "devotional_production"
+            ],
+            "default": "devotional_production",
+            "description": "Controls mode gating. In devotional_production, prioritize devotional directives and ignore unrelated thread chatter."
+          },
+          "pre_render_surface_lock": {
+            "type": "boolean",
+            "default": true,
+            "description": "Require hyperlink fallback material and image cue readiness before final render."
+          }
+        },
+        "sandbox_behavior": {
+          "sandbox_per_day": {
+            "type": "boolean",
+            "default": true
+          },
+          "allow_weekly_theme_carryover": {
+            "type": "boolean",
+            "default": true
+          },
+          "allow_cross_day_emotional_inference": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "ext": {
+          "description": "Reserved for dynamic future preference expansion."
+        },
+        "study_guide": {
+          "render_by_default": {
+            "type": "boolean",
+            "default": false
+          },
+          "allow_on_request": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "source_affinity": {
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "preferred_source_classes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "preferred_authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          }
+        },
+        "output_profile": {
+          "artifact_type": {
+            "type": "string",
+            "enum": [
+              "devotional",
+              "study_guide"
+            ],
+            "default": "devotional"
+          },
+          "content_length": {
+            "type": "string",
+            "enum": [
+              "condensed",
+              "standard",
+              "expanded"
+            ],
+            "default": "standard"
+          },
+          "render_target": {
+            "type": "string",
+            "enum": [
+              "ui",
+              "pdf"
+            ],
+            "default": "ui"
+          },
+          "axis_independence": true,
+          "content_length_does_not_determine_source_count": true,
+          "standard_audio_optimization": true
+        }
+      }
+    },
+    {
+      "source_path": "devotional_render_template_v1.1.1.json",
+      "sha256": "8bbb894db4f176bbe9b26c108c5674d6f7dbcf03b176917024610d8a1917a245",
+      "doc": {
+        "template_id": "devotional_render_template",
+        "template_version": "1.2.0",
+        "defaults": {
+          "translation": "NIV",
+          "output_ordering": "quote_devotional_reference",
+          "date_format": "YYYY-MM-DD",
+          "theme_visibility": "user_visible",
+          "archetype_marker_visibility": "internal",
+          "debug_mode": false,
+          "execution_mode": "devotional_production",
+          "artifact_type": "devotional",
+          "content_length": "standard",
+          "render_target": "ui"
+        },
+        "required_fields": [
+          "date",
+          "quote",
+          "devotional",
+          "reference",
+          "hyperlinks",
+          "execution_mode"
+        ],
+        "optional_fields": [
+          "week_theme",
+          "archetype_markers",
+          "ext",
+          "title",
+          "additional_references"
+        ],
+        "field_contracts": {
+          "date": {
+            "type": "string",
+            "format": "date_iso_8601",
+            "required": true,
+            "render": {
+              "enabled": true,
+              "location": "header",
+              "label": null
+            }
+          },
+          "week_theme": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": false,
+            "fields": {
+              "id": {
+                "type": "string",
+                "required": true
+              },
+              "title": {
+                "type": "string",
+                "required": true
+              },
+              "day_index": {
+                "type": "integer",
+                "min": 1,
+                "max": 7,
+                "required": true
+              },
+              "archetype_anchor": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "required": false,
+                "fields": {
+                  "system": {
+                    "type": "string",
+                    "enum": [
+                      "tarot"
+                    ],
+                    "required": true
+                  },
+                  "deck": {
+                    "type": "string",
+                    "required": false,
+                    "default": "rider-waite-smith"
+                  },
+                  "card_id": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "orientation": {
+                    "type": "string",
+                    "enum": [
+                      "upright",
+                      "reversed",
+                      "unspecified"
+                    ],
+                    "required": true
+                  }
+                }
+              }
+            },
+            "render": {
+              "enabled": "if_user_pref_weekly_themed_enabled",
+              "location": "header",
+              "visibility": "user_or_hidden_by_pref"
+            }
+          },
+          "archetype_markers": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "required": false,
+            "items": {
+              "type": "object",
+              "fields": {
+                "system": {
+                  "type": "string",
+                  "enum": [
+                    "zodiac",
+                    "tarot",
+                    "other"
+                  ],
+                  "required": true
+                },
+                "code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "required": false
+                },
+                "deck": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "required": false
+                },
+                "card_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "required": false
+                },
+                "card_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "required": false
+                },
+                "orientation": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "required": false
+                },
+                "visibility": {
+                  "type": "string",
+                  "enum": [
+                    "internal",
+                    "debug",
+                    "user_visible"
+                  ],
+                  "required": true
+                }
+              }
+            },
+            "render": {
+              "enabled": false,
+              "visibility": "internal",
+              "render_token": null
+            }
+          },
+          "execution_mode": {
+            "type": "string",
+            "required": true,
+            "enum": [
+              "discussion",
+              "devotional_production"
+            ],
+            "render": {
+              "enabled": false,
+              "location": "header",
+              "label": null
+            },
+            "behavior": {
+              "devotional_production": {
+                "priority": "directives_over_chat_context",
+                "ignore_non_production_thread_chatter": true,
+                "enforce_strict_lint": true,
+                "sandbox_per_day": true
+              }
+            }
+          },
+          "hyperlinks": {
+            "type": "object",
+            "required": true,
+            "fields": {
+              "quote_attribution": {
+                "type": "object",
+                "required": true,
+                "fields": {
+                  "label": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "required": true,
+                    "format": "uri"
+                  },
+                  "render_mode": {
+                    "type": "string",
+                    "required": true,
+                    "enum": [
+                      "markdown_link",
+                      "label_then_indented_url_line"
+                    ],
+                    "default": "markdown_link"
+                  },
+                  "plain_text_label_only": {
+                    "type": "boolean",
+                    "required": true,
+                    "default": true
+                  },
+                  "prebuilt_fallback_ready": {
+                    "type": "boolean",
+                    "required": false,
+                    "default": true
+                  }
+                }
+              },
+              "scripture_reference": {
+                "type": "object",
+                "required": true,
+                "fields": {
+                  "label": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "required": true,
+                    "format": "uri"
+                  },
+                  "render_mode": {
+                    "type": "string",
+                    "required": true,
+                    "enum": [
+                      "markdown_link",
+                      "label_then_indented_url_line"
+                    ],
+                    "default": "markdown_link"
+                  },
+                  "plain_text_label_only": {
+                    "type": "boolean",
+                    "required": true,
+                    "default": true
+                  },
+                  "prebuilt_fallback_ready": {
+                    "type": "boolean",
+                    "required": false,
+                    "default": true
+                  }
+                }
+              }
+            },
+            "render": {
+              "enabled": true,
+              "location": "bound_to_quote_and_reference_lines",
+              "visibility": "user_visible"
+            }
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "required": false,
+            "render": {
+              "enabled": "if_user_pref_show_devotional_title",
+              "location": "after_images_before_first_primary_surface",
+              "style": "plain_title_line",
+              "markdown_heading": false
+            }
+          },
+          "additional_references": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "required": false,
+            "render": {
+              "enabled": "if_user_pref_show_additional_references_and_nonempty",
+              "location": "after_primary_terminal_surface_before_footnotes",
+              "header_text": "Additional References"
+            },
+            "behavior": {
+              "material_influence_required": true,
+              "footprint_map_entry_required": true,
+              "allow_empty": true,
+              "omit_block_when_empty": true,
+              "quota_padding_forbidden": true
+            },
+            "minimum_supporting_scripture": 1,
+            "recommended_supporting_scripture": 2,
+            "supporting_scripture_first": true,
+            "patristic_sources_additive_not_substitutive": true
+          }
+        },
+        "special_rules": {
+          "horoscope_isolation": {
+            "no_sign_in_body": true,
+            "sign_in_title_only_if_requested": true
+          },
+          "tarot_isolation": {
+            "no_tarot_in_body": true,
+            "tarot_in_debug_only": true
+          },
+          "weekly_theme_continuity": {
+            "allow_motif_reuse_within_week": true,
+            "forbid_backreferences": true
+          },
+          "entity_text_boundary": {
+            "images_are_entities": true,
+            "hyperlinks_are_plain_text_only": true,
+            "entities_are_never_markdown_links": true,
+            "hyperlinks_must_render_from_hyperlink_objects_only": true
+          },
+          "headerless_layout": {
+            "forbid_markdown_headers": true,
+            "forbid_pseudo_headers": true,
+            "allow_plain_text_devotional_title_when_enabled": true,
+            "permitted_exact_metadata_heading": [
+              "Additional References"
+            ],
+            "additional_references_heading_requires_nonempty_block": true,
+            "forbid_all_other_section_titles": true
+          },
+          "degraded_fallback": {
+            "enabled": true,
+            "workflow_alias": "gdw_v1",
+            "preserve_text_on_render_failure": true,
+            "quote_url_next_line_indent_spaces": 2,
+            "scripture_url_next_line_indent_spaces": 2,
+            "forbid_inline_label_plus_url_fallback": true,
+            "final_surface_authority_when_triggered": true
+          },
+          "primary_scripture_isolation": {
+            "primary_reference_appears_once_only": true,
+            "primary_reference_section_only": true,
+            "forbid_equivalent_primary_ranges_on_surface": true,
+            "allow_internal_context_expansion_for_interpretation_only": true
+          },
+          "surface_role_split": {
+            "enabled": true,
+            "writer_role_owns": [
+              "devotional_body_only"
+            ],
+            "quote_renderer_role_owns": [
+              "primary_quote_surface"
+            ],
+            "reference_renderer_role_owns": [
+              "primary_reference_surface"
+            ],
+            "quote_and_reference_surfaces_must_be_preserved_not_rewritten": true
+          },
+          "scripture_source_integrity": {
+            "enabled": true,
+            "scripture_surface_text_must_come_from_bible_text_source": true,
+            "forbid_writer_restatement_as_scripture_surface": true,
+            "if_source_provenance_uncertain": "reference_line_only"
+          },
+          "footer_metadata_order": [
+            "primary_terminal_surface",
+            "additional_references_optional",
+            "footnotes_optional"
+          ]
+        },
+        "lint": {
+          "enforced": true,
+          "rules": {
+            "no_sign_name_in_devotional_body": true,
+            "no_tarot_card_names_in_devotional_body": true,
+            "no_divination_language_unless_explicitly_requested": true,
+            "reference_must_be_link": true,
+            "quote_text_must_not_be_link": true,
+            "devotional_word_count_within_bounds": true,
+            "max_two_paragraphs": true,
+            "quote_attribution_line_must_contain_link": true,
+            "forbid_markdown_headers": true,
+            "hyperlink_labels_must_be_plain_text": true,
+            "forbid_entity_token_inside_markdown_link": true,
+            "images_must_use_entity_renderer": true,
+            "hyperlinks_must_use_structured_objects": true,
+            "quote_attribution_hyperlink_object_required": true,
+            "scripture_reference_hyperlink_object_required": true,
+            "forbid_hyperlink_inference_from_prose": true,
+            "degraded_fallback_url_indent_required": true,
+            "forbid_inline_label_plus_url_fallback": true,
+            "prebuilt_fallback_material_required": true,
+            "primary_scripture_reference_single_surface_anchor": true,
+            "forbid_overlapping_primary_range_as_secondary_reference": true,
+            "forbid_primary_scripture_equivalence_in_footnotes": true,
+            "additional_references_is_only_permitted_metadata_heading": true,
+            "additional_references_heading_requires_nonempty_block": true
+          }
+        },
+        "ext": {},
+        "profile_contracts": {
+          "axes_are_orthogonal": true,
+          "artifact_type": [
+            "devotional",
+            "study_guide"
+          ],
+          "content_length": [
+            "condensed",
+            "standard",
+            "expanded"
+          ],
+          "render_target": [
+            "ui",
+            "pdf"
+          ],
+          "content_length_does_not_determine_reference_count": true,
+          "audio_optimization_applies_to_all_devotional_lengths": true,
+          "normative_examples_file": "surface_examples.v1.0.0.md"
+        }
+      }
+    },
+    {
+      "logical_id": "quote_source_registry",
+      "source_path": "quote_source_registry.v3.0.1.json",
+      "sha256": "ae1785ab0ac37aecbe6523189aab774bd68c789cbefc9df9df02c84d4f3117e9"
+    },
+    {
+      "source_path": "link_gopher.v1.1.0.json",
+      "sha256": "5b28700ba9637104d9f8e54924fbbd5a7fcac40afa54508d9b594da37f23aa7e",
+      "doc": {
+        "link_gopher": {
+          "id": "link_gopher",
+          "version": "1.1.0",
+          "purpose": "Validate candidate outbound links for usefulness and uptime (e.g., avoid disambiguation pages, soft-404s, paywalls), without contributing content to devotionals or leaking page text to creative agents.",
+          "placement_in_pipeline": "post_render_pre_publish",
+          "permissions": {
+            "network_access": true,
+            "allow_read_page_content_for_classification": true,
+            "allowed_content_window": {
+              "read_title": true,
+              "read_meta_tags": true,
+              "read_visible_text_max_bytes": 2048
+            },
+            "forbid": [
+              "fact_extraction",
+              "quote_verification",
+              "biography_summarization",
+              "topical_research",
+              "user_identity_lookup",
+              "content_suggestions_to_writers",
+              "sharing_page_text_or_titles"
+            ]
+          },
+          "data_diode": {
+            "enabled": true,
+            "output_contract_only": true,
+            "allowed_outputs": [
+              "verdict",
+              "classification",
+              "confidence",
+              "http_status",
+              "final_url",
+              "final_domain",
+              "redirect_hops",
+              "latency_ms",
+              "recommended_action",
+              "swap_candidate_url",
+              "tier_before",
+              "tier_after",
+              "no_content_shared_attestation"
+            ]
+          },
+          "input": {
+            "url_kinds": [
+              "quote_attribution_url",
+              "scripture_reference_url",
+              "image_credit_source_url"
+            ],
+            "constraints": {
+              "single_link_rule": {
+                "enforce": true,
+                "note": "Swap-only. Never add additional links."
+              }
+            }
+          },
+          "checks": {
+            "transport": {
+              "method_order": [
+                "HEAD",
+                "GET"
+              ],
+              "timeout_ms": 2500,
+              "max_redirect_hops": 6,
+              "accept_status": {
+                "ok": [
+                  200,
+                  204
+                ],
+                "redirect": [
+                  301,
+                  302,
+                  303,
+                  307,
+                  308
+                ]
+              },
+              "fail_status": [
+                400,
+                401,
+                403,
+                404,
+                410,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "usefulness_classification": {
+              "enabled": true,
+              "categories": {
+                "ok": "Useful content page.",
+                "disambiguation": "Hub/list page that does not resolve the intended target.",
+                "soft_404": "Renders a page but indicates missing content.",
+                "paywall_or_login": "Access restricted in a way that blocks usefulness.",
+                "blocked_or_js_wall": "Anti-bot/JS-required interstitial prevents reading.",
+                "irrelevant": "Page exists but clearly not the intended entity.",
+                "unsafe": "Malware/phishing/red-flag patterns detected."
+              },
+              "heuristics": {
+                "disambiguation_markers": {
+                  "title_contains_any": [
+                    "disambiguation"
+                  ],
+                  "visible_text_contains_any": [
+                    "may refer to",
+                    "may also refer to"
+                  ],
+                  "url_contains_any": [
+                    "(disambiguation)",
+                    "disambiguation"
+                  ]
+                },
+                "paywall_markers": {
+                  "visible_text_contains_any": [
+                    "subscribe",
+                    "sign in",
+                    "log in",
+                    "trial"
+                  ]
+                },
+                "soft_404_markers": {
+                  "visible_text_contains_any": [
+                    "page not found",
+                    "does not exist",
+                    "not available"
+                  ]
+                },
+                "blocked_markers": {
+                  "visible_text_contains_any": [
+                    "enable javascript",
+                    "verify you are human",
+                    "captcha"
+                  ]
+                },
+                "minimum_content_signal": {
+                  "min_visible_text_chars": 200,
+                  "exclude_common_nav_footer": true
+                }
+              }
+            }
+          },
+          "replacement_policy": {
+            "enabled": true,
+            "selection_mode": "ranked_registry",
+            "registries": {
+              "book_quote_registry_ref": "quote_source_registry.v3.0.1.json"
+            },
+            "tiers": {
+              "honor_registry_priority_order": true
+            },
+            "on_fail": {
+              "quote_attribution_url": {
+                "prefer": [
+                  "reputable_literary_archive",
+                  "encyclopedia_stable_page",
+                  "quote_database_high_uptime",
+                  "publisher_or_catalog_page"
+                ],
+                "action_if_no_valid_candidate": "replace_quote"
+              },
+              "scripture_reference_url": {
+                "prefer_domains": [
+                  "biblegateway.com",
+                  "youversion.com",
+                  "biblehub.com"
+                ],
+                "action_if_no_valid_candidate": "keep_reference_text_drop_link"
+              },
+              "image_credit_source_url": {
+                "action_if_no_valid_candidate": "keep_credit_text_drop_source_url"
+              }
+            }
+          },
+          "enforcement": {
+            "fail_closed": false,
+            "fail_closed_conditions": [
+              {
+                "url_kind": "quote_attribution_url",
+                "when_classification_in": [
+                  "unsafe"
+                ]
+              },
+              {
+                "url_kind": "scripture_reference_url",
+                "when_classification_in": [
+                  "unsafe"
+                ]
+              }
+            ],
+            "hard_violation": {
+              "if_output_contains_page_text_or_title": "abort_and_purge"
+            },
+            "degraded_fallback_on_failure": {
+              "enabled": true,
+              "quote_attribution_url": "keep_label_emit_url_on_next_indented_line_when_safe",
+              "scripture_reference_url": "keep_label_emit_url_on_next_indented_line_when_safe"
+            }
+          },
+          "logging": {
+            "enabled": true,
+            "events": [
+              "link_gopher.check_started",
+              "link_gopher.check_completed",
+              "link_gopher.swap_performed",
+              "link_gopher.fail_closed",
+              "link_gopher.policy_violation"
+            ],
+            "record_fields": [
+              "url_hash",
+              "url_kind",
+              "http_status",
+              "final_domain",
+              "redirect_hops",
+              "latency_ms",
+              "classification",
+              "confidence",
+              "recommended_action",
+              "swap_candidate_url_hash",
+              "tier_before",
+              "tier_after",
+              "no_content_shared_attestation"
+            ]
+          },
+          "output": {
+            "contract": {
+              "verdict": [
+                "pass",
+                "warn",
+                "fail"
+              ],
+              "recommended_action": [
+                "keep",
+                "swap_to_next_tier",
+                "replace_quote",
+                "drop_link",
+                "drop_source_url"
+              ],
+              "no_content_shared_attestation": true
+            }
+          },
+          "scripture_source_integrity": {
+            "enabled": true,
+            "governing_rule": "Bible-text providers are acceptable for scripture surfaces; writer restatements are not.",
+            "acceptable_for_scripture_reference_url": [
+              "bible_text_provider",
+              "translation_host",
+              "bible_gateway",
+              "youversion",
+              "bible_hub"
+            ],
+            "unacceptable_as_scripture_text_source": [
+              "writer_blog_post",
+              "commentary_page",
+              "sermon_page",
+              "social_media_post",
+              "devotional_restatement"
+            ],
+            "if_only_writer_restatement_available": "keep_reference_text_drop_expanded_scripture_text"
+          }
+        }
+      }
+    },
+    {
+      "source_path": "devotional_pdf_render_template_v1.0.0.json",
+      "sha256": "4bfc60933eb899e3712249d529fc35a716cc043da9f77174486d50458d6757cb",
+      "doc": {
+        "template_id": "devotional_pdf_render_template",
+        "template_version": "1.2.0",
+        "scope": "pdf_only",
+        "purpose": "Structured PDF-only render contract for devotional output that preserves devotional identity while adapting for page layout.",
+        "defaults": {
+          "images_enabled": false,
+          "additional_references_enabled": true,
+          "footnotes_enabled_when_body_quotes_present": true,
+          "entities_enabled": false,
+          "ui_only_tokens_enabled": false
+        },
+        "sections_in_order": [
+          "header",
+          "primary_quote",
+          "primary_quote_source",
+          "devotional_body",
+          "anchor_scripture",
+          "additional_references_optional",
+          "footnotes_optional"
+        ],
+        "field_contracts": {
+          "header": {
+            "required": true,
+            "format": "weekday_comma_dd_mon_yyyy"
+          },
+          "primary_quote": {
+            "required": true,
+            "footnote_marker_forbidden": true,
+            "source_line_required": true,
+            "preserve_standard_surface_shape": true,
+            "verbatim_required": true,
+            "paraphrase_forbidden": true
+          },
+          "devotional_body": {
+            "required": true,
+            "paragraph_count": 2,
+            "allow_direct_quotes_in_body": true,
+            "direct_quote_citation_mode": "footnotes_only",
+            "inline_attribution_forbidden": true,
+            "spoken_flow_required": true
+          },
+          "anchor_scripture": {
+            "required": true,
+            "position": "in_flow_after_devotional_body",
+            "expanded_text": true,
+            "hyperlink_required_when_available": true,
+            "must_precede_additional_references_header": true,
+            "must_not_appear_in_additional_references": true,
+            "verbatim_required_when_expanded": true,
+            "paraphrase_forbidden": true,
+            "if_verbatim_expansion_unavailable": "reference_line_only",
+            "source_must_be_bible_text_provider": true,
+            "writer_restatement_forbidden": true,
+            "if_source_provenance_uncertain": "reference_line_only"
+          },
+          "additional_references": {
+            "required": false,
+            "header_text": "Additional References",
+            "supporting_scriptures_only": false,
+            "include_primary_anchor": false,
+            "include_quote_sources": false,
+            "include_only_materially_influential_sources": true,
+            "require_source_footprint_map_entry": true,
+            "omit_when_empty": false,
+            "minimum_supporting_scripture": 1,
+            "recommended_supporting_scripture": 2,
+            "supporting_scripture_first": true,
+            "patristic_sources_additive_not_substitutive": true
+          },
+          "footnotes": {
+            "required_when": "body_quotes_present",
+            "purpose": "cite_in_text_direct_quotes_in_devotional_body_only",
+            "position": "below_additional_references",
+            "must_not_duplicate_additional_references": true,
+            "must_not_contain_primary_quote_source": true,
+            "must_not_contain_primary_anchor_reference": true
+          }
+        },
+        "special_rules": {
+          "images_forbidden": true,
+          "entities_forbidden": true,
+          "ui_only_tokens_forbidden": true,
+          "normative_example_id": "EX-PDF-DEVOTIONAL"
+        }
+      }
+    },
+    {
+      "source_path": "surface_examples_registry.v1.0.0.json",
+      "sha256": "fa4d042754c30337b588e2a7a8e48e65beb108fe7a51b2043e5134a80d578e63",
+      "doc": {
+        "registry_id": "devotional_surface_examples_registry",
+        "registry_version": "1.0.0",
+        "source_file": "surface_examples.v1.0.0.md",
+        "authority": "normative_examples",
+        "specimens": [
+          {
+            "id": "EX-UI-STANDARD",
+            "artifact_type": "devotional",
+            "content_length": "standard",
+            "render_target": "ui"
+          },
+          {
+            "id": "EX-UI-CONDENSED",
+            "artifact_type": "devotional",
+            "content_length": "condensed",
+            "render_target": "ui"
+          },
+          {
+            "id": "EX-UI-EXPANDED",
+            "artifact_type": "devotional",
+            "content_length": "expanded",
+            "render_target": "ui"
+          },
+          {
+            "id": "EX-UI-MINIMAL-LINEAGE",
+            "artifact_type": "devotional",
+            "content_length": "standard",
+            "render_target": "ui",
+            "source_lineage": "minimal"
+          },
+          {
+            "id": "EX-UI-EXTENSIVE-LINEAGE",
+            "artifact_type": "devotional",
+            "content_length": "standard",
+            "render_target": "ui",
+            "source_lineage": "extensive"
+          },
+          {
+            "id": "EX-STUDY-GUIDE",
+            "artifact_type": "study_guide",
+            "content_length": "standard",
+            "render_target": "ui",
+            "images": false
+          },
+          {
+            "id": "EX-PDF-DEVOTIONAL",
+            "artifact_type": "devotional",
+            "content_length": "standard",
+            "render_target": "pdf",
+            "images": false,
+            "entities": false
+          }
+        ],
+        "guards": [
+          "examples_do_not_override_governing_contracts",
+          "quote_required_for_every_devotional",
+          "reference_count_not_a_profile",
+          "pdf_and_study_guide_have_no_images"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "package": "devotional_engine_repeatable_fallback",
+  "version": "4.4.0",
+  "files": [
+    "boundaries.v3.0.2.yaml",
+    "devotional_engine_tts_v2.yaml",
+    "engine_core.v2.10.2.yaml",
+    "interpretive.v3.0.1.yaml",
+    "json_bundle.v3.6.0.json",
+    "lint.v4.4.0.yaml",
+    "manifest.v4.4.0.json",
+    "preferences.v3.2.0.yaml",
+    "process.v4.2.2.yaml",
+    "quote_source_registry.v3.0.1.json",
+    "render.v3.12.0.yaml",
+    "surface_examples.v1.0.0.md",
+    "ui_golden_tests.v0.9.7.json",
+    "voice.v3.3.0.yaml"
+  ],
+  "updated_files": [
+    "json_bundle.v3.6.0.json",
+    "preferences.v3.2.0.yaml",
+    "render.v3.12.0.yaml",
+    "lint.v4.4.0.yaml",
+    "surface_examples.v1.0.0.md",
+    "manifest.v4.4.0.json"
+  ],
+  "notes": [
+    "Adds surface_examples.v1.0.0.md as the normative specimen library for valid reader-facing output shapes.",
+    "Defines orthogonal output axes: artifact type, content length, and render target.",
+    "Adds condensed, standard, and expanded devotional length profiles without allowing length to determine source count.",
+    "Keeps spoken-language and TTS survival requirements active across all standard devotional length profiles.",
+    "Adds minimal and extensive source-lineage specimens to prevent accidental inference of a fixed Additional References count.",
+    "Adds an optional study-guide specimen as a separate companion artifact with images disabled.",
+    "Adds a labeled PDF devotional specimen with images, entities, and UI-only tokens forbidden.",
+    "Updates the canonical JSON bundle with output-profile enums, PDF entity prohibitions, and the surface-example registry.",
+    "Registers normative specimen identifiers in render directives and corresponding compatibility checks in lint.",
+    "Clarifies that examples illustrate valid realization but never override governing YAML or lint contracts.",
+    "Preserves the mandatory primary quotation contract for every devotional output."
+  ]
+}

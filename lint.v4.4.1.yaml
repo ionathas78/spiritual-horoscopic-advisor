@@ -1,0 +1,552 @@
+version: 4.4.1
+file_role: canonical_lint
+status: reconciled_single_authority
+lint:
+  governing_rule: sanity_check_not_decision_maker
+  normative_example_checks:
+    source_file: surface_examples.v1.0.0.md
+    examples_are_normative_not_exhaustive: true
+    rules:
+    - selected_output_profile_must_map_to_a_compatible_specimen
+    - specimens_may_not_override_governing_contracts
+    - every_devotional_specimen_must_include_a_primary_quote
+    - ui_devotional_specimens_must_include_an_image_slot_when_images_enabled
+    - pdf_and_study_guide_specimens_must_not_include_images
+    - pdf_specimens_must_not_include_entity_tokens
+    - reference_count_variation_must_not_be_linted_as_profile_drift
+    - content_length_must_not_be_inferred_from_reference_count
+  output_profile_checks:
+    axes_are_orthogonal: true
+    artifact_types: [devotional, study_guide]
+    content_lengths: [condensed, standard, expanded]
+    render_targets: [ui, pdf]
+    fail_if:
+    - artifact_type_implies_unrequested_length
+    - render_target_implies_unrequested_length
+    - content_length_implies_reference_count
+    - study_guide_contains_image_component
+    - pdf_contains_image_component
+    - pdf_contains_entity_component
+    - devotional_missing_required_quote
+    audio_survival_checks:
+    - devotional_prose_reads_naturally_aloud
+    - image_carries_no_required_propositional_content
+    - no_visual_only_deixis
+    required:
+      - selected_output_profile_propagates_through_pipeline
+      - render_target_matches_selected_profile
+  directive_taxonomy_checks:
+    rules:
+    - reader_contract_violations_are_errors
+    - process_contract_violations_are_errors
+    - render_contract_violations_are_errors
+    - process_health_metrics_are_warnings_unless_a_contract_is_also_violated
+    - total_reference_count_must_not_be_enforced_as_a_quota
+    - supporting_scripture_minimum_is_a_composition_contract_not_a_total_count_quota
+    - minimum_composition_requirements_may_fail_generation_without_creating_padding_incentives
+  render_order_checks:
+    supported_orders:
+    - quote_devotional_reference
+    - reference_devotional_quote
+    require_selected_order_to_be_consistent: true
+  structure_checks:
+    default_order:
+    - images_must_come_first
+    - image_must_use_entity_renderer_when_images_enabled
+    - quote_must_follow_images
+    - reference_must_precede_additional_references_and_footer_footnotes_when_present
+    reversi_order:
+    - images_must_come_first
+    - image_must_use_entity_renderer_when_images_enabled
+    - reference_must_follow_images
+    - quote_must_precede_additional_references_and_footer_footnotes_when_present
+    common:
+    - forbid_headings_except_additional_references_metadata_heading
+    - forbid_closing_refrains
+    - forbid_markdown_images
+    - reject_missing_image_entity_when_images_enabled
+    - forbid_markdown_headers
+    - forbid_section_titles
+    - forbid_pseudo_headers
+    - forbid_content_after_terminal_element_except_additional_references_and_footer_footnotes
+    paragraph_structure:
+      authority: engine_core.output_profiles
+    
+      fail_if:
+        - paragraph_count_conflicts_with_selected_profile
+      derive_expected_structure_from_authority: true
+  surface_role_split_checks:
+  - devotional_body_may_interpret
+  - primary_quote_surface_must_be_reporting_only
+  - primary_reference_surface_must_be_reporting_only
+  - quote_surface_and_reference_surface_must_be_locked_before_assembly
+  - fail_if_writer_role_rewrites_quote_surface
+  - fail_if_writer_role_rewrites_reference_surface
+  - fail_if_reference_surface_contains_devotional_gloss
+  - fail_if_quote_surface_contains_editorial_gloss
+  scripture_source_integrity_checks:
+  - scripture_surface_text_must_come_from_bible_text_source
+  - fail_if_scripture_surface_text_is_sourced_from_writer_restatement
+  - fail_if_scripture_surface_text_is_sourced_from_commentary_or_blog
+  - if_scripture_source_provenance_uncertain_reference_line_only
+  - if_third_party_rewording_is_used_it_must_be_treated_as_attributed_quote_not_scripture_surface
+  hyperlink_checks:
+  - quote_attribution_line_must_contain_single_link
+  - quote_attribution_line_must_use_hyperlinked_markdown_or_fallback_label_then_indented_url_line
+  - fallback_url_line_must_be_indented_by_configured_spaces
+  - scripture_reference_must_be_linked_when_available_or_use_fallback_label_then_indented_url_line
+  - fail_if_required_link_missing
+  - hyperlink_label_must_be_plain_text
+  - forbid_entity_token_inside_markdown_link
+  - quote_attribution_link_text_must_be_plain_text
+  - hyperlinks_must_use_structured_objects
+  - forbid_hyperlink_inference_from_prose
+  - quote_attribution_object_required
+  - scripture_reference_object_required
+  - hyperlink_object_label_must_match_rendered_label
+  - hyperlink_object_url_must_match_rendered_url
+  - allowed_render_modes_only
+  - scripture_citations_anywhere_must_use_bracketed_reference_plus_translation_when_linked
+  - scripture_citations_must_not_use_entity_wrapping
+  - quote_attribution_must_link_author_name_in_normal_render
+  - forbid_literal_quote_source_label_in_normal_render
+  - primary_scripture_reference_must_remain_single_surface_anchor
+  - fail_if_reference_surface_is_paraphrased
+  - fail_if_quote_surface_is_paraphrased
+  word_count_checks:
+    authority: engine_core.devotional_length_guidance
+  
+    advisory_only: true
+  
+    fail_if:
+      - extreme_outlier_relative_to_selected_profile
+  
+    warn_if:
+      - outside_preferred_band
+  
+    never_fail_only_for_missing_preferred_band: true
+  sentence_integrity_checks:
+  - no_false_contrast_via_compression
+  - no_collapsed_mechanism
+  - no_rhetorical_binary_without_precision
+  - no_false_rhetorical_escalation
+  - no_synthetic_aphorism
+  payoff_anchor_checks:
+    target_progress_ratio: 0.62
+    acceptable_band:
+    - 0.56
+    - 0.72
+    preferred_anchor:
+      paragraph: 2
+      sentence: 1
+    rules:
+    - main_insight_should_not_first_appear_in_final_sentence
+    - interpretive_turn_should_precede_final_resolution
+    - final_sentence_should_land_application_or_benediction_of_meaning_not_reveal_core_theme
+  image_checks:
+  - image_entity_must_be_present_when_images_enabled
+  - image_entity_must_use_image_group_renderer
+  - no_markdown_image_syntax
+  - governing_metaphor_alignment
+  - concept_or_mood_alignment
+  - no_near_duplicate_cluster
+  - prefer_fewer_images_over_dupes
+  - reject_generic_stock_devotional_fallback_when_better_echo_exists
+  - images_must_always_use_entity_components
+  - forbid_raw_image_urls_as_rendered_images
+  image_profile_checks:
+    ui:
+      fail_if_missing:
+        - image_or_prepared_cue
+    
+    pdf:
+      fail_if_present:
+        - image
+        - entity
+  pdf_header_checks:
+    required:
+      - devotional_header_present
+  
+    when_multiple_devotionals:
+      required:
+        - collection_header_present
+    fail_if:
+      - devotional_header_missing
+      - collection_header_missing_when_required
+  freshness_checks:
+    redundancy_decay_window_days: 7
+    targets:
+    - metaphor
+    - phrasing
+    - exhortation_pattern
+    - cadence_frame
+    - imagery_theme
+    - theme_cluster
+    daily_theme_freshness:
+      enabled: true
+      lookback_days: 3
+      fail_if_same_primary_theme: true
+      fail_if_same_theme_cluster: true
+      fail_if_overlap_dimensions_gte: 2
+      compare_dimensions:
+      - primary_theme
+      - theme_cluster
+      - theological_focus
+      - application_angle
+      - mode
+      - application_domain
+      required_actions_on_failure:
+      - regenerate_theme
+      - rotate_theological_focus
+      - rotate_application_angle
+      - rotate_governing_metaphor_class
+      - rotate_mode
+      - rotate_application_domain
+      fail_if_same_problem_plus_mode_pair: true
+  contract_reference_checks:
+  
+    required:
+      - referenced_contract_id_exists
+      - referenced_specimen_id_exists
+      - referenced_contract_is_unique
+      - referenced_example_matches_contract
+  study_pass_checks:
+    require_source_diversity_balance: true
+    minimum_mix:
+      scripture_parallel: 1
+      historical_or_patristic: 1
+      modern_christian_voice: 1
+    forbid_duplicate_same_text_different_urls: true
+    minimum_sources: 3
+    recommended_sources: 5
+    soft_maximum_sources: 7
+    allow_above_soft_maximum_when_material_questions_remain: true
+    require_responsible_stop_condition: true
+    require_source_confidence_map: true
+    require_source_weight_map: true
+    require_discard_reason_for_each_discarded_source: true
+    allowed_discard_reasons:
+    - duplicate
+    - redundant
+    - low_signal
+    - off_theme
+    - superseded
+    - inferior_translation
+    - unsupported_claim
+    - editorial_bias
+    - low_confidence
+    recommended_scripture_parallels: 2
+    require_scripture_cross_reference_phase_before_commentary: true
+  source_lineage_checks:
+    severity_by_rule:
+      rendered_source_not_in_influential_sources: fatal
+      rendered_source_missing_footprint: fatal
+      decorative_reference: fatal
+      quota_padding_reference: fatal
+      consulted_only_source_rendered: fatal
+      primary_quote_source_duplicated: fatal
+      primary_anchor_duplicated: fatal
+      overlapping_primary_range_rendered: fatal
+      repeated_author_recently: warning
+      narrow_source_mix: warning
+      low_rendered_reference_count: telemetry
+      high_rendered_reference_count: telemetry
+      no_rendered_supporting_scripture: fatal
+      supporting_scripture_after_non_scriptural_sources: fatal
+      patristic_sources_substitute_for_supporting_scripture: fatal
+      only_one_supporting_scripture: telemetry
+    required:
+    - every_rendered_reference_is_in_influential_sources
+    - every_rendered_reference_has_source_footprint_map_entry
+    - every_rendered_reference_materially_influenced_final_devotional
+    - rendered_references_are_deduplicated
+    - rendered_references_exclude_primary_quote_source
+    - rendered_references_exclude_primary_anchor
+    - rendered_supporting_scriptures_do_not_overlap_primary_anchor
+    - at_least_one_rendered_supporting_scripture
+    - prefer_two_rendered_supporting_scriptures_when_materially_influential
+    - supporting_scriptures_precede_non_scriptural_references
+    - patristic_sources_are_additive_to_supporting_scripture
+    - total_rendered_reference_count_remains_unbounded_except_by_influence_and_usefulness
+    - supporting_scripture_minimum_is_enforced_as_source_composition_not_reference_quota
+    fail_if:
+    - reference_added_only_to_reach_count
+    - reference_has_no_recognizable_footprint
+    - consulted_but_unused_source_is_rendered
+    - source_is_decorative
+    - primary_quote_source_appears_in_additional_references
+    - primary_anchor_appears_in_additional_references
+    - equivalent_primary_range_appears_in_additional_references
+    - duplicate_reference_entries_present
+    - no_supporting_scripture_appears_in_additional_references
+    - non_scriptural_reference_precedes_supporting_scripture
+    - patristic_or_other_commentary_is_used_in_place_of_required_supporting_scripture
+    - total_reference_minimum_is_inferred_from_supporting_scripture_composition_rule
+    - zero_references_is_treated_as_valid_when_additional_references_are_enabled
+    warnings:
+    - same_secondary_author_used_inside_recent_window
+    - same_patristic_author_used_inside_recent_window
+    - same_modern_author_used_inside_recent_window
+    - source_class_mix_has_become_narrow
+    - reader_affinity_source_is_being_overused
+    telemetry:
+    - consulted_source_count
+    - influential_source_count
+    - rendered_source_count
+    - deferred_source_count
+    - source_class_distribution
+    - author_freshness
+    - historical_period_distribution
+    - rendered_supporting_scripture_count
+  study_guide_continuity_checks:
+    apply_when_study_guide_requested: true
+    severity: fatal
+    required:
+    - study_guide_uses_same_primary_scripture
+    - study_guide_preserves_original_thesis
+    - study_guide_preserves_governing_metaphor_or_explicitly_explains_its_development
+    - study_guide_accounts_for_rendered_references
+    - study_guide_sources_come_from_influential_or_deferred_lineage
+    - study_guide_does_not_replace_original_devotional_with_new_theme
+    fail_if:
+    - guide_is_post_hoc_unrelated_research
+    - guide_changes_primary_anchor_without_explicit_regeneration_request
+    - guide_ignores_rendered_reference_lineage
+    - guide_introduces_new_governing_thesis
+  reader_profile_checks:
+    severity:
+      requested_accessibility_not_honored: fatal
+      reading_complexity_spiritual_depth_conflation: warning
+    required:
+    - requested_reading_complexity_is_honored
+    - requested_spiritual_depth_is_honored
+    - requested_dyslexia_optimization_is_honored
+    - reduced_reading_complexity_does_not_automatically_reduce_theological_depth
+    - natural_written_prose_is_preserved_at_every_reading_level
+    dyslexia_checks:
+    - avoid_excessive_nested_clauses
+    - avoid_unnecessarily_long_sentences
+    - maintain_clear_paragraph_movement
+    - reduce_visual_density
+    - preserve_age_appropriate_tone
+    - preserve_theological_substance
+    fail_if:
+    - reading_level_causes_telegraphic_or_fragmented_prose_without_reader_need
+    - rhyming_couplets_used_without_explicit_request
+  title_checks:
+    apply_when_title_enabled: true
+    required:
+    - title_is_present
+    - title_matches_thesis_or_governing_metaphor
+    - title_is_plain_text_not_markdown_heading
+    - title_does_not_expose_astrology_or_tarot_inputs
+    fail_if:
+    - title_introduces_absent_theme
+    - title_is_markdown_header
+    - title_contains_debug_metadata
+  heading_exception_checks:
+    default_forbid_all_headings: true
+    permitted_exact_heading:
+    - Additional References
+    conditions:
+    - additional_references_block_is_enabled
+    - additional_references_block_is_nonempty
+    fail_if:
+    - any_other_section_heading_present
+    - additional_references_heading_present_with_empty_block
+  literary_checks:
+    lexical_elevation:
+      target_words: 1
+      maximum_words: 2
+      forbid_first_sentence: true
+      discourage_final_sentence: true
+      must_not_be_load_bearing: true
+      must_not_be_interpretive_turn: true
+      must_not_be_memorization_line: true
+  hidden_metadata_checks:
+  - no_sign_name_in_devotional_body
+  - no_astrology_language_unless_explicitly_requested
+  - no_tarot_card_names_in_devotional_body
+  - no_tarot_language_unless_explicitly_requested
+  - no_divination_language_in_devotional_text
+  render_integrity_rules:
+    severity: fatal
+    fail_if_missing:
+    - quote_hyperlink_or_fallback
+    - scripture_hyperlink_or_fallback_when_available
+    - headerless_layout_signal
+    - plain_text_hyperlink_label_signal
+    - quote_attribution_object_complete
+    - scripture_reference_object_complete
+    - image_entity_or_prepared_cue_when_images_enabled
+    - prebuilt_degraded_fallback_signal
+    - footer_footnote_signal_when_body_quotes_present
+    fail_if:
+    - ui_structure_invalid_without_valid_degraded_fallback
+    - selected_order_not_honored
+    - unpermitted_heading_present
+    - entity_wrapped_in_markdown_link
+    - fallback_url_rendered_inline_after_label
+    - fallback_url_line_missing_required_indent
+    - hyperlink_object_incomplete
+    - render_attempt_without_prebuilt_fallback
+    - body_quote_of_primary_scripture_reference_detected
+    - inline_body_quote_attribution_detected
+    - footer_footnotes_rendered_before_reference
+    - scripture_footnote_not_using_canonical_reference_style
+    - scripture_entity_wrapping_detected_anywhere
+    - literal_quote_source_label_detected_in_normal_render
+    - primary_scripture_detected_outside_reference_section
+    - equivalent_primary_range_detected_in_footnotes
+    - primary_scripture_verse_overlap_detected_anywhere_else_on_surface
+    - expanded_context_of_primary_reference_quoted_on_surface
+    - rendered_reference_missing_influence_record
+    - rendered_reference_missing_footprint_map_entry
+    - decorative_reference_detected
+    - quota_padding_reference_detected
+    - consulted_only_source_rendered
+    - title_rendered_as_markdown_heading
+    - additional_references_header_present_with_empty_block
+    on_failure:
+    - apply_degraded_fallback
+    - emit_best_available_shape
+  named_render_contract_checks:
+  - render_order_integrity
+  - headerless_layout_integrity
+  - quote_link_integrity
+  - scripture_link_integrity
+  - image_entity_integrity
+  - entity_boundary_integrity
+  - structured_hyperlink_integrity
+  - degraded_fallback_integrity
+  progressive_reasoning_checks:
+    severity: fatal
+    required:
+    - problem_must_be_defined_before_mode
+    - mode_must_be_defined_before_quote
+    - quote_must_fit_problem_plus_mode
+    - scripture_must_be_selected_through_quote_logic
+    - study_must_follow_fixed_anchor
+    - thesis_must_preserve_problem_plus_mode
+    fail_if:
+    - problem_mode_mismatch
+    - quote_problem_mode_mismatch
+    - scripture_problem_mode_mismatch
+    - generic_thesis_collapse
+    - mode_erased_in_final_application
+    - scripture_selected_independently_of_quote
+    - scripture_selected_by_topic_overlap_alone
+    - devotional_would_read_the_same_with_a_different_reference
+  scripture_context_checks:
+    severity: fatal
+    required:
+    - internal_context_note_present
+    - immediate_passage_considered
+    - local_argument_considered
+    - application_flows_from_original_meaning
+    - expanded_context_may_support_interpretation_without_becoming_a_second_surface_reference
+    fail_if:
+    - prooftexting_by_keyword_match
+    - context_detachment
+    - motivational_reframing_reverses_text
+    - limited_promise_universalized_without_warrant
+    - corporate_text_individualized_without_warrant
+    - warning_text_rendered_as_comfort_without_warning
+    - overlapping_primary_range_rendered_as_secondary_reference
+    - subset_or_superset_of_primary_reference_rendered_in_footnotes_or_body
+  workflow_alias_checks:
+  - canonical_workflow_alias_present
+  - every_pipeline_step_has_alias
+  - alias_order_matches_pipeline
+  - selected_workflow_alias_matches_gdw_v1
+  body_quote_checks:
+  - allow_direct_quotes_in_devotional_body
+  - forbid_direct_quote_of_primary_scripture_reference_in_body
+  - require_footer_footnote_citation_for_each_body_quote
+  - forbid_inline_attribution_for_body_quotes
+  - footnotes_must_follow_reference_when_present
+  - footnotes_must_not_introduce_new_devotional_content
+  - footnotes_do_not_count_toward_devotional_body_word_cap
+  - scripture_footnote_references_must_match_reference_section_style
+  - any_scripture_reference_must_use_bracketed_reference_plus_translation_when_linked
+  - forbid_primary_scripture_equivalence_range_anywhere_on_surface
+  - fail_if_overlapping_primary_range_detected_as_secondary_reference
+  - fail_if_subset_or_superset_of_primary_reference_rendered_in_footnotes
+  - fail_if_expanded_context_of_primary_reference_is_quoted_on_surface
+  - pdf_footnotes_only_for_body_quotes
+  - pdf_primary_quote_must_not_be_footnoted
+  - pdf_footnotes_must_not_duplicate_additional_references
+  primary_scripture_surface_rules:
+  - fail_if_primary_scripture_detected_outside_reference_section
+  - fail_if_overlapping_primary_range_detected_as_secondary_reference
+  - fail_if_subset_or_superset_of_primary_reference_rendered_in_footnotes
+  - fail_if_expanded_context_of_primary_reference_is_quoted_on_surface
+  render_target_checks:
+    supported_targets:
+    - ui
+    - pdf
+    default_target: ui
+    require_target_specific_shape_validation: true
+  pdf_render_checks:
+    severity: fatal
+    apply_when_render_target: pdf
+    require_in_order:
+    - header
+    - primary_quote
+    - primary_quote_source
+    - devotional_body
+    - anchor_reference
+    - additional_references_optional
+    - footnotes_optional
+    fail_if:
+    - images_present_in_pdf_output
+    - primary_quote_has_footnote_marker
+    - primary_quote_source_missing
+    - anchor_reference_missing
+    - anchor_reference_not_expanded
+    - anchor_reference_paraphrased
+    - anchor_reference_sourced_from_writer_restatement
+    - anchor_reference_source_provenance_uncertain_and_not_collapsed_to_reference_line_only
+    - anchor_reference_appears_below_additional_references_header
+    - primary_anchor_duplicated_in_additional_references
+    - quote_source_duplicated_in_additional_references
+    - footnotes_present_without_body_quotes
+    - footnotes_placed_above_additional_references
+    - footnotes_duplicate_additional_references
+    - footnotes_duplicate_primary_quote_source
+    - footnotes_duplicate_primary_anchor_reference
+    - inline_body_quote_attribution_detected_in_pdf
+    - additional_references_header_present_without_supporting_references
+    require_when_body_quotes_present:
+    - footnote_markers_present_for_each_body_quote
+    - footnote_block_present_below_additional_references
+    require_when_body_quotes_absent:
+    - footnote_block_omitted
+  thesis_provenance_checks:
+    severity: fatal
+    required_parents:
+    - problem
+    - mode
+    - quote_logic
+    - scripture_context
+    - influential_study_sources
+    fail_if:
+    - thesis_has_no_traceable_parentage
+    - thesis_contradicts_scripture_context
+    - thesis_uses_discarded_low_confidence_source_as_governing_parent
+  additional_references_scripture_checks:
+    severity: fatal
+    minimum_supporting_scripture: 1
+    recommended_supporting_scripture: 2
+    total_reference_count_quota: none
+    minimum_is_compositional_not_numerical_total: true
+    required:
+    - supporting_scripture_entries_are_first
+    - supporting_scriptures_are_not_primary_anchor_equivalents
+    - each_supporting_scripture_has_recognizable_footprint
+    - patristic_and_other_non_scriptural_sources_are_additive
+    fail_if:
+    - zero_supporting_scripture_entries
+    - supporting_scripture_follows_non_scriptural_entry
+    - primary_anchor_or_overlap_is_counted_as_supporting_scripture
+    - commentary_substitutes_for_supporting_scripture

@@ -1,0 +1,31 @@
+# TTS Optimization Directive
+# Version: 2.0.0
+# Locked: 2026-02-12T02:51:37.933109Z
+
+tts_policy:
+  separate_draft: true
+  meaning_invariant_verbiage_flexible: true
+  reading_word_limit_applies_to_tts: false
+
+  cues_allowed:
+    - whispered
+    - rising_tone
+    - warm
+    - slow
+    - emphasis
+    - gentle_pause
+
+  max_cues_per_script: 6
+
+  optimization_goals:
+    - breath_length_sentences
+    - rhythm_and_cadence
+    - remove_jargon_in_audio
+    - avoid_tongue_twisters
+    - clear_pronoun_references
+
+  authority:
+    tts_agent_cannot_override_theology: true
+    final_approval_required_from:
+      - lead_writer
+      - editor
