@@ -392,26 +392,28 @@ render:
       forbid_overlap_range_as_secondary_reference: true
       forbid_subset_or_superset_of_primary_reference_in_footnotes: true
   image_rendering:
-    renderer: image_group
-    supported_renderer_fallbacks: [native_image_display, markdown_image]
-    renderer_policy: use_first_available_supported_renderer_that_displays_actual_image
-    acquisition_fallback_authority: engine_core.image_selection.acquisition_fallback
+    supported_renderers: [image_group, native_image_display, markdown_image]
+    renderer_choice: supplied_by_image_composer
+    accepted_surface_types: [displayed_image, italic_image_cue]
+    image_requirements:
+    - actual_accessible_asset_displays
+    - description_alone_is_not_a_displayed_image
+    - preserve_required_source_credit
+    cue_requirements:
+    - composer_supplied_single_italic_description
+    - do_not_report_cue_as_displayed_image
     default_target_count: 1
     max_distinct_images: 3
-    prohibit_markdown_images: false
-    markdown_images_allowed_only_when_native_renderers_unavailable: true
-    markdown_requires_accessible_image_asset: true
-    require_prevalidated_image_surface_or_eligible_final_cue: true
-    when_entity_missing_before_render: try_supported_image_renderer_then_complete_acquisition_chain
+    assembly:
+      place_delivered_surface_in_selected_image_slot: true
+      preserve_devotional_text_and_section_order: true
+      on_delivery_failure: return_failure_details_to_image_composer
+      acquisition_or_fallback_selection: forbidden
     output_profile:
       standard:
         enabled_by_default: true
-    
       pdf:
         enabled: false
-  
-    failure_behavior:
-      complete_search_then_generation_unless_user_objects_then_single_italic_cue
   hyperlink_rendering:
     structured_objects_required: true
     render_source_of_truth: hyperlink_objects
@@ -476,10 +478,8 @@ render:
     preserve_devotional_text_without_rewrite: true
     preserve_prayer_package_without_reclassification: true
     image_behavior:
-      when_image_entity_missing: use_supported_renderer_or_complete_acquisition_chain
-      emit_single_italic_image_cue_only_after_acquisition_chain_exhausted: true
-      hyperlink_failure_alone_must_not_replace_working_image: true
-      cue_max_count: 1
+      on_delivery_failure: return_failure_details_to_image_composer
+      preserve_working_image_when_only_hyperlink_fails: true
     hyperlink_behavior:
       quote_url_line_indent_spaces: 2
       scripture_url_line_indent_spaces: 2

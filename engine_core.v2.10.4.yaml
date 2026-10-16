@@ -744,6 +744,10 @@ engine_core:
       - new_metaphors
   image_selection:
     acquisition_fallback:
+      owner: image_composer
+      sole_authority_for_acquisition_and_fallback_precedence: true
+      delivery_failure_returns_to: image_composer
+      renderer_preference: [image_group, native_image_display, markdown_image]
       applies_when: ui_devotional_and_images_enabled
       order:
       - search_similar_image
@@ -770,7 +774,9 @@ engine_core:
         preserve_selected_image_slot_and_devotional_text: true
         do_not_regenerate_an_already_displayed_image: true
         do_not_repeat_failed_attempts_without_new_information: true
-        record_attempt_outcomes_and_skip_reasons_in_internal_metadata: true
+        keep_attempt_outcomes_private_to_composer: true
+        receive_render_failures_and_choose_next_attempt: true
+        deliver_image_or_final_italic_cue_to_assembler: true
         skip_entire_chain_when_images_disabled_or_pdf_or_study_guide: true
     target_count: 1
     allow_additional_images_only_if_truly_distinct: true

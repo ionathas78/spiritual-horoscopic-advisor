@@ -38,26 +38,21 @@ Additional References
 - [Proverbs 3:5–6 (NIV)](https://example.org/proverbs)
 - John Chrysostom, *Homilies on Hebrews*
 
-## Image Fallback Standing Order
+## Image Delivery
 
-For UI devotionals with images enabled, search for a suitable, accessible similar
-image first. Display it through `image_group`, or a supported native image display
-or Markdown image when the preferred renderer is unavailable. Preserve required
-source credit. A description alone does not count as an image.
+The image composer owns acquisition and fallback precedence in
+`engine_core.image_selection.acquisition_fallback`. The assembler displays the
+composer's delivered surface under `render.image_rendering`. Editors and
+post-checks return delivery failures to the composer without choosing a fallback.
 
-If search is unavailable or yields no suitable image that can be displayed, try
-image generation unless the user objects. Display the generated result through a
-supported renderer. Do not repeat generation when its result is already displayed.
-
-Only when search and permitted generation cannot supply a displayed image may the
-image slot contain a single italic cue, for example:
+An acceptable delivered surface is either an actual displayed image or a
+composer-supplied italic cue, for example:
 
 *Two people carry a heavy basket between them along a sunlit path.*
 
-That line is the final text fallback, not a rendered image. Keep attempt outcomes
-and reasons for skipping a step internal. Preserve the devotional text and slot
-order. A failed hyperlink does not replace a working image. Skip image acquisition
-entirely for PDF, study guides, or images-disabled output.
+The cue is text and must never be reported as a displayed image. Checks assess
+that delivered product without requiring acquisition history. Existing image
+exclusions for PDF, study guides, and images-disabled output remain in force.
 
 ## EX-UI-CONDENSED · Condensed UI Devotional
 

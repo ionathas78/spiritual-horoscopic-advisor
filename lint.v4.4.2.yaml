@@ -53,19 +53,19 @@ lint:
   structure_checks:
     default_order:
     - images_must_come_first
-    - image_must_use_supported_renderer_or_eligible_final_cue_when_images_enabled
+    - image_must_be_displayed_or_composer_supplied_italic_cue_when_images_enabled
     - quote_must_follow_images
     - reference_must_precede_prayer_additional_references_and_footer_footnotes_when_present
     reversi_order:
     - images_must_come_first
-    - image_must_use_supported_renderer_or_eligible_final_cue_when_images_enabled
+    - image_must_be_displayed_or_composer_supplied_italic_cue_when_images_enabled
     - reference_must_follow_images
     - quote_must_precede_prayer_additional_references_and_footer_footnotes_when_present
     common:
     - forbid_headings_except_additional_references_metadata_heading
     - forbid_closing_refrains
-    - markdown_images_require_native_renderer_unavailability_and_accessible_asset
-    - reject_missing_supported_image_surface_or_eligible_final_cue_when_images_enabled
+    - markdown_images_require_accessible_displayed_asset
+    - reject_missing_acceptable_image_surface_when_images_enabled
     - forbid_markdown_headers
     - forbid_section_titles
     - forbid_pseudo_headers
@@ -142,35 +142,26 @@ lint:
     - interpretive_turn_should_precede_final_resolution
     - final_sentence_should_land_application_or_benediction_of_meaning_not_reveal_core_theme
   image_checks:
-  - supported_image_surface_or_eligible_final_cue_required_when_images_enabled
-  - prefer_image_group_then_native_image_display_then_markdown_image
-  - markdown_image_allowed_only_as_supported_renderer_fallback
+  - acceptable_image_surface_required_when_images_enabled
+  - image_renderer_must_be_supported
+  - markdown_image_must_display_actual_asset
   - governing_metaphor_alignment
   - concept_or_mood_alignment
   - no_near_duplicate_cluster
   - prefer_fewer_images_over_dupes
-  - reject_generic_stock_devotional_fallback_when_better_echo_exists
-  - image_surface_must_display_actual_asset_unless_final_cue_is_eligible
+  - delivered_image_must_echo_devotional_theme
+  - surface_must_be_displayed_image_or_composer_supplied_italic_cue
   - forbid_raw_image_urls_as_rendered_images
-  image_fallback_checks:
-    authority: engine_core.image_selection.acquisition_fallback
-    required:
-    - search_similar_image_before_generation
-    - generation_attempted_after_unsuccessful_search_unless_unavailable_or_user_objects
-    - image_display_confirmed_before_claiming_image_success
-    - attempt_outcomes_and_skip_reasons_recorded_internally
-    - supported_renderer_fallback_before_treating_image_as_undisplayable
-    - image_slot_order_and_devotional_text_preserved
-    reject:
-    - cue_emitted_before_search_and_generation_options_resolved
-    - generation_attempted_despite_user_objection
-    - image_description_reported_as_displayed_image
-    - image_search_or_generation_when_images_disabled_or_pdf_or_study_guide
-    - hyperlink_failure_replaces_working_image
+  image_delivery_checks:
+    authority: render.image_rendering
+    inspect: delivered_surface_only
+    on_failure: return_failure_details_to_image_composer
+    acquisition_history_required: false
+    acquisition_or_fallback_selection: forbidden
   image_profile_checks:
     ui:
       fail_if_missing:
-        - supported_image_or_eligible_final_cue
+        - acceptable_image_surface
     pdf:
       fail_if_present:
         - image
@@ -433,7 +424,7 @@ lint:
     - plain_text_hyperlink_label_signal
     - quote_attribution_object_complete
     - scripture_reference_object_complete
-    - supported_image_or_eligible_final_cue_when_images_enabled
+    - acceptable_image_surface_when_images_enabled
     - prebuilt_degraded_fallback_signal
     - footer_footnote_signal_when_body_quotes_present
     - prayer_package_when_prayer_mode_requires_output

@@ -949,7 +949,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "fe22bda10ea4ada14412ed2fa12e3d75b5b26a1ed67d78a22aeaca9153d0296e",
+      "sha256": "fd42b45a9d30fc9792443960d947119ae802d2c9c3eaa91cb3ce3805cbef78f4",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1363,24 +1363,10 @@
             "additional_references_optional",
             "footnotes_optional"
           ],
-          "image_fallback": {
-            "authority": "engine_core.image_selection.acquisition_fallback",
-            "applies_when": "ui_devotional_and_images_enabled",
-            "acquisition_order": [
-              "search_similar_image",
-              "generate_image_unless_user_objects",
-              "italic_image_cue"
-            ],
-            "renderer_order": [
-              "image_group",
-              "native_image_display",
-              "markdown_image"
-            ],
-            "success_requires_actual_image_display": true,
-            "generation_skip_when_user_objects": true,
-            "cue_only_after_search_and_generation_resolved": true,
-            "skip_when_images_disabled_or_pdf_or_study_guide": true,
-            "preserve_selected_slot_and_devotional_text": true
+          "image_delivery": {
+            "authority": "render.image_rendering",
+            "on_delivery_failure": "return_failure_details_to_image_composer",
+            "inspect": "delivered_surface_only"
           }
         },
         "lint": {
@@ -1398,7 +1384,6 @@
             "forbid_markdown_headers": true,
             "hyperlink_labels_must_be_plain_text": true,
             "forbid_entity_token_inside_markdown_link": true,
-            "images_use_supported_renderer_or_eligible_final_cue": true,
             "hyperlinks_must_use_structured_objects": true,
             "quote_attribution_hyperlink_object_required": true,
             "scripture_reference_hyperlink_object_required": true,
@@ -1411,9 +1396,7 @@
             "forbid_primary_scripture_equivalence_in_footnotes": true,
             "additional_references_is_only_permitted_metadata_heading": true,
             "additional_references_heading_requires_nonempty_block": true,
-            "image_fallback_order_required": true,
-            "generation_respects_user_objection": true,
-            "cue_requires_exhausted_acquisition_chain": true
+            "acceptable_image_surface_required_when_images_enabled": true
           }
         },
         "ext": {},
