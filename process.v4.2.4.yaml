@@ -559,7 +559,10 @@ process:
         purpose: identify_best_visual_and_conceptual_anchor_for_image_selection
       select_image:
         purpose: choose_one_strong_image_that_echoes_the_text
-      output: image_entities
+      acquisition_fallback_authority: engine_core.image_selection.acquisition_fallback
+      acquisition_order: [search_similar_image, generate_image_unless_user_objects, italic_image_cue]
+      rendering_authority: render.image_rendering
+      output: image_surface_package_with_attempt_outcomes
     hyperlinks:
       alias: hyperlinks_validate_good
       purpose: ensure_hyperlinks_are_valid_and_well_formed
@@ -585,7 +588,7 @@ process:
       alias: lint_check_quality
       purpose: quality_control_to_assure_consistent_user_experience_for_every_devotional_interaction
       visibility: external
-      required_inputs: assembled_surface_package_and_quote_surface_package_and_reference_surface_package_and_prayer_package_and_image_entities_and_hyperlink_markdowns_and_output_profile
+      required_inputs: assembled_surface_package_and_quote_surface_package_and_reference_surface_package_and_prayer_package_and_image_surface_package_and_hyperlink_markdowns_and_output_profile
       default: none
       must_precede: render_create_output
       governing_rule: on_fail_correct_output_before_rendering
@@ -618,7 +621,7 @@ process:
         - ui_shape_valid_for_selected_order_or_degraded_shape_valid
         - headerless_layout_valid
         - plain_text_hyperlink_labels_only
-        - image_entity_renderer_present_when_images_enabled_or_image_cue_ready
+        - supported_image_renderer_or_eligible_final_cue_ready_when_images_enabled
         - entity_text_boundary_valid_when_rich_render_present
         - repaired_surface_ready_as_final_if_needed
         - section_order_matches_selected_layout_before_repair
@@ -635,7 +638,7 @@ process:
         - headerless_layout_integrity
         - quote_link_integrity
         - scripture_link_integrity
-        - image_entity_integrity
+        - supported_image_surface_integrity
         - entity_boundary_integrity
         - structured_hyperlink_integrity
         - degraded_fallback_integrity
@@ -651,7 +654,7 @@ process:
         - render_quote_url_on_next_line_with_indent
         - render_scripture_label_on_its_own_line
         - render_scripture_url_on_next_line_with_indent
-        - emit_single_italic_image_cue_when_image_entity_fails
+        - resolve_image_acquisition_chain_before_emitting_final_italic_cue
         - never_append_unlabeled_raw_url_inline
         - promote_repaired_surface_to_canonical_final_output_when_triggered
         indent_rule:
@@ -702,7 +705,7 @@ process:
         - prayer_package_complete_when_enabled
         - liturgical_prayer_source_integrity_verified_when_applicable
         - supported_render_mode_present
-        - image_entity_ready_or_image_cue_prepared
+        - supported_image_surface_ready_or_final_cue_eligibility_verified
         - no_entity_inside_text_hyperlink
         - degraded_fallback_material_prebuilt
         - footer_footnote_block_prepared_when_body_quotes_present
@@ -720,7 +723,7 @@ process:
       alias: render_create_output
       purpose: generate_consistent_well_formed_outputs
       visibility: external
-      required_inputs: assembled_surface_package_and_known_good_quote_surface_package_and_known_good_reference_surface_package_and_prayer_package_and_image_entities_and_hyperlink_markdowns_and_output_profile
+      required_inputs: assembled_surface_package_and_known_good_quote_surface_package_and_known_good_reference_surface_package_and_prayer_package_and_image_surface_package_and_hyperlink_markdowns_and_output_profile
       default: none
       must_precede: none
       governing_rule: selected_order_must_be_honored_with_image_first_and_no_headers
@@ -739,13 +742,13 @@ process:
       - headerless_layout_integrity
       - quote_link_integrity
       - scripture_link_integrity
-      - image_entity_integrity
+      - supported_image_surface_integrity
       - entity_boundary_integrity
       - structured_hyperlink_integrity
       - degraded_fallback_integrity
       - prayer_surface_integrity
       rules_of_thumb:
-      - images_are_entities
+      - images_use_supported_renderer_or_eligible_final_cue
       - hyperlinks_are_plain_text
       - entities_are_never_hyperlinks
       - devotionals_have_no_headers

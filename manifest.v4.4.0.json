@@ -4,25 +4,27 @@
   "files": [
     "boundaries.v3.0.2.yaml",
     "devotional_engine_tts_v2.yaml",
-    "engine_core.v2.10.2.yaml",
+    "engine_core.v2.10.4.yaml",
     "interpretive.v3.0.1.yaml",
-    "json_bundle.v3.6.0.json",
-    "lint.v4.4.0.yaml",
+    "json_bundle.v3.7.1.json",
+    "lint.v4.4.2.yaml",
     "manifest.v4.4.0.json",
-    "preferences.v3.2.0.yaml",
-    "process.v4.2.2.yaml",
+    "preferences.v3.3.0.yaml",
+    "process.v4.2.4.yaml",
     "quote_source_registry.v3.0.1.json",
-    "render.v3.12.0.yaml",
-    "surface_examples.v1.0.0.md",
-    "ui_golden_tests.v0.9.7.json",
+    "render.v3.12.2.yaml",
+    "surface_examples.v1.1.0.md",
+    "ui_golden_tests.v0.9.9.json",
     "voice.v3.3.0.yaml"
   ],
   "updated_files": [
-    "json_bundle.v3.6.0.json",
-    "preferences.v3.2.0.yaml",
-    "render.v3.12.0.yaml",
-    "lint.v4.4.0.yaml",
-    "surface_examples.v1.0.0.md",
+    "engine_core.v2.10.4.yaml",
+    "process.v4.2.4.yaml",
+    "render.v3.12.2.yaml",
+    "lint.v4.4.2.yaml",
+    "json_bundle.v3.7.1.json",
+    "ui_golden_tests.v0.9.9.json",
+    "surface_examples.v1.1.0.md",
     "manifest.v4.4.0.json"
   ],
   "notes": [
@@ -36,6 +38,7 @@
     "Updates the canonical JSON bundle with output-profile enums, PDF entity prohibitions, and the surface-example registry.",
     "Registers normative specimen identifiers in render directives and corresponding compatibility checks in lint.",
     "Clarifies that examples illustrate valid realization but never override governing YAML or lint contracts.",
-    "Preserves the mandatory primary quotation contract for every devotional output."
+    "Preserves the mandatory primary quotation contract for every devotional output.",
+    "Image fallback standing order: search similar accessible images, then generate unless the user objects, then a single italic cue only when neither can display an image. Aligns process, engine, render, lint, embedded UI template, examples, and golden fixtures; allows supported image renderers when image_group is unavailable. Refreshes manifest paths to the files present in this stack."
   ]
 }

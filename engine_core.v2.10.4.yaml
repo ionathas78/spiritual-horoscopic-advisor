@@ -743,6 +743,35 @@ engine_core:
       - structural_changes
       - new_metaphors
   image_selection:
+    acquisition_fallback:
+      applies_when: ui_devotional_and_images_enabled
+      order:
+      - search_similar_image
+      - generate_image_unless_user_objects
+      - italic_image_cue
+      search:
+        required_before_generation: true
+        include_conceptually_similar_images: true
+        success_requires: suitable_accessible_image_displayed_with_supported_renderer
+        unavailable_tool_counts_as_unavailable_attempt: true
+        preserve_source_credit_when_required: true
+      generation:
+        allowed_by_default: true
+        skip_when_user_objects: true
+        attempt_when: search_unavailable_or_no_suitable_accessible_displayable_result
+        success_requires: generated_image_displayed_with_supported_renderer
+        unavailable_tool_counts_as_unavailable_attempt: true
+        identify_as_generated_when_provenance_is_shown: true
+      final_text_cue:
+        only_when: search_unsuccessful_and_generation_unsuccessful_unavailable_or_user_declined
+        format: single_italic_image_description
+        must_not_be_presented_as_rendered_image: true
+      execution:
+        preserve_selected_image_slot_and_devotional_text: true
+        do_not_regenerate_an_already_displayed_image: true
+        do_not_repeat_failed_attempts_without_new_information: true
+        record_attempt_outcomes_and_skip_reasons_in_internal_metadata: true
+        skip_entire_chain_when_images_disabled_or_pdf_or_study_guide: true
     target_count: 1
     allow_additional_images_only_if_truly_distinct: true
     max_distinct_images: 3
