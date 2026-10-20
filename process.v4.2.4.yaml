@@ -5,6 +5,7 @@ process:
   execution_mode_default: devotional_production
   pipeline:
   - memory_load_context
+  - seed_resolve_daily_reuse
   - horoscope_identify_daily_issue
   - tarot_draw_daily_mode
   - quote_select_daily_impetus
@@ -24,6 +25,13 @@ process:
   - render_create_output
   - memory_update_context
   stage_breakdown:
+    seed_resolution:
+      alias: seed_resolve_daily_reuse
+      authority: engine_core.same_day_seed_reuse
+      visibility: internal_only
+      output: reused_seed_and_sources_or_new_seed_required
+      reuse_route: bypass_selection_and_restore_same_source_study_context_then_compose_for_requested_profile
+      new_seed_route: proceed_through_normal_selection_with_explicit_subject_when_provided
     memory_load:
       alias: memory_load_context
       authority: engine_core.external_memory
@@ -796,6 +804,7 @@ process:
       alias: gdw_v1
       purpose: Stable alias map for the devotional production pipeline so workflow structure is concrete, inspectable, and verifiable across revisions.
       step_aliases:
+        seed_resolve_daily_reuse: daily_seed_resolve
         memory_load_context: memory_read
         memory_update_context: memory_write
         consult_horoscope: problem_scan

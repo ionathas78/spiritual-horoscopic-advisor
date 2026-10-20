@@ -46,7 +46,8 @@
     "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
     "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
     "Adds optional user-designated external memory configuration, governed by engine_core.external_memory; process loads relevant reader context before selection and updates confirmed final records within authorized access.",
-    "Recent reader-scoped seeds connect topic uniqueness, tarot approach, primary quotation, and supporting-author rotation across generation requests. The rolling buffer and seed fields are governed only by engine_core.external_memory.seed_history."
+    "Recent reader-scoped seeds connect topic uniqueness, tarot approach, primary quotation, and supporting-author rotation across generation requests. The rolling buffer and seed fields are governed only by engine_core.external_memory.seed_history.",
+    "Same-reader requests on the same local date reuse the existing seed and sources by default; an explicit new subject starts a new seed. Presentation variants do not trigger source rotation or consume additional seed-history slots. Authority: engine_core.same_day_seed_reuse."
   ],
   "documents": [
     {
@@ -649,7 +650,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "45644d79882ed3ff43acc4c6d0c8edb4821a03f8eccb0da72bd24f14751d9ec6",
+      "sha256": "4766a501659ef86b80a22f0ea2cf8756cdc90946bf2b470e285424e28cbe6651",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -974,7 +975,8 @@
           "reader_scope": null,
           "configuration_authority": "preferences.reader_contract_preferences.external_memory",
           "behavior_authority": "engine_core.external_memory",
-          "seed_history_authority": "engine_core.external_memory.seed_history"
+          "seed_history_authority": "engine_core.external_memory.seed_history",
+          "same_day_reuse_authority": "engine_core.same_day_seed_reuse"
         }
       }
     },

@@ -106,9 +106,9 @@ engine_core:
       - compact_dated_reader_scoped_record_of_the_final_devotional_thesis_and_fields_used_by_existing_freshness_and_source_cycling_rules
       - explicitly_stated_preference_changes_and_feedback_when_within_authorized_scope
     seed_history:
-      retain_latest_runs: 5
+      retain_latest_seeds: 5
       scope: selected_reader_across_dates_and_output_lengths
-      run_identity: unique_per_independent_generation_request_stable_for_internal_retries_and_repairs
+      run_identity: unique_per_new_seed_stable_across_same_day_reuse_retries_and_repairs
       startup: use_available_records_without_inventing_missing_history
       seed_fields:
         - run_id_and_date
@@ -125,7 +125,7 @@ engine_core:
         sources: engine_core.source_cycling
       maintenance:
         - save_only_final_validated_seeds_and_replace_the_same_run_on_retry
-        - retain_the_newest_runs_in_generation_order_including_distinct_runs_on_the_same_date
+        - retain_the_newest_distinct_seeds_in_generation_order_including_new_subjects_on_the_same_date
         - prune_only_older_seed_entries_for_this_reader_after_the_new_record_is_confirmed
         - preserve_lightweight_source_rotation_summaries_needed_for_longer_existing_lookbacks
     maintenance:
@@ -141,6 +141,22 @@ engine_core:
       - briefly_report_a_configured_memory_access_or_save_failure_outside_the_devotional_body
       - do_not_invent_a_replacement_storage_location
     no_location: run_without_external_memory_and_without_setup_prompts
+  same_day_seed_reuse:
+    resolve_before: horoscope_identify_daily_issue
+    date_basis: reader_local_civil_date_in_requested_or_known_timezone
+    lookup: newest_compatible_final_seed_for_the_same_reader_and_local_date_in_authorized_memory_or_visible_conversation
+    default: reuse_existing_seed_and_sources_unless_the_user_specifies_a_new_subject
+    reuse:
+      - preserve_problem_tarot_card_mode_quote_primary_scripture_thesis_and_selected_sources
+      - adapt_composition_length_reading_level_rendering_and_optional_prayer_to_the_current_request
+      - restore_missing_study_context_from_the_same_sources_when_needed
+      - do_not_repeat_horoscope_selection_tarot_draw_or_author_rotation_for_a_reused_seed
+      - do_not_consume_another_seed_history_slot_for_a_presentation_variant
+    new_subject:
+      - use_the_explicit_subject_as_the_problem_constraint_and_build_a_new_seed
+      - apply_normal_topic_and_source_rotation_checks_to_the_new_seed
+    missing_seed: use_available_context_without_claiming_reuse_of_an_unretrievable_seed
+    preservation_guard: explain_a_source_or_seed_integrity_problem_instead_of_silently_substituting_a_new_seed_or_author
   source_authority_weights:
     scripture: 1.0
     church_fathers: 0.9
@@ -1057,6 +1073,7 @@ engine_core:
     enabled: true
     classification: process_health_metric
     cross_run_review:
+      same_day_reuse_authority: engine_core.same_day_seed_reuse
       history_authority: engine_core.external_memory.seed_history
       applies_to: primary_quote_author_and_materially_influential_supporting_authors
       selection: actively_prefer_suitable_authors_absent_from_recent_seeds
@@ -1203,6 +1220,7 @@ engine_core:
       - alter_application_angle
       - prefer_alternate_image_scene
     daily_theme_freshness:
+      same_day_reuse_authority: engine_core.same_day_seed_reuse
       enabled: true
       priority: hard_requirement
       cross_run_history_authority: engine_core.external_memory.seed_history
