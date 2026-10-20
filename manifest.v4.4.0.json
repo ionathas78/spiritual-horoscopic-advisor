@@ -25,7 +25,8 @@
     "json_bundle.v3.7.1.json",
     "ui_golden_tests.v0.9.9.json",
     "surface_examples.v1.1.0.md",
-    "manifest.v4.4.0.json"
+    "manifest.v4.4.0.json",
+    "preferences.v3.3.0.yaml"
   ],
   "notes": [
     "Adds surface_examples.v1.0.0.md as the normative specimen library for valid reader-facing output shapes.",
@@ -42,6 +43,7 @@
     "Image fallback standing order: search similar accessible images, then generate unless the user objects, then a single italic cue only when neither can display an image. Aligns process, engine, render, lint, embedded UI template, examples, and golden fixtures; allows supported image renderers when image_group is unavailable. Refreshes manifest paths to the files present in this stack.",
     "Consolidates image acquisition and fallback precedence under the image composer. Assembly and validation inspect delivered products only and return delivery failures to the composer. Composer behavior fixtures are separated from UI shape tests.",
     "Refactors condensed output as an index card devotional. Engine core owns the body contract; composition preserves full study depth, audience clarity, complete reasoning, and practical response. Rendering, lint, embedded templates, and the specimen follow that authority. Paragraph-two and progress-ratio payoff guidance applies only to standard and expanded output.",
-    "Collaborative readability review clarifies the inclusive sentence range, essential-reasoning synthesis, feasible reader response, and flexible sentence roles; repairs authority paths and makes the specimen application concrete."
+    "Collaborative readability review clarifies the inclusive sentence range, essential-reasoning synthesis, feasible reader response, and flexible sentence roles; repairs authority paths and makes the specimen application concrete.",
+    "Adopts the approved Corrie ten Boom condensed specimen with a sixth-grade body, primary Scripture at the bottom, optional brief generated prayer, and supporting references. Condensed surface contract governs its explicit reference range and minimum supporting Scripture; other profiles remain unrestricted by count. Prayer remains optional and historic liturgy retains its verbatim contract."
   ]
 }

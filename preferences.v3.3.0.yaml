@@ -83,6 +83,7 @@ reader_contract_preferences:
       - render_target_does_not_imply_content_length
       - content_length_does_not_imply_source_count
       - source_count_emerges_from_material_influence_not_profile_selection
+      - explicit_condensed_surface_contract_governs_rendered_reference_selection_while_study_depth_remains_unchanged
     standard_audio_optimization:
       enabled: true
       applies_to:
@@ -216,3 +217,4 @@ reader_contract_preferences:
 #   reading_complexity: college_advanced
 #   spiritual_depth: mature
 #   dyslexia_optimization: false
+

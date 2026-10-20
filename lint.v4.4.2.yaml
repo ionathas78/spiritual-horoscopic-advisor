@@ -24,7 +24,7 @@ lint:
     fail_if:
     - artifact_type_implies_unrequested_length
     - render_target_implies_unrequested_length
-    - content_length_implies_reference_count
+    - reference_count_inferred_without_explicit_profile_contract
     - study_guide_contains_image_component
     - pdf_contains_image_component
     - pdf_contains_entity_component
@@ -42,7 +42,7 @@ lint:
     - process_contract_violations_are_errors
     - render_contract_violations_are_errors
     - process_health_metrics_are_warnings_unless_a_contract_is_also_violated
-    - total_reference_count_must_not_be_enforced_as_a_quota
+    - total_reference_count_follows_explicit_profile_contract_when_present_otherwise_no_quota
     - supporting_scripture_minimum_is_a_composition_contract_not_a_total_count_quota
     - minimum_composition_requirements_may_fail_generation_without_creating_padding_incentives
   render_order_checks:
@@ -137,6 +137,9 @@ lint:
     - every_sentence_advances_the_thought
     - full_shared_study_depth_is_preserved
     - no_condensed_word_quota_is_applied
+    - textual_order_and_reference_composition_match_condensed_surface_contract
+    - optional_generated_prayer_matches_condensed_surface_contract
+    - devotional_body_is_complete_when_prayer_is_omitted
   sentence_integrity_checks:
   - no_false_contrast_via_compression
   - no_collapsed_mechanism
@@ -284,7 +287,7 @@ lint:
     - prefer_two_rendered_supporting_scriptures_when_materially_influential
     - supporting_scriptures_precede_non_scriptural_references
     - patristic_sources_are_additive_to_supporting_scripture
-    - total_rendered_reference_count_remains_unbounded_except_by_influence_and_usefulness
+    - total_rendered_reference_count_follows_explicit_profile_contract_otherwise_influence_and_usefulness
     - supporting_scripture_minimum_is_enforced_as_source_composition_not_reference_quota
     fail_if:
     - reference_added_only_to_reach_count
@@ -608,6 +611,7 @@ lint:
     severity: fatal
     minimum_supporting_scripture: 1
     recommended_supporting_scripture: 2
+    condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
     total_reference_count_quota: none
     minimum_is_compositional_not_numerical_total: true
     required:

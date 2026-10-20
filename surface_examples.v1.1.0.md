@@ -56,26 +56,26 @@ exclusions for PDF, study guides, and images-disabled output remain in force.
 
 ## EX-UI-CONDENSED · Condensed UI Devotional
 
-**Purpose:** An index card devotional: a complete studied thought in a compact, audience-appropriate body. The body contract is governed by engine_core.output_profiles.condensed; surrounding surfaces retain their normal contracts.
+**Purpose:** An index card devotional at approximately a sixth-grade reading level, with optional generated prayer enabled. Engine core owns the body and surface contracts; the specimen does not set a universal reading level or enable prayer by default.
 
-<!-- profile: artifact_type=devotional; content_length=condensed; render_target=ui; images=enabled; prayer=none -->
+<!-- profile: artifact_type=devotional; content_length=condensed; render_target=ui; images=enabled; prayer=generated; reading_complexity=middle_school; title=disabled -->
 
-[IMAGE GROUP: a small lamp burning beside a dark footpath]
-
-Enough Light
+[IMAGE GROUP: soft morning light on a quiet table set for today's work]
 
 > “Never be afraid to trust an unknown future to a known God.”
 
-— [Corrie ten Boom](https://example.org/quote-source)
+— [Corrie ten Boom](https://www.crossway.org/articles/the-story-of-the-watchmaker-who-forgave-her-enemies/)
 
-When tomorrow feels uncertain, you may keep planning because unanswered questions make it hard to rest. Jesus reminds us that our Father knows what we need, so we can give today's responsibilities our attention while tomorrow remains unsettled. God's care accompanies us through the uncertainty, and each morning brings fresh mercy. Before returning to your plans, pause to name one concern in prayer and ask for help with the next responsibility you can address. Then give that task your attention, letting the remaining questions wait until there is something useful you can do.
+When you worry about tomorrow, you may keep making plans because it feels hard to stop. Jesus reminds us that our Father knows what we need and cares for us today. God stays with us through the questions we cannot answer, and his mercy meets us each morning. Pause to tell him one thing that worries you, then ask for help with one thing you can do today. Give that task your care, and let the other questions wait for now.
 
-[Matthew 6:34 (NRSVUE)](https://example.org/scripture)
+[Matthew 6:34 (NRSVUE)](https://www.biblegateway.com/passage/?search=Matthew+6%3A34&version=NRSVUE)
+
+*Father, help me trust your care with the questions I cannot answer. Show me what I can do today, and help me do it with love.*
 
 Additional References
 
-- [Psalm 23:4 (NRSVUE)](https://example.org/psalm)
-- [Lamentations 3:22–23 (NRSVUE)](https://example.org/lamentations)
+- [Lamentations 3:22–23 (NRSVUE)](https://www.biblegateway.com/passage/?search=Lamentations+3%3A22-23&version=NRSVUE)
+- [Brother Lawrence, *The Practice of the Presence of God*, Second Conversation](https://www.ccel.org/ccel/lawrence/practice.iii.ii.html)
 
 ## EX-UI-EXPANDED · Expanded UI Devotional
 

@@ -43,7 +43,8 @@
     "Adds optional prayer output with generated or liturgical modes, Catholic/Anglican tradition selection, date-specific source integrity, generated fallback, and prayer placement before Additional References and footer footnotes.",
     "Reconciles devotional length handling so paragraph counts and word counts are profile-guided rather than hard-capped, including five-paragraph expanded devotionals and reading-level-sensitive variation.",
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
-    "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance."
+    "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
+    "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior."
   ],
   "documents": [
     {
@@ -197,7 +198,7 @@
     },
     {
       "source_path": "devo_mvp_entry.schema.v1.1.json",
-      "sha256": "d6ba0edf5a2f398619ebf0bdfabec09ad7a9e04a1fb49eb7d3cc24617050defb",
+      "sha256": "57e105cf5c8d24231cace23410912ab408f3bdc69c2f832263815dd3231faf8a",
       "doc": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Devo MVP Entry",
@@ -511,7 +512,8 @@
             "minimum_supporting_scripture": 1,
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
-            "patristic_sources_additive_not_substitutive": true
+            "patristic_sources_additive_not_substitutive": true,
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
           }
         },
         "additionalProperties": true,
@@ -950,7 +952,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "1d7f1f54bf02f4692411b2be5d329c4ec36c91a52c0eb3a91770cdccedc92643",
+      "sha256": "50a5eac5c8e7b87baf7a621eed6c4464921fb0cc9d4924aa3130d4eb46dc3778",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1292,7 +1294,8 @@
             "minimum_supporting_scripture": 1,
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
-            "patristic_sources_additive_not_substitutive": true
+            "patristic_sources_additive_not_substitutive": true,
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
           }
         },
         "special_rules": {
@@ -1399,7 +1402,8 @@
             "additional_references_heading_requires_nonempty_block": true,
             "acceptable_image_surface_required_when_images_enabled": true,
             "condensed_body_contract_authority": "engine_core.output_profiles.condensed",
-            "condensed_word_quota_applies": false
+            "condensed_word_quota_applies": false,
+            "condensed_surface_contract_authority": "engine_core.output_profiles.condensed.surface_contract"
           }
         },
         "ext": {},
@@ -1418,9 +1422,9 @@
             "ui",
             "pdf"
           ],
-          "content_length_does_not_determine_reference_count": true,
           "audio_optimization_applies_to_all_devotional_lengths": true,
-          "normative_examples_file": "surface_examples.v1.1.0.md"
+          "normative_examples_file": "surface_examples.v1.1.0.md",
+          "reference_count_requires_explicit_profile_contract_otherwise_follows_influence": true
         }
       }
     },
@@ -1699,7 +1703,7 @@
     },
     {
       "source_path": "devotional_pdf_render_template_v1.0.0.json",
-      "sha256": "eb7e0d38ee646db61764f106523fbf6731f83f11ee1fe953b991d500e9b7d726",
+      "sha256": "9f98777d3c42ce7ad4b66016032f9e6106f14d12368ad9cb23d2ce69e2fa07dc",
       "doc": {
         "template_id": "devotional_pdf_render_template",
         "template_version": "1.2.0",
@@ -1747,7 +1751,8 @@
             "direct_quote_citation_mode": "footnotes_only",
             "inline_attribution_forbidden": true,
             "spoken_flow_required": true,
-            "condensed_body_contract_authority": "engine_core.output_profiles.condensed"
+            "condensed_body_contract_authority": "engine_core.output_profiles.condensed",
+            "condensed_surface_contract_authority": "engine_core.output_profiles.condensed.surface_contract"
           },
           "anchor_scripture": {
             "required": true,
@@ -1784,7 +1789,8 @@
             "minimum_supporting_scripture": 1,
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
-            "patristic_sources_additive_not_substitutive": true
+            "patristic_sources_additive_not_substitutive": true,
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
           },
           "footnotes": {
             "required_when": "body_quotes_present",

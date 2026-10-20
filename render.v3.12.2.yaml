@@ -64,6 +64,7 @@ render:
     
       condensed:
         authority: engine_core.output_profiles.condensed
+        surface_authority: engine_core.output_profiles.condensed.surface_contract
         preserve_concise_surface: true
         render_body_as_compact_block: true
         preserve_composer_readability_breaks: true
@@ -247,6 +248,7 @@ render:
   prayer_rendering:
     authority: engine_core.prayer_output
     enabled_by_preference: true
+    condensed_authority: engine_core.output_profiles.condensed.surface_contract.prayer
     default_mode: none
     position: after_selected_primary_terminal_before_additional_references_and_footnotes
     render_shape: standalone_prayer_block
@@ -302,6 +304,7 @@ render:
     - omit_primary_anchor
     - omit_overlapping_primary_ranges
     count_policy:
+      condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
       no_fixed_total_count: true
       never_pad_to_target: true
       minimum_composition_is_enforced_separately: true
@@ -314,6 +317,7 @@ render:
     do_not_render_explanatory_footprint_notes: true
     source_hierarchy_visible: true
     required_composition:
+      condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
       supporting_scripture:
         minimum: 1
         recommended: 2
@@ -564,6 +568,7 @@ render:
         recommended_supporting_scripture: 2
         supporting_scripture_first: true
         patristic_sources_additive_not_substitutive: true
+        condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
         no_fixed_total_reference_count: true
         minimum_supporting_scripture_is_composition_not_quota: true
     pdf:
@@ -627,6 +632,7 @@ render:
         recommended_supporting_scripture: 2
         supporting_scripture_first: true
         patristic_sources_additive_not_substitutive: true
+        condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
         no_fixed_total_reference_count: true
         minimum_supporting_scripture_is_composition_not_quota: true
       footnotes:

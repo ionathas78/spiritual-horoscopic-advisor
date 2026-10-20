@@ -128,6 +128,32 @@ engine_core:
         - reader_can_follow_the_scriptural_reason_for_the_response
         - reader_can_identify_a_practicable_response_without_inventing_missing_steps
       word_count: follows_sentence_count_reading_level_and_completeness
+      surface_contract:
+        textual_order: [primary_quote_and_attribution, devotional_body, primary_scripture_reference, prayer_optional, additional_references]
+        primary_scripture: linked_reference_only
+        image_and_title: retain_existing_preference_contracts
+        additional_references:
+          enabled_by_existing_visibility_preference: true
+          minimum: 2
+          maximum: 3
+          minimum_supporting_scripture: 1
+          supporting_scripture_first: true
+          other_entries: materially_influential_sources_of_any_permitted_class
+          selection: prioritize_sources_with_the_strongest_recognizable_footprints
+          excess_influential_sources: retain_in_study_brief_and_optional_study_guide
+          if_too_few_qualify: return_to_composer_to_revisit_synthesis_without_decorative_citations
+        prayer:
+          optional: true
+          mode_authority: engine_core.prayer_output
+          generated_sentence_count:
+            minimum: 1
+            maximum: 2
+          generated_requirements:
+            - echo_the_devotional_insight_as_a_natural_reader_response
+            - preserve_requested_reading_level
+            - body_remains_complete_without_the_prayer
+            - do_not_force_prayer_wording_into_the_body
+          liturgical_text: preserve_verbatim_under_existing_prayer_output_rules
   
     standard:
       purpose: default_daily_devotional
@@ -376,6 +402,8 @@ engine_core:
       - primary_scripture_anchor
       - overlapping_or_equivalent_primary_scripture_ranges
       count_policy:
+        condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
+        default_profiles: [standard, expanded]
         classification: process_health_metric
         no_required_surface_count: true
         never_pad_to_target: true
@@ -389,6 +417,7 @@ engine_core:
       - higher_confidence_before_lower_confidence
       - preserve_reader_usefulness_over_prestige
       scripture_requirements:
+        condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
         minimum_rendered_supporting_scripture: 1
         recommended_rendered_supporting_scripture: 2
         primary_anchor_excluded: true
@@ -1012,6 +1041,7 @@ engine_core:
     enabled: true
     preference_authority: preferences.reader_contract_preferences.prayer
     default_mode: none
+    condensed_generated_prayer_authority: engine_core.output_profiles.condensed.surface_contract.prayer
     modes:
       none:
         render_prayer: false

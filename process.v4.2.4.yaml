@@ -360,6 +360,7 @@ process:
         condensed:
           authority: engine_core.output_profiles.condensed
           composition_priority: crystallize_the_full_studied_thought_with_audience_appropriate_clarity
+          surface_authority: engine_core.output_profiles.condensed.surface_contract
           never_expand_to_fill_space: true
       editing_passes:
         structural_draft_pass:
@@ -401,6 +402,7 @@ process:
       purpose: resolve_optional_prayer_output_after_devotional_content_is_finalized_and_before_surface_assembly
       visibility: external_through_render_when_enabled
       authority: engine_core.prayer_output
+      condensed_authority: engine_core.output_profiles.condensed.surface_contract.prayer
       preference_authority: preferences.reader_contract_preferences.prayer
       required_inputs:
       - reader_preferences
