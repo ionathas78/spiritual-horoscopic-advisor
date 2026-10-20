@@ -19,14 +19,13 @@
   ],
   "updated_files": [
     "engine_core.v2.10.4.yaml",
+    "preferences.v3.3.0.yaml",
     "process.v4.2.4.yaml",
-    "render.v3.12.2.yaml",
+    "boundaries.v3.0.2.yaml",
     "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
-    "ui_golden_tests.v0.9.9.json",
-    "surface_examples.v1.1.0.md",
     "manifest.v4.4.0.json",
-    "preferences.v3.3.0.yaml"
+    "tests/validate_external_memory.py"
   ],
   "notes": [
     "Adds surface_examples.v1.0.0.md as the normative specimen library for valid reader-facing output shapes.",
@@ -44,6 +43,7 @@
     "Consolidates image acquisition and fallback precedence under the image composer. Assembly and validation inspect delivered products only and return delivery failures to the composer. Composer behavior fixtures are separated from UI shape tests.",
     "Refactors condensed output as an index card devotional. Engine core owns the body contract; composition preserves full study depth, audience clarity, complete reasoning, and practical response. Rendering, lint, embedded templates, and the specimen follow that authority. Paragraph-two and progress-ratio payoff guidance applies only to standard and expanded output.",
     "Collaborative readability review clarifies the inclusive sentence range, essential-reasoning synthesis, feasible reader response, and flexible sentence roles; repairs authority paths and makes the specimen application concrete.",
-    "Adopts the approved Corrie ten Boom condensed specimen with a sixth-grade body, primary Scripture at the bottom, optional brief generated prayer, and supporting references. Condensed surface contract governs its explicit reference range and minimum supporting Scripture; other profiles remain unrestricted by count. Prayer remains optional and historic liturgy retains its verbatim contract."
+    "Adopts the approved Corrie ten Boom condensed specimen with a sixth-grade body, primary Scripture at the bottom, optional brief generated prayer, and supporting references. Condensed surface contract governs its explicit reference range and minimum supporting Scripture; other profiles remain unrestricted by count. Prayer remains optional and historic liturgy retains its verbatim contract.",
+    "Connects user-provided external memory to preference resolution and existing freshness/source-cycling rules without assuming a storage provider. Reads precede theme selection; authorized updates follow validated final output. Missing history remains unverified, writes require confirmed success, and reader scopes and unrelated content are preserved."
   ]
 }

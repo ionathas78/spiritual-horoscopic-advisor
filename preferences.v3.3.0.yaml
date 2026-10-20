@@ -47,6 +47,19 @@ writing_team:
 
     '
 reader_contract_preferences:
+  external_memory:
+    location:
+      type: string_or_null
+      default: null
+      description: User-designated memory document, folder, file, or service locator.
+    reader_scope:
+      type: string_or_null
+      default: null
+      description: Select the intended reader within shared memory; clarify only when ambiguous.
+    access:
+      resolution: existing_user_authorization_and_available_capabilities
+      rule: honor_read_write_and_maintenance_permissions_without_expanding_them
+    behavior_authority: engine_core.external_memory
   output_profile:
     artifact_type:
       type: string

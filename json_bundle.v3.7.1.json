@@ -44,7 +44,8 @@
     "Reconciles devotional length handling so paragraph counts and word counts are profile-guided rather than hard-capped, including five-paragraph expanded devotionals and reading-level-sensitive variation.",
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
     "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
-    "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior."
+    "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
+    "Adds optional user-designated external memory configuration, governed by engine_core.external_memory; process loads relevant reader context before selection and updates confirmed final records within authorized access."
   ],
   "documents": [
     {
@@ -547,7 +548,7 @@
     },
     {
       "source_path": "user_prefs.schema.v1.0.1.json",
-      "sha256": "dd00f1b7e315f6ca304ad1ca62bc17fa1461551b66d880e4b4158d15416e3bd5",
+      "sha256": "54c79e65cd5036d10ed2c905877e5fa368c917bc6254396b17db3edbf3c7b741",
       "doc": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "User Preferences",
@@ -620,6 +621,25 @@
               }
             },
             "additionalProperties": true
+          },
+          "external_memory": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reader_scope": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true,
+            "description": "Optional user-designated memory configuration; access follows existing user authorization. Behavior is governed by engine_core.external_memory."
           }
         },
         "additionalProperties": true,
@@ -628,7 +648,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "3b380b6a0660ae3b116c2488c34dbdf745beb764114e0850f58f980bde6dc9a6",
+      "sha256": "8f5210a42f05533d2e0f37101a4f38eca5692f575c8b80bd378d7e3512793e5a",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -947,6 +967,12 @@
           "axis_independence": true,
           "content_length_does_not_determine_source_count": true,
           "standard_audio_optimization": true
+        },
+        "external_memory": {
+          "location": null,
+          "reader_scope": null,
+          "configuration_authority": "preferences.reader_contract_preferences.external_memory",
+          "behavior_authority": "engine_core.external_memory"
         }
       }
     },

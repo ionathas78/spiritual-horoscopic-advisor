@@ -3,6 +3,16 @@ file_role: canonical_lint
 status: reconciled_single_authority
 lint:
   governing_rule: sanity_check_not_decision_maker
+  external_memory_checks:
+    authority: engine_core.external_memory
+    checks:
+    - configured_memory_load_precedes_personalization_and_theme_selection
+    - current_explicit_request_overrides_stored_preferences
+    - reader_scope_and_authorized_access_are_respected
+    - generated_devotional_themes_are_not_treated_as_reader_facts
+    - unavailable_history_does_not_count_as_verified_freshness
+    - only_validated_final_records_are_saved_and_retries_do_not_duplicate_them
+    - save_status_matches_confirmed_result
   normative_example_checks:
     source_file: surface_examples.v1.0.0.md
     examples_are_normative_not_exhaustive: true

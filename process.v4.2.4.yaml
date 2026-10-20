@@ -4,6 +4,7 @@ status: reconciled_single_authority
 process:
   execution_mode_default: devotional_production
   pipeline:
+  - memory_load_context
   - horoscope_identify_daily_issue
   - tarot_draw_daily_mode
   - quote_select_daily_impetus
@@ -21,7 +22,21 @@ process:
   - hyperlinks_validate_good
   - lint_check_quality
   - render_create_output
+  - memory_update_context
   stage_breakdown:
+    memory_load:
+      alias: memory_load_context
+      authority: engine_core.external_memory
+      visibility: internal_only_except_access_failures
+      required_inputs: current_request_and_external_memory_configuration_and_user_authorization
+      output: scoped_preferences_recent_history_and_memory_access_status
+      must_precede: horoscope_identify_daily_issue
+    memory_update:
+      alias: memory_update_context
+      authority: engine_core.external_memory
+      visibility: internal_only_except_save_failures
+      required_inputs: validated_final_output_and_scoped_run_metadata_and_memory_access_status
+      output: confirmed_save_status_or_explicit_skip_or_failure
     horoscope:
       alias: horoscope_identify_daily_issue
       purpose: run_indicated_daily_horoscope_to_identify_challenge_areas_and_subject_needs
@@ -776,6 +791,8 @@ process:
       alias: gdw_v1
       purpose: Stable alias map for the devotional production pipeline so workflow structure is concrete, inspectable, and verifiable across revisions.
       step_aliases:
+        memory_load_context: memory_read
+        memory_update_context: memory_write
         consult_horoscope: problem_scan
         theme_cycle_gate: freshness_gate
         draw_touchstone_tarot: lens_draw

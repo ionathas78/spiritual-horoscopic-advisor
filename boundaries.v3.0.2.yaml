@@ -1,4 +1,8 @@
 data_boundaries:
+  authorized_external_memory:
+    authority: engine_core.external_memory
+    allowed: relevant_user_provided_memory_within_authorized_reader_and_access_scope
+    does_not_authorize: external_research_or_personal_enrichment
   audit_log:
     enabled: true
     record:
@@ -49,10 +53,11 @@ data_boundaries:
       - observational_pastoral_language
       - probabilistic_human_scale_tensions
       - timely_application_without_source_disclosure
-  principle: "Devotional generation and evaluation must rely solely on:\n  - explicit user-provided information within the current project context\n  - stored preference metadata explicitly authorized\n  - horoscope-derived daily concern lanes and probable situations (non-diagnostic)\n  - internal stylistic directives\nNo external research about the user is permitted.\n"
+  principle: "Devotional generation and evaluation must rely solely on:\n  - explicit user-provided information within the current project context\n  - stored preference metadata explicitly authorized\n  - relevant user-provided external memory within authorized reader and access scope\n  - horoscope-derived daily concern lanes and probable situations (non-diagnostic)\n  - internal stylistic directives\nNo external research about the user is permitted.\n"
   trust_violation_response:
     if_agent_attempts_external_enrichment:
     - abort_pass
     - log_violation_internal
     - remove_inferred_content
     - revert_to_generic_reader_model
+
