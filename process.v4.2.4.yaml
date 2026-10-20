@@ -30,7 +30,7 @@ process:
       authority: engine_core.same_day_seed_reuse
       visibility: internal_only
       output: reused_seed_and_sources_or_new_seed_required
-      reuse_route: bypass_selection_and_restore_same_source_study_context_then_compose_for_requested_profile
+      reuse_route: bypass_selection_then_resolve_output_profile_restore_same_source_study_context_and_compose_from_preserved_seed
       new_seed_route: proceed_through_normal_selection_with_explicit_subject_when_provided
     memory_load:
       alias: memory_load_context
@@ -49,13 +49,16 @@ process:
       alias: horoscope_identify_daily_issue
       purpose: run_indicated_daily_horoscope_to_identify_challenge_areas_and_subject_needs
       visibility: internal_only
-      required_inputs: subject_astrological_sign
-      default: standard_user_astrological_sign_or_if_none_then_ask
+      problem_selection_authority: engine_core.problem_selection
+      required_inputs: explicit_subject_or_subject_astrological_sign_for_default_selection
+      default: bind_explicit_subject_or_use_reader_astrological_sign_and_ask_only_if_needed_for_default_selection
       must_precede: tarot_draw_daily_mode
-      governing_rule: horoscope_is_predictive_only
+      governing_rule: horoscope_is_predictive_only_and_never_overrides_an_explicit_subject
       theme_cycle_gate:
         purpose: prevent_same_or_near_same_primary_theme_repetition_before_any_downstream_selection
         history_authority: engine_core.external_memory.seed_history
+        explicit_subject_authority: engine_core.problem_selection
+        action_scope: regenerate_problem_only_for_default_subject_otherwise_refine_mode_and_application
         checks:
         - primary_theme_lookback_window
         - theme_cluster_lookback_window
@@ -300,7 +303,8 @@ process:
         - thesis_must_preserve_problem
         - thesis_must_show_mode
         - thesis_must_be_grounded_in_scripture_context
-        - thesis_must_be_specific_enough_to_differ_from_recent_days
+        - thesis_must_be_specific_enough_to_differ_from_recent_days_for_new_seeds
+        - reused_seed_thesis_is_preserved_under_engine_core_same_day_seed_reuse
         output: thesis_package_with_provenance
         provenance_requirements:
         - problem_parent

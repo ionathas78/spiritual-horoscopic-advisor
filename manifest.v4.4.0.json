@@ -20,30 +20,26 @@
   "updated_files": [
     "engine_core.v2.10.4.yaml",
     "process.v4.2.4.yaml",
+    "render.v3.12.2.yaml",
     "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
+    "ui_golden_tests.v0.9.9.json",
+    "manifest.v4.4.0.json",
     "tests/validate_external_memory.py",
-    "manifest.v4.4.0.json"
+    "tests/validate_stack_consistency.py"
   ],
   "notes": [
-    "Adds surface_examples.v1.0.0.md as the normative specimen library for valid reader-facing output shapes.",
-    "Defines orthogonal output axes: artifact type, content length, and render target.",
-    "Adds condensed, standard, and expanded devotional length profiles without allowing length to determine source count.",
-    "Keeps spoken-language and TTS survival requirements active across all standard devotional length profiles.",
-    "Adds minimal and extensive source-lineage specimens to prevent accidental inference of a fixed Additional References count.",
-    "Adds an optional study-guide specimen as a separate companion artifact with images disabled.",
-    "Adds a labeled PDF devotional specimen with images, entities, and UI-only tokens forbidden.",
-    "Updates the canonical JSON bundle with output-profile enums, PDF entity prohibitions, and the surface-example registry.",
-    "Registers normative specimen identifiers in render directives and corresponding compatibility checks in lint.",
-    "Clarifies that examples illustrate valid realization but never override governing YAML or lint contracts.",
-    "Preserves the mandatory primary quotation contract for every devotional output.",
-    "Image fallback standing order: search similar accessible images, then generate unless the user objects, then a single italic cue only when neither can display an image. Aligns process, engine, render, lint, embedded UI template, examples, and golden fixtures; allows supported image renderers when image_group is unavailable. Refreshes manifest paths to the files present in this stack.",
-    "Consolidates image acquisition and fallback precedence under the image composer. Assembly and validation inspect delivered products only and return delivery failures to the composer. Composer behavior fixtures are separated from UI shape tests.",
-    "Refactors condensed output as an index card devotional. Engine core owns the body contract; composition preserves full study depth, audience clarity, complete reasoning, and practical response. Rendering, lint, embedded templates, and the specimen follow that authority. Paragraph-two and progress-ratio payoff guidance applies only to standard and expanded output.",
-    "Collaborative readability review clarifies the inclusive sentence range, essential-reasoning synthesis, feasible reader response, and flexible sentence roles; repairs authority paths and makes the specimen application concrete.",
-    "Adopts the approved Corrie ten Boom condensed specimen with a sixth-grade body, primary Scripture at the bottom, optional brief generated prayer, and supporting references. Condensed surface contract governs its explicit reference range and minimum supporting Scripture; other profiles remain unrestricted by count. Prayer remains optional and historic liturgy retains its verbatim contract.",
-    "Connects user-provided external memory to preference resolution and existing freshness/source-cycling rules without assuming a storage provider. Reads precede theme selection; authorized updates follow validated final output. Missing history remains unverified, writes require confirmed success, and reader scopes and unrelated content are preserved.",
-    "Makes cross-run source rotation actionable during quotation and study selection, preserves semantic topic cycling through tarot mode and final checks, and retains a reader-scoped rolling seed buffer. Distinct same-day requests have separate run identities; internal retries replace their existing seed. Older source summaries remain available for longer lookbacks.",
-    "Defaults repeat same-day requests to the same reader seed and selected sources, using the reader local civil date. Explicit new subjects trigger normal selection and uniqueness checks. Adjusting length, reading level, prayer, or rendering preserves the seed and does not consume a second history slot."
+    "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
+    "Output axes distinguish devotional/study guide, condensed/standard/expanded, and UI/PDF. Study depth remains independent of rendered length.",
+    "Condensed index card devotionals use the engine-owned body and surface contracts, including the explicit rendered-reference range and optional brief generated prayer.",
+    "The approved condensed specimen uses Corrie ten Boom, a sixth-grade body, a primary Scripture reference, a generated prayer, and supporting references.",
+    "UI is headerless; PDF retains its document header and uses profile-aware primary Scripture expansion. Images are excluded from PDF and study guides.",
+    "The image composer owns acquisition and fallback precedence. Assembly and validation inspect delivered surfaces and return failures to the composer.",
+    "User-provided memory is reader-scoped and permission-bound. Missing history is unverified; reads and writes require confirmed outcomes.",
+    "The rolling seed history preserves distinct seeds and their compact study lineage; longer source summaries are updated before older seeds are pruned.",
+    "Same-reader same-local-day requests reuse the seed and study source pool unless a new subject is specified. Presentation variants retain seed identity and choose references by actual influence and the requested profile.",
+    "Explicit subjects take precedence over horoscope topic selection. Freshness is sought within the requested subject through mode, reasoning, application, and source perspective.",
+    "New-seed selection checks recent topic semantics and author rotation; intentional same-day reuse checks preservation instead.",
+    "Tests verify contract wiring, paths, hashes, routing reference cases, and local fixture operations; they do not execute an LLM devotional generator."
   ]
 }

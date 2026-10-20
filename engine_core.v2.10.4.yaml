@@ -19,7 +19,7 @@ engine_core:
   - editorial_passes_sharpen_parameters_without_full_rewrite
   - structure_is_an_attractor_not_a_cage
   - weekly_motif_may_link_days_but_must_not_replace_daily_thematic_novelty
-  - horoscope_defines_the_problem
+  - explicit_user_subject_or_otherwise_horoscope_defines_the_problem
   - tarot_defines_the_mode
   - quote_targets_problem_through_mode
   - scripture_anchors_problem_plus_mode_in_context
@@ -111,12 +111,13 @@ engine_core:
       run_identity: unique_per_new_seed_stable_across_same_day_reuse_retries_and_repairs
       startup: use_available_records_without_inventing_missing_history
       seed_fields:
-        - run_id_and_date
+        - run_id_reader_scope_local_civil_date_and_timezone
         - problem_and_primary_theme_and_semantic_theme_cluster
         - tarot_card_and_interpretive_mode
         - primary_quote_text_and_author_and_source
         - primary_scripture_reference
         - materially_influential_supporting_authors_and_sources
+        - consulted_and_deferred_source_identities_with_compact_study_brief_or_retrievable_pointer
         - thesis_and_theological_focus
         - application_angle_and_domain
         - governing_metaphor_and_imagery
@@ -127,7 +128,7 @@ engine_core:
         - save_only_final_validated_seeds_and_replace_the_same_run_on_retry
         - retain_the_newest_distinct_seeds_in_generation_order_including_new_subjects_on_the_same_date
         - prune_only_older_seed_entries_for_this_reader_after_the_new_record_is_confirmed
-        - preserve_lightweight_source_rotation_summaries_needed_for_longer_existing_lookbacks
+        - update_and_confirm_lightweight_source_rotation_summaries_for_longer_existing_lookbacks_before_pruning_seeds
     maintenance:
       - update_the_same_record_on_retry_or_revision_without_duplicating_it
       - preserve_unrelated_content_and_other_readers_records
@@ -147,16 +148,25 @@ engine_core:
     lookup: newest_compatible_final_seed_for_the_same_reader_and_local_date_in_authorized_memory_or_visible_conversation
     default: reuse_existing_seed_and_sources_unless_the_user_specifies_a_new_subject
     reuse:
-      - preserve_problem_tarot_card_mode_quote_primary_scripture_thesis_and_selected_sources
+      - preserve_problem_tarot_card_mode_quote_primary_scripture_thesis_and_the_study_source_pool
+      - choose_the_rendered_reference_subset_by_current_profile_and_actual_influence_without_adding_sources_to_the_pool
       - adapt_composition_length_reading_level_rendering_and_optional_prayer_to_the_current_request
       - restore_missing_study_context_from_the_same_sources_when_needed
       - do_not_repeat_horoscope_selection_tarot_draw_or_author_rotation_for_a_reused_seed
       - do_not_consume_another_seed_history_slot_for_a_presentation_variant
     new_subject:
       - use_the_explicit_subject_as_the_problem_constraint_and_build_a_new_seed
-      - apply_normal_topic_and_source_rotation_checks_to_the_new_seed
+      - apply_source_rotation_and_seek_fresh_mode_thesis_and_application_without_replacing_the_requested_subject
     missing_seed: use_available_context_without_claiming_reuse_of_an_unretrievable_seed
     preservation_guard: explain_a_source_or_seed_integrity_problem_instead_of_silently_substituting_a_new_seed_or_author
+  problem_selection:
+    precedence: explicit_user_subject_then_daily_horoscope
+    explicit_subject:
+      preserve: true
+      astrology_required: false
+      freshness: seek_a_fresh_mode_thesis_application_and_source_perspective_within_the_requested_subject
+      forbid: silently_replacing_the_requested_subject_to_satisfy_topic_rotation
+    default_subject: apply_normal_horoscope_and_topic_cycle_selection
   source_authority_weights:
     scripture: 1.0
     church_fathers: 0.9
@@ -1073,6 +1083,7 @@ engine_core:
     enabled: true
     classification: process_health_metric
     cross_run_review:
+      applies_when: selecting_a_new_seed
       same_day_reuse_authority: engine_core.same_day_seed_reuse
       history_authority: engine_core.external_memory.seed_history
       applies_to: primary_quote_author_and_materially_influential_supporting_authors
@@ -1186,6 +1197,8 @@ engine_core:
       liturgical_prayer_should_follow_calendar_not_devotional_theme: true
       do_not_reject_valid_liturgical_prayer_for_theme_mismatch: true
   freshness_controls:
+    seed_mutating_actions_apply_when: selecting_a_new_seed
+    explicit_subject_authority: engine_core.problem_selection
     redundancy_decay:
       enabled: true
       window_days: 7
@@ -1199,6 +1212,8 @@ engine_core:
       - theme_cluster
     freshness_entropy:
       enabled: true
+      applies_when: selecting_a_new_seed
+      explicit_subject_authority: engine_core.problem_selection
       tracked_dimensions:
       - primary_theme
       - theme_cluster
@@ -1220,6 +1235,10 @@ engine_core:
       - alter_application_angle
       - prefer_alternate_image_scene
     daily_theme_freshness:
+      applies_when: selecting_a_new_seed
+      explicit_subject_authority: engine_core.problem_selection
+      general_theme_failure_rules_apply_when: subject_is_not_explicitly_requested
+      explicit_subject_check: preserve_subject_and_check_for_fresh_interpretive_reasoning_and_application
       same_day_reuse_authority: engine_core.same_day_seed_reuse
       enabled: true
       priority: hard_requirement
@@ -1300,13 +1319,14 @@ engine_core:
       sharpen, and synthesize earlier material, but may not erase or replace it.
     stages:
       horoscope_problem_definition:
+        problem_selection_authority: engine_core.problem_selection
         role: define_the_reader_need
         outputs:
         - problem
         - theme_cluster
         - intensity
         rules:
-        - must_define_the_core_problem_for_today
+        - must_define_the_core_problem_for_today_under_problem_selection_precedence
         - must_not_write_the_devotional
         - must_not_determine_mode_or_application_by_itself
       tarot_mode_selection:
@@ -1353,7 +1373,8 @@ engine_core:
         - thesis_must_preserve_problem
         - thesis_must_show_mode
         - thesis_must_be_grounded_in_scripture_context
-        - thesis_must_be_specific_enough_to_differ_from_recent_days
+        - new_seed_thesis_must_be_specific_enough_to_differ_from_recent_days
+        - reused_seed_thesis_must_remain_preserved
         outputs:
         - thesis
         - thesis_provenance

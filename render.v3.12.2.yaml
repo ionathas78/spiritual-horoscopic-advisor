@@ -3,7 +3,7 @@ file_role: canonical_render
 status: reconciled_single_authority
 render:
   normative_examples:
-    source_file: surface_examples.v1.0.0.md
+    source_file: surface_examples.v1.1.0.md
     authority: normative_surface_specimens
     use_rule: >
       Apply the governing YAML contracts first, then use the matching specimen
@@ -277,7 +277,8 @@ render:
   additional_references_rendering:
     enabled_when_preference_true: true
     default_enabled: true
-    omit_when_empty: true
+    omit_when_empty: false
+    on_empty_when_enabled: return_to_composer_without_padding
     header_text: Additional References
     allowed_source_classes:
     - supporting_scripture
@@ -601,7 +602,10 @@ render:
         direct_body_quote_citation_mode: footnotes_only
       anchor_reference:
         position: in_flow_after_devotional
-        expanded_text_present: true
+        expanded_text_by_content_length:
+          condensed: false
+          standard: true
+          expanded: true
         hyperlinked_reference_required_when_available: true
         must_appear_before_prayer_and_additional_references: true
         must_not_be_duplicated_below_header: true
