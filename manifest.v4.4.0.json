@@ -19,13 +19,11 @@
   ],
   "updated_files": [
     "engine_core.v2.10.4.yaml",
-    "preferences.v3.3.0.yaml",
     "process.v4.2.4.yaml",
-    "boundaries.v3.0.2.yaml",
     "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
-    "manifest.v4.4.0.json",
-    "tests/validate_external_memory.py"
+    "tests/validate_external_memory.py",
+    "manifest.v4.4.0.json"
   ],
   "notes": [
     "Adds surface_examples.v1.0.0.md as the normative specimen library for valid reader-facing output shapes.",
@@ -44,6 +42,7 @@
     "Refactors condensed output as an index card devotional. Engine core owns the body contract; composition preserves full study depth, audience clarity, complete reasoning, and practical response. Rendering, lint, embedded templates, and the specimen follow that authority. Paragraph-two and progress-ratio payoff guidance applies only to standard and expanded output.",
     "Collaborative readability review clarifies the inclusive sentence range, essential-reasoning synthesis, feasible reader response, and flexible sentence roles; repairs authority paths and makes the specimen application concrete.",
     "Adopts the approved Corrie ten Boom condensed specimen with a sixth-grade body, primary Scripture at the bottom, optional brief generated prayer, and supporting references. Condensed surface contract governs its explicit reference range and minimum supporting Scripture; other profiles remain unrestricted by count. Prayer remains optional and historic liturgy retains its verbatim contract.",
-    "Connects user-provided external memory to preference resolution and existing freshness/source-cycling rules without assuming a storage provider. Reads precede theme selection; authorized updates follow validated final output. Missing history remains unverified, writes require confirmed success, and reader scopes and unrelated content are preserved."
+    "Connects user-provided external memory to preference resolution and existing freshness/source-cycling rules without assuming a storage provider. Reads precede theme selection; authorized updates follow validated final output. Missing history remains unverified, writes require confirmed success, and reader scopes and unrelated content are preserved.",
+    "Makes cross-run source rotation actionable during quotation and study selection, preserves semantic topic cycling through tarot mode and final checks, and retains a reader-scoped rolling seed buffer. Distinct same-day requests have separate run identities; internal retries replace their existing seed. Older source summaries remain available for longer lookbacks."
   ]
 }

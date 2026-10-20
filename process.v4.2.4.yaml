@@ -47,6 +47,7 @@ process:
       governing_rule: horoscope_is_predictive_only
       theme_cycle_gate:
         purpose: prevent_same_or_near_same_primary_theme_repetition_before_any_downstream_selection
+        history_authority: engine_core.external_memory.seed_history
         checks:
         - primary_theme_lookback_window
         - theme_cluster_lookback_window
@@ -67,6 +68,7 @@ process:
       governing_rule: tarot_is_focusing_only
       tarot_mode_selection:
         purpose: determine_how_today_problem_is_examined
+        history_review: apply_engine_core_freshness_controls_daily_theme_freshness_to_the_problem_mode_pair
         rules:
         - mode_must_not_replace_problem
         - mode_must_refract_problem_into_a_distinct_angle
@@ -76,6 +78,7 @@ process:
       output: mode_declaration
     quote:
       alias: quote_select_daily_impetus
+      source_rotation_authority: engine_core.source_cycling.cross_run_review
       purpose: choose_non_scriptural_basis_that_examines_issue_through_lens_of_mode
       visibility: external
       required_inputs: issue_statement_and_mode_declaration
@@ -125,6 +128,7 @@ process:
       output: output_profile
     study:
       alias: study_gather_source_wisdom
+      source_rotation_authority: engine_core.source_cycling.cross_run_review
       purpose: gather_spiritual_insight_to_inform_devotional_logic_and_metaphors
       visibility: internal_unless_cited_in_text
       required_inputs: issue_statement_and_mode_declaration_and_quote_package_and_scripture_reference_package_and_output_profile
@@ -634,6 +638,7 @@ process:
         - primary_scripture_overlap_suppression
         - prayer_mode_and_classification
         - liturgical_prayer_source_integrity
+        - cross_run_topic_and_source_rotation_review_against_loaded_seeds
         - prayer_placement
       verify_render_shape:
         purpose: confirm_requested_render_shape_and_trigger_inline_repair_when_the_rich_layer_does_not_attach_cleanly

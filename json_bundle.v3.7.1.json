@@ -45,7 +45,8 @@
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
     "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
     "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
-    "Adds optional user-designated external memory configuration, governed by engine_core.external_memory; process loads relevant reader context before selection and updates confirmed final records within authorized access."
+    "Adds optional user-designated external memory configuration, governed by engine_core.external_memory; process loads relevant reader context before selection and updates confirmed final records within authorized access.",
+    "Recent reader-scoped seeds connect topic uniqueness, tarot approach, primary quotation, and supporting-author rotation across generation requests. The rolling buffer and seed fields are governed only by engine_core.external_memory.seed_history."
   ],
   "documents": [
     {
@@ -648,7 +649,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "8f5210a42f05533d2e0f37101a4f38eca5692f575c8b80bd378d7e3512793e5a",
+      "sha256": "45644d79882ed3ff43acc4c6d0c8edb4821a03f8eccb0da72bd24f14751d9ec6",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -972,7 +973,8 @@
           "location": null,
           "reader_scope": null,
           "configuration_authority": "preferences.reader_contract_preferences.external_memory",
-          "behavior_authority": "engine_core.external_memory"
+          "behavior_authority": "engine_core.external_memory",
+          "seed_history_authority": "engine_core.external_memory.seed_history"
         }
       }
     },

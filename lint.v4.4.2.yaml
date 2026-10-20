@@ -13,6 +13,10 @@ lint:
     - unavailable_history_does_not_count_as_verified_freshness
     - only_validated_final_records_are_saved_and_retries_do_not_duplicate_them
     - save_status_matches_confirmed_result
+    - seed_history_retention_and_fields_match_engine_core_external_memory_seed_history
+    - recent_seed_semantics_are_checked_even_when_card_or_author_changes
+    - primary_quote_and_supporting_authors_receive_cross_run_rotation_review
+    - recent_author_reuse_has_a_recorded_contextual_or_explicit_request_reason
   normative_example_checks:
     source_file: surface_examples.v1.0.0.md
     examples_are_normative_not_exhaustive: true

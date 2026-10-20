@@ -91,6 +91,7 @@ engine_core:
     read_before: horoscope_identify_daily_issue
     read_scope:
       - relevant_explicit_preferences_and_reader_feedback_for_the_selected_reader
+      - all_available_recent_seeds_from_the_reader_scoped_seed_history
       - recent_final_devotional_records_covering_existing_freshness_and_source_rotation_lookbacks
       - relevant_user_supplied_context_when_authorized
     precedence: current_explicit_request_then_current_explicit_preferences_then_stored_preferences_then_stack_defaults
@@ -104,6 +105,29 @@ engine_core:
     save:
       - compact_dated_reader_scoped_record_of_the_final_devotional_thesis_and_fields_used_by_existing_freshness_and_source_cycling_rules
       - explicitly_stated_preference_changes_and_feedback_when_within_authorized_scope
+    seed_history:
+      retain_latest_runs: 5
+      scope: selected_reader_across_dates_and_output_lengths
+      run_identity: unique_per_independent_generation_request_stable_for_internal_retries_and_repairs
+      startup: use_available_records_without_inventing_missing_history
+      seed_fields:
+        - run_id_and_date
+        - problem_and_primary_theme_and_semantic_theme_cluster
+        - tarot_card_and_interpretive_mode
+        - primary_quote_text_and_author_and_source
+        - primary_scripture_reference
+        - materially_influential_supporting_authors_and_sources
+        - thesis_and_theological_focus
+        - application_angle_and_domain
+        - governing_metaphor_and_imagery
+      checks_authority:
+        topics: engine_core.freshness_controls.daily_theme_freshness
+        sources: engine_core.source_cycling
+      maintenance:
+        - save_only_final_validated_seeds_and_replace_the_same_run_on_retry
+        - retain_the_newest_runs_in_generation_order_including_distinct_runs_on_the_same_date
+        - prune_only_older_seed_entries_for_this_reader_after_the_new_record_is_confirmed
+        - preserve_lightweight_source_rotation_summaries_needed_for_longer_existing_lookbacks
     maintenance:
       - update_the_same_record_on_retry_or_revision_without_duplicating_it
       - preserve_unrelated_content_and_other_readers_records
@@ -1032,6 +1056,14 @@ engine_core:
   source_cycling:
     enabled: true
     classification: process_health_metric
+    cross_run_review:
+      history_authority: engine_core.external_memory.seed_history
+      applies_to: primary_quote_author_and_materially_influential_supporting_authors
+      selection: actively_prefer_suitable_authors_absent_from_recent_seeds
+      repeated_author: seek_a_different_suitable_perspective_before_reusing
+      exceptions: explicit_reader_request_or_materially_stronger_contextual_fit
+      exception_record: brief_internal_reason_required_when_reusing_a_recent_author
+      guard: a_new_author_must_change_the_interpretive_contribution_not_just_the_attribution
     tracked_dimensions:
     - individual_source
     - author
@@ -1173,6 +1205,12 @@ engine_core:
     daily_theme_freshness:
       enabled: true
       priority: hard_requirement
+      cross_run_history_authority: engine_core.external_memory.seed_history
+      comparison_scope: recent_seeds_in_addition_to_the_existing_day_based_lookback
+      semantic_review:
+        - compare_problem_mode_thesis_and_application_before_render
+        - a_different_card_author_or_wording_does_not_by_itself_establish_a_new_devotional
+        - if_the_message_repeats_revisit_problem_or_mode_and_rebuild_downstream_selections
       doctrine: 'Weekly motif continuity may persist in the background, but each daily devotional must present a
         distinctly fresh primary theme. If a new devotional substantially overlaps a recent devotional in primary
         theme, semantic theme cluster, theological focus, or application angle, it must be revised before render.

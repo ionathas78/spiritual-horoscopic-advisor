@@ -25,6 +25,13 @@ def main():
     assert prefs['reader_contract_preferences']['external_memory']['location']['default'] is None
     assert policy['write_only_with'] == 'user_authorized_write_access'
     assert 'current_explicit_request_then' in policy['precedence']
+    seed_policy = policy['seed_history']
+    assert seed_policy['retain_latest_runs'] == 5
+    assert any('tarot_card' in field for field in seed_policy['seed_fields'])
+    assert any('primary_quote' in field for field in seed_policy['seed_fields'])
+    assert any('supporting_authors' in field for field in seed_policy['seed_fields'])
+    assert engine['engine_core']['source_cycling']['cross_run_review']['history_authority'] == 'engine_core.external_memory.seed_history'
+    assert engine['engine_core']['freshness_controls']['daily_theme_freshness']['cross_run_history_authority'] == 'engine_core.external_memory.seed_history'
     assert any('unverified' in rule for rule in policy['unavailable'])
     assert any('without_confirmation' in rule for rule in policy['unavailable'])
     assert any('other_readers' in rule for rule in policy['maintenance'])
@@ -57,6 +64,15 @@ def main():
         assert len(saved['readers']['reader_a']['history']) == 2
         assert saved['readers']['reader_b'] == untouched
         assert saved['unrelated_notes'] == 'Preserve me.'
+        # Separate requests on the same date must survive as distinct seeds.
+        for run in range(7):
+            next_seed = {'id': f'run-{run}', 'date': '2026-10-20', 'theme_cluster': f'theme-{run}'}
+            reader['history'] = (reader['history'] + [next_seed])[-seed_policy['retain_latest_runs']:]
+        path.write_text(json.dumps(loaded))
+        saved = json.loads(path.read_text())
+        assert [v['id'] for v in saved['readers']['reader_a']['history']] == ['run-2', 'run-3', 'run-4', 'run-5', 'run-6']
+        assert saved['readers']['reader_b'] == untouched
+        assert saved['unrelated_notes'] == 'Preserve me.'
 
 
     bundle = json.loads((ROOT / 'json_bundle.v3.7.1.json').read_text())
@@ -64,7 +80,7 @@ def main():
         if 'doc' in doc:
             canonical = json.dumps(doc['doc'], ensure_ascii=False, sort_keys=True, separators=(',', ':'))
             assert doc['sha256'] == hashlib.sha256(canonical.encode()).hexdigest()
-    print('PASS: memory stage wiring, authority, missing-history safeguards, and local fixture read/update/retry checks.')
+    print('PASS: memory stage wiring, authority, missing-history safeguards, and local fixture read/update/retry and same-day rolling-seed checks.')
 
 
 if __name__ == '__main__':
