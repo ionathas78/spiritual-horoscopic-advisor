@@ -116,6 +116,7 @@ process:
       default: none
       must_precede: write_compose_devotional
       governing_rule: study_a_diverse_minimum_set_and_continue_until_the_question_is_responsibly_explored
+      length_independence: every_content_length_receives_the_full_shared_study_pass
       agents:
         minimum_total: 5
         recommended_total: 6
@@ -357,7 +358,9 @@ process:
         expanded:
           never_compress_into_standard
         condensed:
-          never_expand_to_fill_space
+          authority: engine_core.output_profiles.condensed
+          composition_priority: crystallize_the_full_studied_thought_with_audience_appropriate_clarity
+          never_expand_to_fill_space: true
       editing_passes:
         structural_draft_pass:
           purpose: architecture_before_polish
@@ -386,9 +389,10 @@ process:
         validate_payoff_anchor:
           purpose: ensure_main_insight_lands_before_final_sentence
           checks:
-          - interpretive_turn_should_appear_at_paragraph_2_sentence_1_when_possible
+          - for_standard_and_expanded_interpretive_turn_should_appear_at_paragraph_2_sentence_1_when_possible
+          - for_condensed_apply_engine_core_output_profiles_condensed_and_payoff_placement_condensed
           - final_sentence_should_complete_application_not_introduce_main_theme
-          - payoff_progress_ratio_should_fall_within_0_56_to_0_72
+          - for_standard_and_expanded_payoff_progress_ratio_should_fall_within_0_56_to_0_72
         conceptual_attractor_pass:
           purpose: advisory_structural_guidance_that_encourages_coherence_without_forcing_a_rigid_sentence_template
       output: devotional_manuscript
@@ -813,3 +817,4 @@ process:
       - alias_map_must_cover_every_pipeline_step
       - alias_order_must_match_pipeline_order
       - overall_alias_must_be_declared_once
+

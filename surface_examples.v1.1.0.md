@@ -56,7 +56,7 @@ exclusions for PDF, study guides, and images-disabled output remain in force.
 
 ## EX-UI-CONDENSED · Condensed UI Devotional
 
-**Purpose:** Shows compression without deleting required surfaces or flattening the theological movement.
+**Purpose:** An index card devotional: a complete studied thought in a compact, audience-appropriate body. The body contract is governed by engine_core.output_profiles.condensed; surrounding surfaces retain their normal contracts.
 
 <!-- profile: artifact_type=devotional; content_length=condensed; render_target=ui; images=enabled; prayer=none -->
 
@@ -68,9 +68,7 @@ Enough Light
 
 — [Corrie ten Boom](https://example.org/quote-source)
 
-Uncertainty makes the future feel larger than God’s present care. Yet Jesus repeatedly returns our attention to today: today’s bread, today’s obedience, today’s mercy. Faith does not require us to imagine every possible ending. It asks us to receive the grace already placed within reach.
-
-We may still plan wisely, but planning need not become an attempt to control what has not arrived. The Shepherd who meets us here will not become absent at the next bend. Carry today’s light. Tomorrow will have light of its own.
+When tomorrow feels uncertain, planning can become a search for enough answers to quiet every fear. Jesus directs our attention to today's needs because our Father's care is already meeting us here. As we remember the mercy that greets us each morning, we can prepare for the future while accepting that some questions will remain open. Choose one useful step you can take today, and bring the worry you cannot settle into prayer. You can leave that question open and still attend with love to the person or task before you.
 
 [Matthew 6:34 (NRSVUE)](https://example.org/scripture)
 
@@ -308,3 +306,4 @@ The next faithful act may be modest: making the call, offering forgiveness, rest
 - Psalm 119:105 (NIV)
 - Proverbs 3:5–6 (NIV)
 - John Chrysostom, *Homilies on Hebrews*
+

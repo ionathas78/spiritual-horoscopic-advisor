@@ -42,12 +42,13 @@
     "Adds orthogonal output-profile contracts and a normative surface-example registry for devotional, study-guide, UI, and PDF realization.",
     "Adds optional prayer output with generated or liturgical modes, Catholic/Anglican tradition selection, date-specific source integrity, generated fallback, and prayer placement before Additional References and footer footnotes.",
     "Reconciles devotional length handling so paragraph counts and word counts are profile-guided rather than hard-capped, including five-paragraph expanded devotionals and reading-level-sensitive variation.",
-    "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md."
+    "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
+    "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance."
   ],
   "documents": [
     {
       "source_path": "constellation_persona_engine.v1.json",
-      "sha256": "82cacf65d015e72736878569d2b323bf492c82922daefb7dea723afa8aae459d",
+      "sha256": "de2a1458800244e3fc39929430e3bc7388825e3502d24ca797eaf251ab7cef68",
       "doc": {
         "interaction_engine": {
           "id": "constellation_persona_engine.v1",
@@ -83,7 +84,7 @@
           "constellations": {
             "Persona": {
               "name": "Personality",
-              "description": "Governs the persona\u2019s identity, dialogue, and actions.",
+              "description": "Governs the persona’s identity, dialogue, and actions.",
               "components": {
                 "Primary": {
                   "role": "Final Authority"
@@ -196,7 +197,7 @@
     },
     {
       "source_path": "devo_mvp_entry.schema.v1.1.json",
-      "sha256": "4ff1f2594173192cdefe802e9ed999a8e6624326b8313d1c573e1428e7269a57",
+      "sha256": "d6ba0edf5a2f398619ebf0bdfabec09ad7a9e04a1fb49eb7d3cc24617050defb",
       "doc": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Devo MVP Entry",
@@ -625,7 +626,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "50d7919295b88b999fa87892d62564fefd332975361aa0c970ff10d771072975",
+      "sha256": "3b380b6a0660ae3b116c2488c34dbdf745beb764114e0850f58f980bde6dc9a6",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -949,7 +950,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "fd42b45a9d30fc9792443960d947119ae802d2c9c3eaa91cb3ce3805cbef78f4",
+      "sha256": "1d7f1f54bf02f4692411b2be5d329c4ec36c91a52c0eb3a91770cdccedc92643",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1396,7 +1397,9 @@
             "forbid_primary_scripture_equivalence_in_footnotes": true,
             "additional_references_is_only_permitted_metadata_heading": true,
             "additional_references_heading_requires_nonempty_block": true,
-            "acceptable_image_surface_required_when_images_enabled": true
+            "acceptable_image_surface_required_when_images_enabled": true,
+            "condensed_body_contract_authority": "engine_core.output_profiles.condensed",
+            "condensed_word_quota_applies": false
           }
         },
         "ext": {},
@@ -1696,7 +1699,7 @@
     },
     {
       "source_path": "devotional_pdf_render_template_v1.0.0.json",
-      "sha256": "4bfc60933eb899e3712249d529fc35a716cc043da9f77174486d50458d6757cb",
+      "sha256": "eb7e0d38ee646db61764f106523fbf6731f83f11ee1fe953b991d500e9b7d726",
       "doc": {
         "template_id": "devotional_pdf_render_template",
         "template_version": "1.2.0",
@@ -1735,7 +1738,6 @@
           "devotional_body": {
             "required": true,
             "paragraph_count_guideline_by_content_length": {
-              "condensed": 2,
               "standard": 2,
               "expanded": 5
             },
@@ -1744,7 +1746,8 @@
             "allow_direct_quotes_in_body": true,
             "direct_quote_citation_mode": "footnotes_only",
             "inline_attribution_forbidden": true,
-            "spoken_flow_required": true
+            "spoken_flow_required": true,
+            "condensed_body_contract_authority": "engine_core.output_profiles.condensed"
           },
           "anchor_scripture": {
             "required": true,
@@ -1802,7 +1805,7 @@
     },
     {
       "source_path": "surface_examples_registry.v1.0.0.json",
-      "sha256": "fa4d042754c30337b588e2a7a8e48e65beb108fe7a51b2043e5134a80d578e63",
+      "sha256": "5d76d057c44123dac27a3df6eec74ee66b95ee1733c16c1ab5f2a564505146b3",
       "doc": {
         "registry_id": "devotional_surface_examples_registry",
         "registry_version": "1.1.0",

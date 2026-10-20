@@ -99,10 +99,25 @@ engine_core:
 
   output_profiles:
     condensed:
-      purpose: concise_daily_reflection
-      paragraph_target:
-        preferred: 2
-        acceptable: [1, 3]
+      purpose: index_card_devotional
+      body_contract:
+        sentence_count: [4, 6]
+        count_scope: devotional_body_only
+        excluded_from_count: [title, primary_quote, attribution, scripture_surface, references, prayer, footnotes]
+        presentation: one_compact_text_block
+        line_breaks: only_when_they_improve_readability
+        reading_level: match_target_audience
+        density: high_meaning_per_sentence_with_clear_vocabulary_and_syntax
+      study_depth: full_shared_study_pass
+      composition:
+        - synthesize_the_full_devotional_thought_from_the_study_brief
+        - preserve_the_reasoning_that_connects_human_concern_scriptural_insight_and_practical_response
+        - make_each_sentence_advance_the_thought
+        - refine_until_the_message_is_graspable_at_a_glance_and_rewards_rereading
+        - preserve_necessary_distinctions_and_qualifications
+        - avoid_clause_packing_fragments_and_telegraphic_summary
+        - do_not_require_a_standard_length_draft_as_an_intermediate_artifact
+      word_count: follows_sentence_count_reading_level_and_completeness
   
     standard:
       purpose: default_daily_devotional
@@ -479,7 +494,9 @@ engine_core:
     
       default_profile: standard
     
+      condensed_body_authority: engine_core.output_profiles.condensed
       paragraph_roles:
+        applies_to: [standard, expanded]
         opening:
           purpose: establish_principle
       
@@ -500,6 +517,7 @@ engine_core:
             - never_repeat_previous_paragraphs
     structural_balance_ratio:
       enabled: true
+      applies_to: [standard, expanded]
       model: golden_ratio_bias
       target_ratios:
         quote: 0.15
@@ -517,9 +535,15 @@ engine_core:
         the final sentence.
 
         '
+      condensed:
+        authority: engine_core.output_profiles.condensed
+        placement: insight_before_closing_application
+        paragraph_anchor_and_progress_ratio: not_applicable
       preferred_anchor:
+        applies_to: [standard, expanded]
         paragraph: 2
         sentence: 1
+      progress_ratio_applies_to: [standard, expanded]
       target_progress_ratio: 0.62
       acceptable_band:
       - 0.56
@@ -529,7 +553,7 @@ engine_core:
         anchor_sentence: interpretive_turn
         post_anchor_material: application_and_resolution
       enforcement:
-      - key_realization_should_appear_by_paragraph_2_sentence_1_when_possible
+      - for_standard_and_expanded_key_realization_should_appear_by_paragraph_2_sentence_1_when_possible
       - final_sentence_should_land_application_not_introduce_main_theme
       - avoid_story_climax_at_last_line
     sentence_integrity:
@@ -542,11 +566,12 @@ engine_core:
     devotional_length_guidance:
       classification: process_health_metric
       preferred_word_bands:
-        condensed: [140, 200]
         standard: [180, 270]
         expanded: [350, 550]
 
+      condensed_authority: engine_core.output_profiles.condensed
       governing_rule:
+        - selected_profile_body_contract_precedes_word_count
         - paragraph_completeness_precedes_word_count
         - reading_complexity_may_shift_natural_length
 
@@ -1289,3 +1314,4 @@ engine_core:
     - supporting_scripture_must_be_gathered_before_non_scriptural_commentary
     - non_scriptural_sources_must_not_substitute_for_supporting_scripture
     - patristic_sources_may_be_numerous_when_influential_but_are_rendered_in_addition_to_supporting_scripture
+

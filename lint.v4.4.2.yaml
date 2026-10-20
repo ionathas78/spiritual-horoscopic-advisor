@@ -118,11 +118,25 @@ lint:
   word_count_checks:
     authority: engine_core.devotional_length_guidance
     advisory_only: true
+    applies_to: [standard, expanded]
+    condensed_authority: engine_core.output_profiles.condensed
     fail_if:
       - extreme_outlier_relative_to_selected_profile
     warn_if:
       - outside_preferred_band
     never_fail_only_for_missing_preferred_band: true
+  condensed_body_checks:
+    authority: engine_core.output_profiles.condensed
+    apply_when: artifact_type_devotional_and_content_length_condensed
+    on_failure: return_to_composer_with_specific_failure
+    checks:
+    - body_sentence_count_matches_profile_contract
+    - body_is_a_compact_readable_block
+    - audience_reading_level_is_preserved_without_clause_packing
+    - complete_reasoning_and_practical_response_survive_synthesis
+    - every_sentence_advances_the_thought
+    - full_shared_study_depth_is_preserved
+    - no_condensed_word_quota_is_applied
   sentence_integrity_checks:
   - no_false_contrast_via_compression
   - no_collapsed_mechanism
@@ -130,6 +144,8 @@ lint:
   - no_false_rhetorical_escalation
   - no_synthetic_aphorism
   payoff_anchor_checks:
+    applies_to: [standard, expanded]
+    condensed_authority: engine_core.payoff_placement.condensed
     target_progress_ratio: 0.62
     acceptable_band:
     - 0.56
@@ -604,3 +620,4 @@ lint:
     - supporting_scripture_follows_non_scriptural_entry
     - primary_anchor_or_overlap_is_counted_as_supporting_scripture
     - commentary_substitutes_for_supporting_scripture
+

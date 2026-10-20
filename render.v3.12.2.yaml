@@ -63,7 +63,10 @@ render:
       authority: engine_core.output_profiles
     
       condensed:
+        authority: engine_core.output_profiles.condensed
         preserve_concise_surface: true
+        render_body_as_compact_block: true
+        preserve_composer_readability_breaks: true
     
       standard:
         preserve_default_surface: true
@@ -637,3 +640,4 @@ render:
         omit_entire_section_when_empty: true
       spacing:
         increase_section_spacing: true
+
