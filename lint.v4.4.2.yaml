@@ -116,7 +116,7 @@ lint:
   - fail_if_reference_surface_is_paraphrased
   - fail_if_quote_surface_is_paraphrased
   word_count_checks:
-    authority: engine_core.devotional_length_guidance
+    authority: engine_core.writing_constraints.devotional_length_guidance
     advisory_only: true
     applies_to: [standard, expanded]
     condensed_authority: engine_core.output_profiles.condensed
@@ -145,7 +145,7 @@ lint:
   - no_synthetic_aphorism
   payoff_anchor_checks:
     applies_to: [standard, expanded]
-    condensed_authority: engine_core.payoff_placement.condensed
+    condensed_authority: engine_core.writing_constraints.payoff_placement.condensed
     target_progress_ratio: 0.62
     acceptable_band:
     - 0.56

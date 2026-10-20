@@ -101,7 +101,9 @@ engine_core:
     condensed:
       purpose: index_card_devotional
       body_contract:
-        sentence_count: [4, 6]
+        sentence_count:
+          minimum: 4
+          maximum: 6
         count_scope: devotional_body_only
         excluded_from_count: [title, primary_quote, attribution, scripture_surface, references, prayer, footnotes]
         presentation: one_compact_text_block
@@ -111,12 +113,20 @@ engine_core:
       study_depth: full_shared_study_pass
       composition:
         - synthesize_the_full_devotional_thought_from_the_study_brief
+        - select_the_central_studied_insight_and_its_essential_reasoning_while_retaining_other_findings_in_the_study_brief
         - preserve_the_reasoning_that_connects_human_concern_scriptural_insight_and_practical_response
         - make_each_sentence_advance_the_thought
         - refine_until_the_message_is_graspable_at_a_glance_and_rewards_rereading
         - preserve_necessary_distinctions_and_qualifications
         - avoid_clause_packing_fragments_and_telegraphic_summary
         - do_not_require_a_standard_length_draft_as_an_intermediate_artifact
+        - when_crowded_recast_or_narrow_the_insight_without_losing_its_scriptural_logic_or_necessary_qualifications
+        - offer_a_specific_feasible_response_suited_to_the_readers_circumstances_including_prayer_rest_or_attention_when_appropriate
+        - use_flexible_sentence_roles_without_a_fixed_sentence_by_sentence_template
+      final_readthrough:
+        - core_message_is_clear_on_one_unhurried_read
+        - reader_can_follow_the_scriptural_reason_for_the_response
+        - reader_can_identify_a_practicable_response_without_inventing_missing_steps
       word_count: follows_sentence_count_reading_level_and_completeness
   
     standard:

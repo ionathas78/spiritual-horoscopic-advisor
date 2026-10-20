@@ -68,7 +68,7 @@ Enough Light
 
 — [Corrie ten Boom](https://example.org/quote-source)
 
-When tomorrow feels uncertain, planning can become a search for enough answers to quiet every fear. Jesus directs our attention to today's needs because our Father's care is already meeting us here. As we remember the mercy that greets us each morning, we can prepare for the future while accepting that some questions will remain open. Choose one useful step you can take today, and bring the worry you cannot settle into prayer. You can leave that question open and still attend with love to the person or task before you.
+When tomorrow feels uncertain, you may keep planning because unanswered questions make it hard to rest. Jesus reminds us that our Father knows what we need, so we can give today's responsibilities our attention while tomorrow remains unsettled. God's care accompanies us through the uncertainty, and each morning brings fresh mercy. Before returning to your plans, pause to name one concern in prayer and ask for help with the next responsibility you can address. Then give that task your attention, letting the remaining questions wait until there is something useful you can do.
 
 [Matthew 6:34 (NRSVUE)](https://example.org/scripture)
 
