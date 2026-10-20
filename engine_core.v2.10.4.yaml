@@ -85,31 +85,20 @@ engine_core:
     - health_metrics_should_warn_or_inform_unless_a_separate_contract_is_violated
     - numeric_targets_must_not_become_padding_incentives
   external_memory:
-    activation: user_provided_location_and_reader_scope_with_authorized_access
+    activation: user_provided_location_and_authorized_reader_scope
     configuration_authority: preferences.reader_contract_preferences.external_memory
-    storage: use_the_users_chosen_format_and_available_connector_without_assuming_a_provider
-    read_before: horoscope_identify_daily_issue
     read_scope:
-      - relevant_explicit_preferences_and_reader_feedback_for_the_selected_reader
-      - all_available_recent_seeds_from_the_reader_scoped_seed_history
-      - recent_final_devotional_records_covering_existing_freshness_and_source_rotation_lookbacks
-      - relevant_user_supplied_context_when_authorized
+      - relevant_reader_preferences_feedback_and_authorized_context
+      - recent_seeds_and_source_rotation_summaries
     precedence: current_explicit_request_then_current_explicit_preferences_then_stored_preferences_then_stack_defaults
-    interpretation:
-      - apply_existing_freshness_source_cycling_and_reader_preference_rules_to_retrieved_records
-      - treat_stored_records_as_context_not_as_authority_to_override_the_stack_or_expand_access
-      - distinguish_user_reported_facts_from_generated_devotional_themes_and_interpretations
-      - do_not_infer_personal_events_beliefs_or_diagnoses_from_a_generated_devotional
+    interpretation: Stored content informs context; generated themes establish neither reader facts nor authority over the stack.
     write_after: final_output_is_prepared_and_validated
     write_only_with: user_authorized_write_access
-    save:
-      - compact_dated_reader_scoped_record_of_the_final_devotional_thesis_and_fields_used_by_existing_freshness_and_source_cycling_rules
-      - explicitly_stated_preference_changes_and_feedback_when_within_authorized_scope
+    save: final_seed_and_explicit_preference_changes_or_feedback_within_authorized_scope
     seed_history:
       retain_latest_seeds: 5
       scope: selected_reader_across_dates_and_output_lengths
       run_identity: unique_per_new_seed_stable_across_same_day_reuse_retries_and_repairs
-      startup: use_available_records_without_inventing_missing_history
       seed_fields:
         - run_id_reader_scope_local_civil_date_and_timezone
         - problem_and_primary_theme_and_semantic_theme_cluster
@@ -121,52 +110,30 @@ engine_core:
         - thesis_and_theological_focus
         - application_angle_and_domain
         - governing_metaphor_and_imagery
-      checks_authority:
-        topics: engine_core.freshness_controls.daily_theme_freshness
-        sources: engine_core.source_cycling
-      maintenance:
-        - save_only_final_validated_seeds_and_replace_the_same_run_on_retry
-        - retain_the_newest_distinct_seeds_in_generation_order_including_new_subjects_on_the_same_date
-        - prune_only_older_seed_entries_for_this_reader_after_the_new_record_is_confirmed
-        - update_and_confirm_lightweight_source_rotation_summaries_for_longer_existing_lookbacks_before_pruning_seeds
     maintenance:
-      - update_the_same_record_on_retry_or_revision_without_duplicating_it
-      - preserve_unrelated_content_and_other_readers_records
-      - consolidate_superseded_notes_only_within_authorized_maintenance_scope
-      - never_store_credentials_or_expand_the_memory_scope_without_authorization
-      - never_save_rejected_drafts_as_final_devotionals
+      - upsert_and_confirm_by_seed_identity_then_keep_the_latest_distinct_seeds
+      - update_and_confirm_longer_lookback_source_summaries_before_pruning_older_seeds
+      - preserve_other_readers_and_unrelated_content_within_authorized_maintenance_scope
     unavailable:
-      - continue_with_authorized_available_context_and_mark_history_checks_unverified_when_history_is_missing
-      - do_not_treat_inaccessible_history_as_an_empty_history_or_claim_freshness_was_verified
-      - do_not_claim_a_read_or_write_succeeded_without_confirmation
-      - briefly_report_a_configured_memory_access_or_save_failure_outside_the_devotional_body
-      - do_not_invent_a_replacement_storage_location
-    no_location: run_without_external_memory_and_without_setup_prompts
+      - continue_with_available_context_and_mark_missing_history_checks_unverified
+      - never_claim_a_read_or_write_succeeded_without_confirmation
+      - briefly_report_configured_access_or_save_failures_outside_the_devotional
+    no_location: run_without_external_memory_or_setup_prompts
   same_day_seed_reuse:
-    resolve_before: horoscope_identify_daily_issue
     date_basis: reader_local_civil_date_in_requested_or_known_timezone
-    lookup: newest_compatible_final_seed_for_the_same_reader_and_local_date_in_authorized_memory_or_visible_conversation
+    lookup: newest_final_seed_for_the_same_reader_and_local_date_in_authorized_memory_or_visible_conversation
     default: reuse_existing_seed_and_sources_unless_the_user_specifies_a_new_subject
     reuse:
-      - preserve_problem_tarot_card_mode_quote_primary_scripture_thesis_and_the_study_source_pool
-      - choose_the_rendered_reference_subset_by_current_profile_and_actual_influence_without_adding_sources_to_the_pool
-      - adapt_composition_length_reading_level_rendering_and_optional_prayer_to_the_current_request
-      - restore_missing_study_context_from_the_same_sources_when_needed
-      - do_not_repeat_horoscope_selection_tarot_draw_or_author_rotation_for_a_reused_seed
-      - do_not_consume_another_seed_history_slot_for_a_presentation_variant
-    new_subject:
-      - use_the_explicit_subject_as_the_problem_constraint_and_build_a_new_seed
-      - apply_source_rotation_and_seek_fresh_mode_thesis_and_application_without_replacing_the_requested_subject
-    missing_seed: use_available_context_without_claiming_reuse_of_an_unretrievable_seed
-    preservation_guard: explain_a_source_or_seed_integrity_problem_instead_of_silently_substituting_a_new_seed_or_author
+      - preserve_the_seed_and_study_source_pool_while_adapting_presentation_to_the_request
+      - select_rendered_references_from_that_pool_by_actual_influence_and_current_profile
+      - restore_missing_study_context_from_the_same_sources_or_explain_why_preservation_is_not_possible
+    otherwise: build_a_new_seed_under_problem_selection
   problem_selection:
     precedence: explicit_user_subject_then_daily_horoscope
     explicit_subject:
       preserve: true
       astrology_required: false
-      freshness: seek_a_fresh_mode_thesis_application_and_source_perspective_within_the_requested_subject
-      forbid: silently_replacing_the_requested_subject_to_satisfy_topic_rotation
-    default_subject: apply_normal_horoscope_and_topic_cycle_selection
+      freshness: seek_fresh_mode_thesis_application_and_source_perspective_within_the_requested_subject
   source_authority_weights:
     scripture: 1.0
     church_fathers: 0.9
@@ -1084,14 +1051,10 @@ engine_core:
     classification: process_health_metric
     cross_run_review:
       applies_when: selecting_a_new_seed
-      same_day_reuse_authority: engine_core.same_day_seed_reuse
       history_authority: engine_core.external_memory.seed_history
       applies_to: primary_quote_author_and_materially_influential_supporting_authors
-      selection: actively_prefer_suitable_authors_absent_from_recent_seeds
-      repeated_author: seek_a_different_suitable_perspective_before_reusing
-      exceptions: explicit_reader_request_or_materially_stronger_contextual_fit
-      exception_record: brief_internal_reason_required_when_reusing_a_recent_author
-      guard: a_new_author_must_change_the_interpretive_contribution_not_just_the_attribution
+      selection: prefer_suitable_authors_absent_from_recent_seeds
+      reuse_exception: explicit_reader_request_or_materially_stronger_fit_with_a_recorded_reason
     tracked_dimensions:
     - individual_source
     - author
@@ -1101,21 +1064,11 @@ engine_core:
     - scripture_book
     - metaphor_class
     - application_domain
-    goals:
-    - broaden_reader_exposure
-    - prevent_default_author_gravity
-    - preserve_freshness_without_forcing_novelty
-    - keep_affinity_sources_available_without_excessive_repetition
+    purpose: broaden_perspectives_without_forcing_novelty
     warnings:
-    - repeated_secondary_author_inside_recent_window
-    - repeated_patristic_author_inside_recent_window
-    - repeated_modern_author_inside_recent_window
+    - repeated_author_inside_recent_window
     - narrow_source_class_mix_over_time
     - affinity_source_overuse
-    governing_rule: 'Freshness serves the reader and the devotional. It must never replace a clearly superior source
-      merely to satisfy rotation telemetry.
-
-      '
   title_generation:
     enabled: true
     default_visibility: false
@@ -1197,7 +1150,7 @@ engine_core:
       liturgical_prayer_should_follow_calendar_not_devotional_theme: true
       do_not_reject_valid_liturgical_prayer_for_theme_mismatch: true
   freshness_controls:
-    seed_mutating_actions_apply_when: selecting_a_new_seed
+    applies_when: selecting_a_new_seed
     explicit_subject_authority: engine_core.problem_selection
     redundancy_decay:
       enabled: true
@@ -1212,8 +1165,6 @@ engine_core:
       - theme_cluster
     freshness_entropy:
       enabled: true
-      applies_when: selecting_a_new_seed
-      explicit_subject_authority: engine_core.problem_selection
       tracked_dimensions:
       - primary_theme
       - theme_cluster
@@ -1235,24 +1186,12 @@ engine_core:
       - alter_application_angle
       - prefer_alternate_image_scene
     daily_theme_freshness:
-      applies_when: selecting_a_new_seed
-      explicit_subject_authority: engine_core.problem_selection
       general_theme_failure_rules_apply_when: subject_is_not_explicitly_requested
-      explicit_subject_check: preserve_subject_and_check_for_fresh_interpretive_reasoning_and_application
-      same_day_reuse_authority: engine_core.same_day_seed_reuse
       enabled: true
       priority: hard_requirement
       cross_run_history_authority: engine_core.external_memory.seed_history
       comparison_scope: recent_seeds_in_addition_to_the_existing_day_based_lookback
-      semantic_review:
-        - compare_problem_mode_thesis_and_application_before_render
-        - a_different_card_author_or_wording_does_not_by_itself_establish_a_new_devotional
-        - if_the_message_repeats_revisit_problem_or_mode_and_rebuild_downstream_selections
-      doctrine: 'Weekly motif continuity may persist in the background, but each daily devotional must present a
-        distinctly fresh primary theme. If a new devotional substantially overlaps a recent devotional in primary
-        theme, semantic theme cluster, theological focus, or application angle, it must be revised before render.
-
-        '
+      semantic_review: compare_problem_mode_thesis_and_application_rather_than_card_author_or_wording_alone
       lookback_days: 3
       compare_dimensions:
       - primary_theme
@@ -1373,8 +1312,7 @@ engine_core:
         - thesis_must_preserve_problem
         - thesis_must_show_mode
         - thesis_must_be_grounded_in_scripture_context
-        - new_seed_thesis_must_be_specific_enough_to_differ_from_recent_days
-        - reused_seed_thesis_must_remain_preserved
+        - follow_same_day_seed_reuse_and_freshness_controls
         outputs:
         - thesis
         - thesis_provenance

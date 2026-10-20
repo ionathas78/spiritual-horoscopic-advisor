@@ -5,27 +5,10 @@ lint:
   governing_rule: sanity_check_not_decision_maker
   same_day_seed_reuse_checks:
     authority: engine_core.same_day_seed_reuse
-    checks:
-    - same_reader_and_local_date_are_verified_before_reuse
-    - presentation_changes_do_not_trigger_new_seed_or_author_rotation
-    - reused_seed_and_sources_remain_intact
-    - intentional_same_day_reuse_is_not_failed_as_topic_repetition
-    - a_new_subject_activates_author_rotation_and_freshness_within_the_requested_subject
-    - a_reused_seed_does_not_duplicate_history_entries
+    verify_against_authority: true
   external_memory_checks:
     authority: engine_core.external_memory
-    checks:
-    - configured_memory_load_precedes_personalization_and_theme_selection
-    - current_explicit_request_overrides_stored_preferences
-    - reader_scope_and_authorized_access_are_respected
-    - generated_devotional_themes_are_not_treated_as_reader_facts
-    - unavailable_history_does_not_count_as_verified_freshness
-    - only_validated_final_records_are_saved_and_retries_do_not_duplicate_them
-    - save_status_matches_confirmed_result
-    - seed_history_retention_and_fields_match_engine_core_external_memory_seed_history
-    - new_seed_semantics_are_checked_even_when_card_or_author_changes
-    - new_seed_primary_quote_and_supporting_authors_receive_cross_run_rotation_review
-    - new_seed_recent_author_reuse_has_a_recorded_contextual_or_explicit_request_reason
+    verify_against_authority: true
   normative_example_checks:
     source_file: surface_examples.v1.1.0.md
     examples_are_normative_not_exhaustive: true
@@ -227,12 +210,8 @@ lint:
     - imagery_theme
     - theme_cluster
     daily_theme_freshness:
-      authority: engine_core.freshness_controls.daily_theme_freshness
-      applies_when: selecting_a_new_seed
-      reuse_authority: engine_core.same_day_seed_reuse
-      explicit_subject_authority: engine_core.problem_selection
+      authority: engine_core.freshness_controls
       derive_checks_and_failure_actions_from_authority: true
-
   contract_reference_checks:
     required:
       - referenced_contract_id_exists
@@ -314,8 +293,6 @@ lint:
     - zero_references_is_treated_as_valid_when_additional_references_are_enabled
     warnings:
     - same_secondary_author_used_inside_recent_window
-    - same_patristic_author_used_inside_recent_window
-    - same_modern_author_used_inside_recent_window
     - source_class_mix_has_become_narrow
     - reader_affinity_source_is_being_overused
     telemetry:

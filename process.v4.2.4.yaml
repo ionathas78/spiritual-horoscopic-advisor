@@ -31,7 +31,7 @@ process:
       visibility: internal_only
       output: reused_seed_and_sources_or_new_seed_required
       reuse_route: bypass_selection_then_resolve_output_profile_restore_same_source_study_context_and_compose_from_preserved_seed
-      new_seed_route: proceed_through_normal_selection_with_explicit_subject_when_provided
+      new_seed_route: follow_problem_selection_then_normal_selection
     memory_load:
       alias: memory_load_context
       authority: engine_core.external_memory
@@ -51,23 +51,11 @@ process:
       visibility: internal_only
       problem_selection_authority: engine_core.problem_selection
       required_inputs: explicit_subject_or_subject_astrological_sign_for_default_selection
-      default: bind_explicit_subject_or_use_reader_astrological_sign_and_ask_only_if_needed_for_default_selection
+      default: follow_problem_selection_authority
       must_precede: tarot_draw_daily_mode
-      governing_rule: horoscope_is_predictive_only_and_never_overrides_an_explicit_subject
+      governing_rule: horoscope_is_predictive_only
       theme_cycle_gate:
-        purpose: prevent_same_or_near_same_primary_theme_repetition_before_any_downstream_selection
-        history_authority: engine_core.external_memory.seed_history
-        explicit_subject_authority: engine_core.problem_selection
-        action_scope: regenerate_problem_only_for_default_subject_otherwise_refine_mode_and_application
-        checks:
-        - primary_theme_lookback_window
-        - theme_cluster_lookback_window
-        - theological_focus_overlap
-        - application_angle_overlap
-        action_on_failure:
-        - regenerate_problem_definition
-        - rotate_theme_cluster
-        - recheck_before_tarot_mode_selection
+        authority: engine_core.freshness_controls
       output: issue_statement
     tarot:
       alias: tarot_draw_daily_mode
@@ -78,14 +66,8 @@ process:
       must_precede: quote_select_daily_impetus
       governing_rule: tarot_is_focusing_only
       tarot_mode_selection:
-        purpose: determine_how_today_problem_is_examined
-        history_review: apply_engine_core_freshness_controls_daily_theme_freshness_to_the_problem_mode_pair
-        rules:
-        - mode_must_not_replace_problem
-        - mode_must_refract_problem_into_a_distinct_angle
-        - mode_is_binding_on_quote_selection
-        - mode_is_binding_on_scripture_selection
-        - mode_is_binding_on_final_application
+        authority: engine_core.progressive_reasoning.stages.tarot_mode_selection
+        history_authority: engine_core.freshness_controls
       output: mode_declaration
     quote:
       alias: quote_select_daily_impetus
@@ -95,7 +77,6 @@ process:
       required_inputs: issue_statement_and_mode_declaration
       default: none
       must_precede: reference_select_daily_meditation
-      governing_rule: select_different_non_biblical_source_for_each_day_from_diverse_backgrounds
       output: quote_package
     reference:
       alias: reference_select_daily_meditation
@@ -303,8 +284,7 @@ process:
         - thesis_must_preserve_problem
         - thesis_must_show_mode
         - thesis_must_be_grounded_in_scripture_context
-        - thesis_must_be_specific_enough_to_differ_from_recent_days_for_new_seeds
-        - reused_seed_thesis_is_preserved_under_engine_core_same_day_seed_reuse
+        - follow_engine_core_same_day_seed_reuse_and_freshness_controls
         output: thesis_package_with_provenance
         provenance_requirements:
         - problem_parent

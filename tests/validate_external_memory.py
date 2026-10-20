@@ -19,9 +19,8 @@ def main():
     reuse = engine['engine_core']['same_day_seed_reuse']
     assert process['stage_breakdown']['seed_resolution']['authority'] == 'engine_core.same_day_seed_reuse'
     assert 'new_subject' in reuse['default']
-    assert any('do_not_consume_another_seed_history_slot' in rule for rule in reuse['reuse'])
-    assert engine['engine_core']['source_cycling']['cross_run_review']['same_day_reuse_authority'] == 'engine_core.same_day_seed_reuse'
-    assert engine['engine_core']['freshness_controls']['daily_theme_freshness']['same_day_reuse_authority'] == 'engine_core.same_day_seed_reuse'
+    assert engine['engine_core']['source_cycling']['cross_run_review']['applies_when'] == 'selecting_a_new_seed'
+    assert engine['engine_core']['freshness_controls']['applies_when'] == 'selecting_a_new_seed'
     assert steps.index('memory_update_context') > steps.index('render_create_output')
     for stage in ('memory_load', 'memory_update'):
         node = engine
@@ -33,6 +32,7 @@ def main():
     assert 'current_explicit_request_then' in policy['precedence']
     seed_policy = policy['seed_history']
     assert seed_policy['retain_latest_seeds'] == 5
+    assert 'stable_across_same_day_reuse_retries_and_repairs' in seed_policy['run_identity']
     assert any('tarot_card' in field for field in seed_policy['seed_fields'])
     assert any('primary_quote' in field for field in seed_policy['seed_fields'])
     assert any('supporting_authors' in field for field in seed_policy['seed_fields'])

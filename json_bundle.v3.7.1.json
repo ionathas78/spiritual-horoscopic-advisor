@@ -45,10 +45,7 @@
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
     "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
     "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
-    "Adds optional user-designated external memory configuration, governed by engine_core.external_memory; process loads relevant reader context before selection and updates confirmed final records within authorized access.",
-    "Recent reader-scoped seeds connect topic uniqueness, tarot approach, primary quotation, and supporting-author rotation across generation requests. The rolling buffer and seed fields are governed only by engine_core.external_memory.seed_history.",
-    "Same-reader requests on the same local date reuse the existing seed and sources by default; an explicit new subject starts a new seed. Presentation variants do not trigger source rotation or consume additional seed-history slots. Authority: engine_core.same_day_seed_reuse.",
-    "Cross-stack review aligns reuse and explicit-subject precedence, preserved study lineage, profile-aware PDF Scripture, headerless UI, and nonempty influential references. Freshness lint derives its checks from engine authority."
+    "Memory, seed reuse, subject precedence, and rotation are governed by engine_core; process and lint refer to those contracts."
   ],
   "documents": [
     {
@@ -651,7 +648,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "552ab3113980c3636d58e3790918e6bbf5db0ef9ecae3d79ec6d4bc1c6f77f51",
+      "sha256": "28970ceadae9c6f2c8e91349b0e7af69f2e15b7281ebcb829ed8c15a547193b5",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -979,9 +976,7 @@
           "location": null,
           "reader_scope": null,
           "configuration_authority": "preferences.reader_contract_preferences.external_memory",
-          "behavior_authority": "engine_core.external_memory",
-          "seed_history_authority": "engine_core.external_memory.seed_history",
-          "same_day_reuse_authority": "engine_core.same_day_seed_reuse"
+          "behavior_authority": "engine_core.external_memory"
         }
       }
     },

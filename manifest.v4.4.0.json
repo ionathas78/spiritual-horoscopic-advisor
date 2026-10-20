@@ -20,10 +20,8 @@
   "updated_files": [
     "engine_core.v2.10.4.yaml",
     "process.v4.2.4.yaml",
-    "render.v3.12.2.yaml",
     "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
-    "ui_golden_tests.v0.9.9.json",
     "manifest.v4.4.0.json",
     "tests/validate_external_memory.py",
     "tests/validate_stack_consistency.py"
@@ -35,11 +33,7 @@
     "The approved condensed specimen uses Corrie ten Boom, a sixth-grade body, a primary Scripture reference, a generated prayer, and supporting references.",
     "UI is headerless; PDF retains its document header and uses profile-aware primary Scripture expansion. Images are excluded from PDF and study guides.",
     "The image composer owns acquisition and fallback precedence. Assembly and validation inspect delivered surfaces and return failures to the composer.",
-    "User-provided memory is reader-scoped and permission-bound. Missing history is unverified; reads and writes require confirmed outcomes.",
-    "The rolling seed history preserves distinct seeds and their compact study lineage; longer source summaries are updated before older seeds are pruned.",
-    "Same-reader same-local-day requests reuse the seed and study source pool unless a new subject is specified. Presentation variants retain seed identity and choose references by actual influence and the requested profile.",
-    "Explicit subjects take precedence over horoscope topic selection. Freshness is sought within the requested subject through mode, reasoning, application, and source perspective.",
-    "New-seed selection checks recent topic semantics and author rotation; intentional same-day reuse checks preservation instead.",
-    "Tests verify contract wiring, paths, hashes, routing reference cases, and local fixture operations; they do not execute an LLM devotional generator."
+    "Tests verify contract wiring, paths, hashes, routing reference cases, and local fixture operations; they do not execute an LLM devotional generator.",
+    "Engine core owns memory, rolling seeds, same-day reuse, subject precedence, and rotation rules. Process supplies execution order; lint verifies the governing contracts without repeating them."
   ]
 }

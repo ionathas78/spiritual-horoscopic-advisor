@@ -50,8 +50,8 @@ def main():
     assert engine['source_cycling']['cross_run_review']['applies_when'] == 'selecting_a_new_seed'
     freshness = roots['lint']['freshness_checks']['daily_theme_freshness']
     assert freshness['derive_checks_and_failure_actions_from_authority']
-    assert freshness['applies_when'] == 'selecting_a_new_seed'
-    assert engine['freshness_controls']['freshness_entropy']['applies_when'] == 'selecting_a_new_seed'
+    assert freshness['authority'] == 'engine_core.freshness_controls'
+    assert engine['freshness_controls']['applies_when'] == 'selecting_a_new_seed'
     assert roots['render']['additional_references_rendering']['omit_when_empty'] is False
     fields = engine['external_memory']['seed_history']['seed_fields']
     assert any('local_civil_date_and_timezone' in field for field in fields)
