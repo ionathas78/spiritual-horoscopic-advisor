@@ -670,8 +670,9 @@ engine_core:
     body_quote_policy:
       purpose: Give readers the source material needed to understand and assess the devotional's reasoning.
       scripture:
-        default: Quote the relevant biblical wording in the paragraph where it supports the reasoning, including the primary anchor.
-        rhythm_exception: Use a faithful paraphrase when direct quotation would disrupt the paragraph; a precise address alone is permissible but should not be the usual substitute for the passage's substance.
+        default: In expanded devotionals, normally quote the relevant biblical wording where it supports the reasoning, including the primary anchor.
+        compact_profiles: In condensed (short) and standard devotionals, a precise Scripture address alone is fully legitimate to conserve words; quotation or paraphrase is optional when space permits.
+        rhythm_exception: In expanded devotionals, use a faithful paraphrase or precise address when direct quotation would disrupt the paragraph.
         integrity: Verify direct wording against the named Bible translation; clearly distinguish paraphrase from verbatim Scripture.
       other_sources:
         requirement: When relying on a source's idea, supply its relevant wording or a faithful attributed paraphrase rather than an author or title alone.

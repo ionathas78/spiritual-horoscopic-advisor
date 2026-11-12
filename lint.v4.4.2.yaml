@@ -511,8 +511,8 @@ lint:
   body_quote_checks:
     authority: engine_core.writing_constraints.body_quote_policy
     verify:
-    - source_material_sufficient_to_follow_reasoning_without_opening_references
-    - relevant_scripture_wording_normally_present_with_rhythm_exception_respected
+    - source_material_sufficient_under_governing_profile_allowances
+    - scripture_presentation_respects_compact_profile_address_allowance_and_expanded_quotation_preference
     - non_scriptural_source_ideas_supported_by_direct_quote_or_faithful_attributed_paraphrase
     - excerpts_preserve_necessary_context_and_qualifications
     - direct_scripture_wording_verified_against_named_translation

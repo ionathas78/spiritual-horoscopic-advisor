@@ -10,6 +10,9 @@ def main():
     policy=docs['engine_core.v2.10.4.yaml']['engine_core']['writing_constraints']['body_quote_policy']
     authority='engine_core.writing_constraints.body_quote_policy'
     assert 'primary anchor' in policy['scripture']['default']
+    assert 'expanded' in policy['scripture']['default']
+    assert 'condensed (short) and standard' in policy['scripture']['compact_profiles']
+    assert 'fully legitimate' in policy['scripture']['compact_profiles']
     assert 'paraphrase' in policy['scripture']['rhythm_exception']
     assert 'faithful attributed paraphrase' in policy['other_sources']['requirement']
     assert 'qualifications' in policy['selection']
