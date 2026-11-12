@@ -431,7 +431,7 @@ lint:
     - scripture_reference_object_complete
     - acceptable_image_surface_when_images_enabled
     - prebuilt_degraded_fallback_signal
-    - footer_footnote_signal_when_body_quotes_present
+    - footer_footnote_signal_when_footer_attribution_is_used
     - prayer_package_when_prayer_mode_requires_output
     fail_if:
     - ui_structure_invalid_without_valid_degraded_fallback
@@ -442,16 +442,10 @@ lint:
     - fallback_url_line_missing_required_indent
     - hyperlink_object_incomplete
     - render_attempt_without_prebuilt_fallback
-    - body_quote_of_primary_scripture_reference_detected
-    - inline_body_quote_attribution_detected
     - footer_footnotes_rendered_before_reference
     - scripture_footnote_not_using_canonical_reference_style
     - scripture_entity_wrapping_detected_anywhere
     - literal_quote_source_label_detected_in_normal_render
-    - primary_scripture_detected_outside_reference_section
-    - equivalent_primary_range_detected_in_footnotes
-    - primary_scripture_verse_overlap_detected_anywhere_else_on_surface
-    - expanded_context_of_primary_reference_quoted_on_surface
     - rendered_reference_missing_influence_record
     - rendered_reference_missing_footprint_map_entry
     - decorative_reference_detected
@@ -509,35 +503,22 @@ lint:
     - corporate_text_individualized_without_warrant
     - warning_text_rendered_as_comfort_without_warning
     - overlapping_primary_range_rendered_as_secondary_reference
-    - subset_or_superset_of_primary_reference_rendered_in_footnotes_or_body
   workflow_alias_checks:
   - canonical_workflow_alias_present
   - every_pipeline_step_has_alias
   - alias_order_matches_pipeline
   - selected_workflow_alias_matches_gdw_v1
   body_quote_checks:
-  - allow_direct_quotes_in_devotional_body
-  - forbid_direct_quote_of_primary_scripture_reference_in_body
-  - require_footer_footnote_citation_for_each_body_quote
-  - forbid_inline_attribution_for_body_quotes
-  - footnotes_must_follow_reference_when_present
-  - footnotes_must_follow_prayer_when_prayer_present
-  - footnotes_must_not_introduce_new_devotional_content
-  - footnotes_do_not_count_toward_devotional_body_word_cap
-  - scripture_footnote_references_must_match_reference_section_style
-  - any_scripture_reference_must_use_bracketed_reference_plus_translation_when_linked
-  - forbid_primary_scripture_equivalence_range_anywhere_on_surface
-  - fail_if_overlapping_primary_range_detected_as_secondary_reference
-  - fail_if_subset_or_superset_of_primary_reference_rendered_in_footnotes
-  - fail_if_expanded_context_of_primary_reference_is_quoted_on_surface
-  - pdf_footnotes_only_for_body_quotes
-  - pdf_primary_quote_must_not_be_footnoted
-  - pdf_footnotes_must_not_duplicate_additional_references
-  primary_scripture_surface_rules:
-  - fail_if_primary_scripture_detected_outside_reference_section
-  - fail_if_overlapping_primary_range_detected_as_secondary_reference
-  - fail_if_subset_or_superset_of_primary_reference_rendered_in_footnotes
-  - fail_if_expanded_context_of_primary_reference_is_quoted_on_surface
+    authority: engine_core.writing_constraints.body_quote_policy
+    verify:
+    - source_material_sufficient_to_follow_reasoning_without_opening_references
+    - relevant_scripture_wording_normally_present_with_rhythm_exception_respected
+    - non_scriptural_source_ideas_supported_by_direct_quote_or_faithful_attributed_paraphrase
+    - excerpts_preserve_necessary_context_and_qualifications
+    - direct_scripture_wording_verified_against_named_translation
+    - attribution_is_precise_traceable_and_placed_for_natural_flow
+    - primary_anchor_and_overlapping_ranges_not_counted_as_supporting_scriptures
+    - footnotes_when_used_follow_prayer_and_additional_references
   render_target_checks:
     supported_targets:
     - ui
@@ -569,17 +550,13 @@ lint:
     - primary_anchor_duplicated_in_additional_references
     - quote_source_duplicated_in_additional_references
     - prayer_appears_after_additional_references_or_footnotes
-    - footnotes_present_without_body_quotes
+    - footnotes_present_without_body_source_markers
     - footnotes_placed_above_additional_references
-    - footnotes_duplicate_additional_references
-    - footnotes_duplicate_primary_quote_source
-    - footnotes_duplicate_primary_anchor_reference
-    - inline_body_quote_attribution_detected_in_pdf
     - additional_references_header_present_without_supporting_references
-    require_when_body_quotes_present:
-    - footnote_markers_present_for_each_body_quote
+    require_when_footer_attribution_is_used:
+    - footnote_markers_present_for_sources_using_footer_attribution
     - footnote_block_present_below_prayer_and_additional_references_when_present
-    require_when_body_quotes_absent:
+    require_when_footer_attribution_is_absent:
     - footnote_block_omitted
   thesis_provenance_checks:
     severity: fatal

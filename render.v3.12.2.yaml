@@ -392,13 +392,7 @@ render:
     if_scripture_source_provenance_uncertain: render_reference_line_only
     scripture_surface_must_come_from_bible_text_source: true
     forbid_reference_surface_paraphrase: true
-    primary_scripture_surface_rule: The primary scripture may be studied in a larger context, but any overlapping
-      expansion remains part of the same anchor and must never be rendered as a separate quotation or citation.
-    primary_scripture_isolation:
-      render_once_only: true
-      reference_section_only: true
-      forbid_overlap_range_as_secondary_reference: true
-      forbid_subset_or_superset_of_primary_reference_in_footnotes: true
+    body_source_authority: engine_core.writing_constraints.body_quote_policy
   image_rendering:
     supported_renderers: [image_group, native_image_display, markdown_image]
     renderer_choice: supplied_by_image_composer
@@ -505,46 +499,24 @@ render:
     footnote_behavior:
       preserve_footer_footnotes_when_present: true
       keep_footnotes_after_additional_references_when_present: true
-      forbid_inline_citation_reinsertion: true
+      preserve_selected_inline_or_footer_citation_placement: true
   body_quote_rendering:
-    allow_direct_quotes_in_body: true
-    forbid_direct_quote_of_primary_scripture_reference: true
-    allow_secondary_quotes_with_footer_footnotes: true
-    inline_attribution_for_body_quotes_forbidden: true
-    preferred_behavior: Use quoted language sparingly and let citations collect in the footer so the prose remains
-      smooth.
-    forbid_primary_scripture_equivalence_range: true
-    source_context_expansion_allowed_for_interpretation_only: true
+    authority: engine_core.writing_constraints.body_quote_policy
+    preserve_composer_supplied_wording_and_attribution: true
   footnote_rendering:
     enabled: true
-    purpose: Attribute any direct quotations used inside the devotional body without consuming inline prose space.
+    purpose: Provide precise source attribution when the composer selects footer citations.
     placement: after_additional_references_when_present_else_after_prayer_when_present_else_after_selected_primary_terminal
     classification: footer_metadata
-    trigger: only_when_body_quotes_present
+    trigger: only_when_footer_attribution_is_used
     marker_style: superscript_style_numerals_or_plain_numeric_markers
     ordering: first_appearance
     content_rules:
-    - must_not_repeat_primary_scripture_reference_as_a_body_quote_citation
-    - must_correspond_to_body_quote_markers
-    - must_not_introduce_new_devotional_content
-    - must_not_repeat_or_expand_the_primary_scripture_reference
-    - must_not_render_subset_or_superset_ranges_of_the_primary_reference
-    - may_use_secondary_scripture_only_when_non_overlapping_with_primary_anchor
-    scripture_reference_style: same_as_reference_line
+    - correspond_to_body_source_markers_including_attributed_paraphrases
+    - do_not_introduce_new_devotional_content
+    - primary_or_overlapping_scripture_citations_are_allowed_for_body_source_material_but_do_not_count_as_supporting_references
+    - reuse_existing_attribution_when_sufficient_without_redundant_bibliographic_entries
     scripture_reference_format: '[Book Chapter:Verse (Translation)](URL)'
-    scripture_reference_entity_wrapping_forbidden: true
-    scripture_reference_hyperlink_required_when_available: true
-    non_scripture_source_preferred_shape: Author, Work Title ([Source](URL)) or equivalent
-    primary_scripture_surface_isolation:
-      forbid_primary_scripture_in_footnotes: true
-      forbid_equivalent_scripture_in_footnotes: true
-      allow_only:
-      - secondary_scripture_supporting_texts
-      - non_scriptural_quotations
-    pdf_rules:
-      forbid_primary_quote_source_in_footnotes: true
-      forbid_additional_reference_duplication: true
-      omit_when_no_body_quotes_present: true
   output_targets:
     ui:
       status: default_existing_behavior
@@ -598,8 +570,8 @@ render:
         source_line_font_relative: slightly_larger_than_prior_pdf_test_pass
       devotional:
         allow_direct_quotes_in_body: true
-        inline_attribution_forbidden: true
-        direct_body_quote_citation_mode: footnotes_only
+        source_presentation_authority: engine_core.writing_constraints.body_quote_policy
+        direct_body_quote_citation_mode: inline_or_footer
       anchor_reference:
         position: in_flow_after_devotional
         expanded_text_by_content_length:
@@ -640,13 +612,13 @@ render:
         no_fixed_total_reference_count: true
         minimum_supporting_scripture_is_composition_not_quota: true
       footnotes:
-        enabled_when_body_quotes_present: true
-        purpose: citation_for_in_text_direct_quotes_in_devotional_body_only
+        enabled_when_footer_attribution_is_used: true
+        purpose: cite_body_quotations_or_attributed_paraphrases_using_footer_attribution
         position: below_additional_references_when_present_else_below_prayer_when_present_else_below_anchor_reference
         smaller_font: true
-        must_not_duplicate_additional_references: true
-        must_not_duplicate_primary_quote_source: true
-        must_not_duplicate_primary_anchor_reference: true
+        reuse_existing_source_attribution_when_sufficient: true
+        reuse_existing_quote_attribution_when_sufficient: true
+        primary_anchor_citations_allowed_for_body_source_material: true
         omit_entire_section_when_empty: true
       spacing:
         increase_section_spacing: true

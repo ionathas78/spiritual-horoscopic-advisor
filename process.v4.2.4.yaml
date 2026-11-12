@@ -322,60 +322,7 @@ process:
       - rendered_references_must_follow_actual_influence_not_retroactive_decoration
       output: devotional_draft
       body_quote_rules:
-        purpose: Permit direct quotations in the devotional body without duplicating the wording of the primary scripture anchor.
-        allow_direct_quotes_in_body: true
-        forbid_direct_quote_of_primary_scripture_reference: true
-        allow_secondary_quotes_with_footnote_attribution: true
-        forbid_inline_author_attribution_for_body_quotes: true
-        required_when_body_quote_used:
-        - attach_footer_style_footnote_citation
-        - keep_devotional_prose_flow_unbroken
-        rationale:
-        - the_reader_already_has_the_primary_scripture_text_in_the_reference
-        - duplicating_that_text_spends_words_without_adding_value
-        - body_quote_citations_should_live_in_footer_metadata_not_inline_prose
-        scripture_citation_style_rule: Any scripture reference outside the primary reference line must use the same bracketed hyperlink format as the reference section.
-        required_when_scripture_is_cited_anywhere:
-        - use_bracketed_reference_plus_translation
-        - use_same_hyperlink_style_as_reference_section
-        - forbid_entity_wrapping_for_scripture_references
-        forbid_primary_scripture_equivalence_range_anywhere_on_surface: true
-        forbid_overlapping_expanded_primary_ranges_as_secondary_citations: true
-        source_context_expansion_allowed_for_interpretation_only: true
-        surface_rule: The primary reference may be studied in its larger context, but any overlapping expansion remains part of the same anchor and must never be rendered as a separate quotation or citation.
-      primary_scripture_surface_isolation:
-        enabled: true
-        severity: fatal
-        rules:
-        - primary_scripture_reference_must_appear_exactly_once_in_surface_output
-        - primary_scripture_reference_must_only_appear_in_reference_section
-        - primary_scripture_reference_must_not_be_quoted_or_partially_quoted_anywhere_else
-        - primary_scripture_reference_must_not_be_repeated_in_footer_footnotes
-        - expanded_or_overlapping_ranges_of_primary_reference_must_not_be_rendered_as_secondary_references
-      scripture_context_expansion_policy:
-        enabled: true
-        source_use_allowed:
-        - immediate_passage_context
-        - overlapping_or_expanded_verse_range_for_interpretation
-        - local_argument_of_section
-        - book_level_argument_when_relevant
-        surface_output_restrictions:
-        - do_not_render_expanded_range_as_new_reference
-        - do_not_quote_expanded_range_in_body_or_footnotes_if_it_overlaps_primary_reference
-        - do_not_cite_subset_or_superset_of_primary_reference_as_supporting_scripture
-        - preserve_single_anchor_reference_on_surface
-      primary_scripture_equivalence:
-        definition:
-        - same_book_same_chapter_any_overlapping_verse_range
-        - superset_of_primary_reference
-        - subset_of_primary_reference
-        - adjacent_context_used_only_to_restate_primary_anchor
-        treatment:
-        - treat_as_same_reference_for_surface_rendering
-        - allow_for_internal_study_only
-        - forbid_as_secondary_citation
-        - forbid_as_body_quote
-        - forbid_as_footer_footnote_reference
+        authority: engine_core.writing_constraints.body_quote_policy
     edit:
       alias: edit_refine_devotional
       purpose: refine_devotional_draft_into_art_that_exhorts_and_reminds_reader_of_important_and_strangely_relevant_christian_principles
@@ -647,8 +594,8 @@ process:
         - body_quote_policy
         - footer_footnote_shape
         - canonical_scripture_citation_style
-        - primary_scripture_surface_isolation
-        - primary_scripture_overlap_suppression
+        - primary_anchor_slot_integrity
+        - primary_anchor_not_counted_as_supporting_scripture
         - prayer_mode_and_classification
         - liturgical_prayer_source_integrity
         - cross_run_topic_and_source_rotation_review_against_loaded_seeds
@@ -667,8 +614,8 @@ process:
         - repaired_surface_ready_as_final_if_needed
         - section_order_matches_selected_layout_before_repair
         - section_order_matches_selected_layout_after_repair
-        - footer_footnotes_valid_when_body_quotes_present
-        - primary_scripture_reference_appears_once_only
+        - body_source_attribution_valid_under_governing_policy
+        - primary_scripture_has_one_dedicated_anchor_slot
         - no_overlapping_primary_range_rendered_as_secondary_reference
         - prayer_slot_valid_when_enabled
         - liturgical_prayer_source_identified_when_classified_liturgical
@@ -749,8 +696,8 @@ process:
         - acceptable_image_surface_ready
         - no_entity_inside_text_hyperlink
         - degraded_fallback_material_prebuilt
-        - footer_footnote_block_prepared_when_body_quotes_present
-        - primary_scripture_surface_isolation_verified
+        - footer_footnote_block_prepared_when_footer_attribution_is_used
+        - primary_anchor_slot_and_supporting_reference_deduplication_verified
         - no_equivalent_primary_range_in_body_or_footnotes
         failure_behavior:
         - repair_before_render
@@ -794,15 +741,15 @@ process:
       - entities_are_never_hyperlinks
       - devotionals_have_no_headers
       - fallback_urls_live_on_the_next_indented_line_when_needed
-      - body_quotes_may_be_direct_but_primary_scripture_must_not_be_duplicated
-      - body_quote_citations_live_in_footer_footnotes_not_inline
+      - body_source_material_and_attribution_follow_engine_core_writing_constraints_body_quote_policy
+      - body_source_citations_may_be_inline_or_footer_to_preserve_flow
       - all_scripture_references_use_the_same_bracketed_hyperlink_style
       - prayer_when_present_appears_after_primary_terminal_surface_and_before_additional_references_and_footnotes
       output: final_user_text
       permitted_metadata_after_primary_terminal:
       - prayer when enabled
       - Additional References when nonempty
-      - footer footnotes when body quotations require attribution
+      - footer footnotes when body source material uses footer attribution
   workflow_aliases:
     canonical_workflow:
       name: gamma_devotional_workflow

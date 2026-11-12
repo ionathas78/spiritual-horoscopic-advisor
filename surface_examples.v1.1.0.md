@@ -12,6 +12,16 @@ rule: examples clarify valid realization but never override governing contracts
 
 These specimens are authoritative examples of valid output shape. Content, sources, and reference count may vary. Required contracts do not. Every devotional retains its governing quotation and primary Scripture. Standard devotional prose must remain natural when spoken aloud. Images enrich the UI surface but never carry meaning required to understand the devotional. When prayer is enabled, it follows the selected primary terminal surface and precedes Additional References and footer footnotes.
 
+## Source Presentation in Body Prose
+
+Composition follows `engine_core.writing_constraints.body_quote_policy`.
+These paragraph fragments illustrate source use, not complete devotionals:
+
+- Scripture: Paul asks believers to act “in the name of the Lord Jesus” ([Colossians 3:17 (NIV)](https://www.biblegateway.com/passage/?search=Colossians+3%3A17&version=NIV)). The surrounding instructions about compassion and patience show the character their actions should express.
+- Attributed paraphrase: Benedict assigns periods for labor, sacred reading, and rest, and calls for moderation on account of the weak ([Rule 48](https://pressbooks.palni.org/ruleofbenedict/chapter/rb-48/)). That supports a rhythm of care attentive to the worker's strength.
+
+The source material makes each conclusion intelligible; the attribution can move to a footer when needed for flow. A primary-anchor quotation in the body does not turn that passage into an additional supporting Scripture.
+
 ## EX-UI-STANDARD · Canonical UI Devotional
 
 **Purpose:** Shows the ordinary reader-facing devotional.

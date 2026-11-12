@@ -1,0 +1,38 @@
+"""Check contract alignment; these checks do not execute an LLM writer."""
+from pathlib import Path
+import json
+import yaml
+
+ROOT=Path(__file__).resolve().parents[1]
+
+def main():
+    docs={p.name:yaml.safe_load(p.read_text()) for p in ROOT.glob('*.yaml')}
+    policy=docs['engine_core.v2.10.4.yaml']['engine_core']['writing_constraints']['body_quote_policy']
+    authority='engine_core.writing_constraints.body_quote_policy'
+    assert 'primary anchor' in policy['scripture']['default']
+    assert 'paraphrase' in policy['scripture']['rhythm_exception']
+    assert 'faithful attributed paraphrase' in policy['other_sources']['requirement']
+    assert 'qualifications' in policy['selection']
+    assert 'inline or in a footer' in policy['attribution']
+    assert 'must not be counted' in policy['primary_anchor']['supporting_reference_count']
+    assert docs['process.v4.2.4.yaml']['process']['stage_breakdown']['write']['body_quote_rules']['authority']==authority
+    render=docs['render.v3.12.2.yaml']['render']
+    assert render['body_quote_rendering']['authority']==authority
+    assert render['output_targets']['pdf']['devotional']['direct_body_quote_citation_mode']=='inline_or_footer'
+    assert docs['lint.v4.4.2.yaml']['lint']['body_quote_checks']['authority']==authority
+    for path in ROOT.iterdir():
+        if path.suffix not in ('.yaml','.json'):continue
+        text=path.read_text()
+        for obsolete in ('forbid_direct_quote_of_primary_scripture_reference','inline_attribution_forbidden','primary_scripture_reference_must_appear_exactly_once_in_surface_output','forbid_primary_scripture_equivalence_in_footnotes','must_not_contain_primary_anchor_reference'):
+            assert obsolete not in text,(path.name,obsolete)
+    bundle=json.loads((ROOT/'json_bundle.v3.7.1.json').read_text())
+    pdf=next(d['doc'] for d in bundle['documents'] if d['source_path']=='devotional_pdf_render_template_v1.0.0.json')
+    assert pdf['field_contracts']['devotional_body']['inline_attribution_allowed']
+    assert pdf['field_contracts']['footnotes']['primary_anchor_body_attribution_allowed']
+    fixtures=json.loads((ROOT/'ui_golden_tests.v0.9.9.json').read_text())['ui_golden_render_tests']['fixtures']
+    cases={f['id']:f for f in fixtures}
+    assert cases['golden_scripture_paraphrase_preserves_rhythm']['expected_shape']['valid']
+    assert not cases['regression_author_name_without_supporting_material']['expected_shape']['valid']
+    print('PASS: source policy ownership, body/primary quotations, paraphrase exception, attribution, and obsolete-rule removal.')
+
+if __name__=='__main__':main()

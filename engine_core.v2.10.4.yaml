@@ -25,11 +25,11 @@ engine_core:
   - scripture_anchors_problem_plus_mode_in_context
   - study_deepens_without_overriding_the_anchor
   - later_stages_may_sharpen_but_not_erase_upstream_constraints
-  - primary_scripture_reference_must_not_be_directly_quoted_in_devotional_body
-  - direct_body_quotes_must_use_footer_footnote_attribution
+  - source_presentation_follows_engine_core_writing_constraints_body_quote_policy
+  - source_attribution_must_be_traceable_and_preserve_spoken_flow
   - all_scripture_references_must_share_one_canonical_citation_style
   - scripture_references_use_bracketed_reference_plus_translation_with_hyperlink_when_available
-  - primary_scripture_reference_must_appear_exactly_once_in_surface_output
+  - primary_scripture_has_one_dedicated_anchor_slot_with_body_quotation_and_citation_allowed
   - expanded_or_overlapping_primary_ranges_may_inform_study_but_must_not_reappear_as_secondary_surface_references
   - writing_and_quotation_are_distinct_roles_with_distinct_rules
   - devotional_body_is_interpreted_but_quote_and_reference_surfaces_are_preserved_through_reporting
@@ -668,60 +668,20 @@ engine_core:
         - padding_to_reach_target
         - trimming_only_to_reach_target
     body_quote_policy:
-      allow_direct_quotes_in_body: true
-      forbid_direct_quote_of_primary_scripture_reference: true
-      purpose: Preserve the primary scripture reference as the confirming anchor rather than duplicating its wording
-        inside the devotional body.
-      allow_secondary_or_supporting_quotes: true
-      attribution_mode_for_body_quotes: footer_footnotes
-      forbid_inline_attribution_for_body_quotes: true
+      purpose: Give readers the source material needed to understand and assess the devotional's reasoning.
+      scripture:
+        default: Quote the relevant biblical wording in the paragraph where it supports the reasoning, including the primary anchor.
+        rhythm_exception: Use a faithful paraphrase when direct quotation would disrupt the paragraph; a precise address alone is permissible but should not be the usual substitute for the passage's substance.
+        integrity: Verify direct wording against the named Bible translation; clearly distinguish paraphrase from verbatim Scripture.
+      other_sources:
+        requirement: When relying on a source's idea, supply its relevant wording or a faithful attributed paraphrase rather than an author or title alone.
+      selection: Include only the relevant material, but enough of it and its necessary qualifications to support the conclusion; respect quotation permissions.
+      attribution: Use brief natural attribution and a precise linked reference inline or in a footer, choosing the placement that preserves spoken flow.
+      primary_anchor:
+        dedicated_reference_slot: Preserve the selected layout's anchor slot; body quotations and their citations may refer to the same passage.
+        supporting_reference_count: Overlapping primary ranges remain the same anchor and must not be counted or listed as additional supporting Scriptures.
       footnotes_do_not_count_as_devotional_body_words: true
-      scripture_citation_style: Use the same bracketed reference-plus-translation hyperlink style for any scripture
-        citation, including footnotes.
-      forbid_entity_wrapping_for_scripture_references: true
-      forbid_primary_scripture_equivalence_range_on_surface: true
-      forbid_overlapping_or_expanded_primary_ranges_as_secondary_references: true
-      surface_rule: The primary scripture may be studied in a larger context, but any overlapping expansion remains
-        part of the same anchor and must never be rendered as a separate quotation or citation.
-      source_context_expansion_allowed_for_interpretation: true
-    primary_scripture_isolation:
-      enabled: true
-      severity: fatal
-      core_rule:
-      - primary_scripture_reference_must_appear_exactly_once_in_surface_output
-      - primary_scripture_reference_must_only_appear_in_reference_section
-      - primary_scripture_reference_must_not_be_quoted_or_partially_quoted_anywhere_else
-      - primary_scripture_reference_must_not_be_repeated_in_footer_footnotes
-      - expanded_or_overlapping_ranges_of_primary_reference_must_not_be_rendered_as_secondary_references
-    scripture_context_expansion_policy:
-      enabled: true
-      source_use_allowed:
-      - immediate_passage_context
-      - overlapping_or_expanded_verse_range_for_interpretation
-      - local_argument_of_section
-      - book_level_argument_when_relevant
-      source_use_purpose:
-      - clarify_original_meaning
-      - prevent_prooftexting
-      - support_study_pass
-      - strengthen_theological_accuracy
-      surface_output_restrictions:
-      - do_not_render_expanded_range_as_new_reference
-      - do_not_quote_expanded_range_in_body_or_footnotes_if_it_overlaps_primary_reference
-      - do_not_cite_subset_or_superset_of_primary_reference_as_supporting_scripture
-      - preserve_single_anchor_reference_on_surface
-    primary_scripture_equivalence:
-      definition:
-      - same_book_same_chapter_any_overlapping_verse_range
-      - superset_of_primary_reference
-      - subset_of_primary_reference
-      - adjacent_context_used_only_to_restate_primary_anchor
-      treatment:
-      - treat_as_same_reference_for_surface_rendering
-      - allow_for_internal_study_only
-      - forbid_as_secondary_citation
-      - forbid_as_body_quote
-      - forbid_as_footer_footnote_reference
+      scripture_citation_style: Use bracketed reference plus translation with a hyperlink when available; never wrap Scripture in an entity component.
   editorial_passes:
     policy:
       passes_are_precision_edits_not_full_rewrites: true
@@ -767,7 +727,7 @@ engine_core:
       - remove_logical_gaps
       - eliminate_contradictions
       - ensure_clear_argument
-      - body_quotes_must_not_interrupt_devotional_flow_with_inline_attribution
+      - source_attribution_must_preserve_devotional_flow
       - scripture_footnotes_match_reference_section_citation_style
     applicability_pass:
       purpose: lived_intersection
@@ -791,7 +751,7 @@ engine_core:
       - remove_extraneous_words
       - tighten_phrasing
       - remove_redundancy
-      - remove_duplicated_primary_scripture_quotation_from_body_when_present
+      - remove_redundant_quotation_without_removing_source_material_needed_for_reasoning
     literary_style_pass:
       purpose: aesthetic_enrichment
       goals:
@@ -818,7 +778,7 @@ engine_core:
       - strengthen_memorable_sentence
       - avoid_forced_aphorisms
       - maintain_natural_voice
-      - prefer_secondary_quoted_language_over_primary_scripture_repetition_when_a_direct_quote_is_helpful
+      - choose_quoted_material_by_its_contribution_to_the_reasoning
     tts_pass:
       purpose: spoken_delivery_optimization
       checks:
@@ -1357,14 +1317,14 @@ engine_core:
     - extracting_comfort_from_a_text_whose_force_is_warning_unless_warning_is_honored
     - treating_narrative_description_as_direct_command_or_promise_without_support
     - rendering_an_overlapping_expansion_of_the_primary_reference_as_a_new_supporting_citation
-    - using_subset_or_superset_ranges_of_the_primary_reference_in_footnotes_or_body_quotes
+    - counting_primary_or_overlapping_ranges_as_independent_supporting_scriptures
     decision_rules:
     - if_the_text_only_fits_by_shared_vocabulary_reject_it
     - if_the_text_fits_problem_but_not_mode_reject_it
     - if_the_application_requires_ignoring_the_passage_argument_reject_it
     - if_the_application_is_true_biblically_but_not_true_of_this_text_choose_another_text
     - if_an_expanded_range_overlaps_the_primary_reference_treat_it_as_the_same_anchor_for_surface_output
-    - if_context_requires_a_broader_internal_reading_keep_that_broader_range_inside_study_only
+    - if_context_requires_broader_reading_preserve_necessary_context_when_quoting_or_paraphrasing
     output_requirement:
       internal_context_note_required: true
       internal_fields:

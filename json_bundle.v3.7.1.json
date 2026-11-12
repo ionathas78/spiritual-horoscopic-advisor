@@ -14,10 +14,10 @@
     "Adds quote->scripture progressive-dependency rule: scripture is selected through the logic of the quote rather than independently.",
     "Adds pre-render surface lock so hyperlink fallback and image cues are prepared before final render.",
     "Promotes repaired degraded fallback surface to canonical final output whenever rich render fails.",
-    "Clarifies that expanded context of the primary scripture may inform study but must never surface as a second quotation or citation, including overlapping footnotes.",
+    "Primary Scripture may be quoted and cited in the body; overlapping ranges do not count as independent supporting Scriptures.",
     "Adds devotional_pdf_render_template_v1.0.0.json to the bundle as the canonical structured contract for PDF-only devotional rendering.",
     "Defines PDF-specific section order: header, primary quote and source, devotional body, expanded in-flow anchor scripture, optional additional references, then optional footnotes.",
-    "Clarifies that footnotes in PDF are reserved for direct quotations that appear inside the devotional body and may not duplicate the anchor scripture or the primary quote source.",
+    "PDF body source attribution may be inline or in footer notes, including citations of the primary anchor.",
     "Adds explicit writer-vs-renderer role separation so devotional composition may interpret while quote and scripture surfaces are preserved verbatim.",
     "Formalizes quote_surface_render and reference_surface_render as preserve-only reporting roles upstream of final assembly.",
     "Forbids paraphrase or editorial gloss in the primary quote surface and in expanded anchor-reference text, especially for PDF output.",
@@ -982,7 +982,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "5ad19b3b6866a9c6c459a65c0dd7a63d7da88f437a3b27cc9ad676791ecf7244",
+      "sha256": "77b5b20148c01ba2d462bf0247cba05d8c5a763b0ac8bcb5527c6ab9900c4c22",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1366,10 +1366,10 @@
             "final_surface_authority_when_triggered": true
           },
           "primary_scripture_isolation": {
-            "primary_reference_appears_once_only": true,
-            "primary_reference_section_only": true,
-            "forbid_equivalent_primary_ranges_on_surface": true,
-            "allow_internal_context_expansion_for_interpretation_only": true
+            "dedicated_anchor_slot_appears_once": true,
+            "dedicated_anchor_slot_preserved": true,
+            "primary_ranges_not_counted_as_supporting_scriptures": true,
+            "contextual_body_quotation_allowed": true
           },
           "surface_role_split": {
             "enabled": true,
@@ -1426,7 +1426,7 @@
             "prebuilt_fallback_material_required": true,
             "primary_scripture_reference_single_surface_anchor": true,
             "forbid_overlapping_primary_range_as_secondary_reference": true,
-            "forbid_primary_scripture_equivalence_in_footnotes": true,
+            "primary_scripture_body_attribution_allowed": true,
             "additional_references_is_only_permitted_metadata_heading": true,
             "additional_references_heading_requires_nonempty_block": true,
             "acceptable_image_surface_required_when_images_enabled": true,
@@ -1732,7 +1732,7 @@
     },
     {
       "source_path": "devotional_pdf_render_template_v1.0.0.json",
-      "sha256": "0927e0e64372d78e8b6701661381f6a517b60af315fdb90352b397741b31cfbf",
+      "sha256": "0288782c822383dccb79a338e4a2ed116fb9a57401db9517add32ef4b4978e32",
       "doc": {
         "template_id": "devotional_pdf_render_template",
         "template_version": "1.2.0",
@@ -1741,7 +1741,7 @@
         "defaults": {
           "images_enabled": false,
           "additional_references_enabled": true,
-          "footnotes_enabled_when_body_quotes_present": true,
+          "footnotes_enabled_when_footer_attribution_is_used": true,
           "entities_enabled": false,
           "ui_only_tokens_enabled": false
         },
@@ -1777,8 +1777,8 @@
             "paragraph_count_is_not_hard_limit": true,
             "reading_complexity_may_naturally_adjust_paragraph_length": true,
             "allow_direct_quotes_in_body": true,
-            "direct_quote_citation_mode": "footnotes_only",
-            "inline_attribution_forbidden": true,
+            "direct_quote_citation_mode": "inline_or_footer",
+            "inline_attribution_allowed": true,
             "spoken_flow_required": true,
             "condensed_body_contract_authority": "engine_core.output_profiles.condensed",
             "condensed_surface_contract_authority": "engine_core.output_profiles.condensed.surface_contract"
@@ -1826,12 +1826,12 @@
             "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
           },
           "footnotes": {
-            "required_when": "body_quotes_present",
-            "purpose": "cite_in_text_direct_quotes_in_devotional_body_only",
+            "required_when": "footer_attribution_is_used",
+            "purpose": "cite_body_source_material_using_footer_attribution",
             "position": "below_additional_references",
-            "must_not_duplicate_additional_references": true,
-            "must_not_contain_primary_quote_source": true,
-            "must_not_contain_primary_anchor_reference": true
+            "reuse_existing_source_attribution_when_sufficient": true,
+            "reuse_existing_quote_attribution_when_sufficient": true,
+            "primary_anchor_body_attribution_allowed": true
           }
         },
         "special_rules": {
