@@ -616,7 +616,7 @@ process:
         - section_order_matches_selected_layout_after_repair
         - body_source_attribution_valid_under_governing_policy
         - primary_scripture_has_one_dedicated_anchor_slot
-        - no_overlapping_primary_range_rendered_as_secondary_reference
+        - no_primary_or_overlapping_range_listed_in_additional_references
         - prayer_slot_valid_when_enabled
         - liturgical_prayer_source_identified_when_classified_liturgical
         - generated_fallback_not_mislabeled_as_liturgical
@@ -698,7 +698,6 @@ process:
         - degraded_fallback_material_prebuilt
         - footer_footnote_block_prepared_when_footer_attribution_is_used
         - primary_anchor_slot_and_supporting_reference_deduplication_verified
-        - no_equivalent_primary_range_in_body_or_footnotes
         failure_behavior:
         - repair_before_render
         - if_unrepairable_use_prebuilt_degraded_surface

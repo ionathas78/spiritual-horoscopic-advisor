@@ -30,7 +30,7 @@ engine_core:
   - all_scripture_references_must_share_one_canonical_citation_style
   - scripture_references_use_bracketed_reference_plus_translation_with_hyperlink_when_available
   - primary_scripture_has_one_dedicated_anchor_slot_with_body_quotation_and_citation_allowed
-  - expanded_or_overlapping_primary_ranges_may_inform_study_but_must_not_reappear_as_secondary_surface_references
+  - primary_and_overlapping_ranges_must_not_be_listed_as_additional_supporting_references
   - writing_and_quotation_are_distinct_roles_with_distinct_rules
   - devotional_body_is_interpreted_but_quote_and_reference_surfaces_are_preserved_through_reporting
   - scripture_surface_text_must_come_from_bible_text_sources_for_the_selected_translation
@@ -1317,7 +1317,7 @@ engine_core:
     - individualizing_a_corporate_text_without_warrant
     - extracting_comfort_from_a_text_whose_force_is_warning_unless_warning_is_honored
     - treating_narrative_description_as_direct_command_or_promise_without_support
-    - rendering_an_overlapping_expansion_of_the_primary_reference_as_a_new_supporting_citation
+    - listing_an_overlapping_expansion_of_the_primary_reference_as_an_additional_supporting_reference
     - counting_primary_or_overlapping_ranges_as_independent_supporting_scriptures
     decision_rules:
     - if_the_text_only_fits_by_shared_vocabulary_reject_it

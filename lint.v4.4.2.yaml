@@ -254,7 +254,7 @@ lint:
       consulted_only_source_rendered: fatal
       primary_quote_source_duplicated: fatal
       primary_anchor_duplicated: fatal
-      overlapping_primary_range_rendered: fatal
+      primary_or_overlapping_range_listed_in_additional_references: fatal
       repeated_author_recently: warning
       narrow_source_mix: warning
       low_rendered_reference_count: telemetry
@@ -502,7 +502,7 @@ lint:
     - limited_promise_universalized_without_warrant
     - corporate_text_individualized_without_warrant
     - warning_text_rendered_as_comfort_without_warning
-    - overlapping_primary_range_rendered_as_secondary_reference
+    - primary_or_overlapping_range_listed_in_additional_references
   workflow_alias_checks:
   - canonical_workflow_alias_present
   - every_pipeline_step_has_alias

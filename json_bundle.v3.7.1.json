@@ -982,7 +982,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "77b5b20148c01ba2d462bf0247cba05d8c5a763b0ac8bcb5527c6ab9900c4c22",
+      "sha256": "42bb7be27d225e9b960778be8033877fda26d5ab44b8d8b5379731a491bb56a2",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1425,7 +1425,7 @@
             "forbid_inline_label_plus_url_fallback": true,
             "prebuilt_fallback_material_required": true,
             "primary_scripture_reference_single_surface_anchor": true,
-            "forbid_overlapping_primary_range_as_secondary_reference": true,
+            "primary_and_overlapping_ranges_excluded_from_additional_references": true,
             "primary_scripture_body_attribution_allowed": true,
             "additional_references_is_only_permitted_metadata_heading": true,
             "additional_references_heading_requires_nonempty_block": true,
