@@ -146,6 +146,16 @@ lint:
     - textual_order_and_reference_composition_match_condensed_surface_contract
     - optional_generated_prayer_matches_condensed_surface_contract
     - devotional_body_is_complete_when_prayer_is_omitted
+  expanded_profile_checks:
+    authority: engine_core.output_profiles.expanded
+    apply_when: artifact_type_devotional_and_content_length_expanded
+    checks:
+    - paragraph_structure_matches_profile
+    - expanded_study_revisits_and_cross_references_material_and_adds_sources
+    - study_pool_count_and_diversity_match_profile
+    - central_reasoning_progresses_through_connected_scriptural_passages
+    - rendered_source_classes_and_counts_match_profile_without_padding
+    - primary_anchor_is_not_counted_as_supporting_scripture
   sentence_integrity_checks:
   - no_false_contrast_via_compression
   - no_collapsed_mechanism
@@ -153,7 +163,8 @@ lint:
   - no_false_rhetorical_escalation
   - no_synthetic_aphorism
   payoff_anchor_checks:
-    applies_to: [standard, expanded]
+    applies_to: [standard]
+    expanded_authority: engine_core.writing_constraints.payoff_placement.expanded
     condensed_authority: engine_core.writing_constraints.payoff_placement.condensed
     target_progress_ratio: 0.62
     acceptable_band:
@@ -219,6 +230,8 @@ lint:
       - referenced_contract_is_unique
       - referenced_example_matches_contract
   study_pass_checks:
+    authority: engine_core.study_pass
+    expanded_override_authority: engine_core.output_profiles.expanded.study_pass
     require_source_diversity_balance: true
     minimum_mix:
       scripture_parallel: 1
@@ -575,7 +588,8 @@ lint:
     minimum_supporting_scripture: 1
     recommended_supporting_scripture: 2
     condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
-    total_reference_count_quota: none
+    expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+    total_reference_count_quota: follow_explicit_profile_contract_otherwise_none
     minimum_is_compositional_not_numerical_total: true
     required:
     - supporting_scripture_entries_are_first

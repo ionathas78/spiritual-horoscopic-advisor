@@ -127,7 +127,7 @@ process:
       default: none
       must_precede: write_compose_devotional
       governing_rule: study_a_diverse_minimum_set_and_continue_until_the_question_is_responsibly_explored
-      length_independence: every_content_length_receives_the_full_shared_study_pass
+      length_independence: every_content_length_receives_the_full_shared_study_pass_with_profile_specific_expansion
       agents:
         minimum_total: 5
         recommended_total: 6
@@ -197,15 +197,9 @@ process:
         render_when_explicitly_requested: true
         preserve_same_source_lineage: true
       source_breadth:
-        minimum_sources: 3
-        recommended_sources: 5
-        soft_maximum_sources: 7
-        may_exceed_soft_maximum_when_material_questions_remain: true
-        stop_when:
-        - diversity_minimum_satisfied
-        - confidence_is_high_or_best_available
-        - no_material_interpretive_gap_remains
-        - new_sources_are_redundant_or_low_signal
+        authority: engine_core.study_pass.sources_target
+        expanded_override_authority: engine_core.output_profiles.expanded.study_pass
+        derive_counts_review_method_and_stopping_conditions_from_authority: true
       source_assessment:
         influence_weight:
         - incidental
@@ -369,10 +363,11 @@ process:
         validate_payoff_anchor:
           purpose: ensure_main_insight_lands_before_final_sentence
           checks:
-          - for_standard_and_expanded_interpretive_turn_should_appear_at_paragraph_2_sentence_1_when_possible
+          - for_standard_interpretive_turn_should_appear_at_paragraph_2_sentence_1_when_possible
           - for_condensed_apply_engine_core_output_profiles_condensed_and_payoff_placement_condensed
           - final_sentence_should_complete_application_not_introduce_main_theme
-          - for_standard_and_expanded_payoff_progress_ratio_should_fall_within_0_56_to_0_72
+          - for_standard_payoff_progress_ratio_should_fall_within_0_56_to_0_72
+          - for_expanded_follow_engine_core_writing_constraints_payoff_placement_expanded
         conceptual_attractor_pass:
           purpose: advisory_structural_guidance_that_encourages_coherence_without_forcing_a_rigid_sentence_template
       output: devotional_manuscript

@@ -45,7 +45,8 @@
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
     "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
     "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
-    "Memory, seed reuse, subject precedence, and rotation are governed by engine_core; process and lint refer to those contracts."
+    "Memory, seed reuse, subject precedence, and rotation are governed by engine_core; process and lint refer to those contracts.",
+    "Expanded study, source composition, and connected biblical development follow engine_core.output_profiles.expanded; shorter profile behavior is preserved."
   ],
   "documents": [
     {
@@ -199,7 +200,7 @@
     },
     {
       "source_path": "devo_mvp_entry.schema.v1.1.json",
-      "sha256": "57e105cf5c8d24231cace23410912ab408f3bdc69c2f832263815dd3231faf8a",
+      "sha256": "34a91bc1896e5e9e30c8eb8d15bfa55fb3b145947d76b545fc9ccfa48cd9d2a3",
       "doc": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Devo MVP Entry",
@@ -514,7 +515,8 @@
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
             "patristic_sources_additive_not_substitutive": true,
-            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references",
+            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references"
           }
         },
         "additionalProperties": true,
@@ -648,7 +650,7 @@
     },
     {
       "source_path": "user_prefs_devotional_v1.1.2.json",
-      "sha256": "28970ceadae9c6f2c8e91349b0e7af69f2e15b7281ebcb829ed8c15a547193b5",
+      "sha256": "096155349dc07e32e072ae2c16f009138e38edcf4e09f54bd8aff0456c718e81",
       "doc": {
         "prefs_id": "devotional_user_preferences",
         "prefs_version": "1.4.0",
@@ -969,8 +971,8 @@
             "default": "ui"
           },
           "axis_independence": true,
-          "content_length_does_not_determine_source_count": true,
-          "standard_audio_optimization": true
+          "standard_audio_optimization": true,
+          "study_and_reference_counts_follow_explicit_profile_contracts": true
         },
         "external_memory": {
           "location": null,
@@ -982,7 +984,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "42bb7be27d225e9b960778be8033877fda26d5ab44b8d8b5379731a491bb56a2",
+      "sha256": "9544520ea8cd14092fe7e2c52e2c60571f4f45f4a8ca60c10a0e49dac8709950",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1324,7 +1326,8 @@
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
             "patristic_sources_additive_not_substitutive": true,
-            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references",
+            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references"
           }
         },
         "special_rules": {
@@ -1732,7 +1735,7 @@
     },
     {
       "source_path": "devotional_pdf_render_template_v1.0.0.json",
-      "sha256": "0288782c822383dccb79a338e4a2ed116fb9a57401db9517add32ef4b4978e32",
+      "sha256": "dbac140176677ed4a0b680625d522db12442be348aef9fdcbf26faf692dc57cb",
       "doc": {
         "template_id": "devotional_pdf_render_template",
         "template_version": "1.2.0",
@@ -1772,7 +1775,7 @@
             "required": true,
             "paragraph_count_guideline_by_content_length": {
               "standard": 2,
-              "expanded": 5
+              "expanded": 7
             },
             "paragraph_count_is_not_hard_limit": true,
             "reading_complexity_may_naturally_adjust_paragraph_length": true,
@@ -1781,7 +1784,8 @@
             "inline_attribution_allowed": true,
             "spoken_flow_required": true,
             "condensed_body_contract_authority": "engine_core.output_profiles.condensed",
-            "condensed_surface_contract_authority": "engine_core.output_profiles.condensed.surface_contract"
+            "condensed_surface_contract_authority": "engine_core.output_profiles.condensed.surface_contract",
+            "expanded_profile_authority": "engine_core.output_profiles.expanded"
           },
           "anchor_scripture": {
             "required": true,
@@ -1823,7 +1827,8 @@
             "recommended_supporting_scripture": 2,
             "supporting_scripture_first": true,
             "patristic_sources_additive_not_substitutive": true,
-            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references"
+            "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references",
+            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references"
           },
           "footnotes": {
             "required_when": "footer_attribution_is_used",

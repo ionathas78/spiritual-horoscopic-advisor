@@ -20,13 +20,14 @@
   "updated_files": [
     "engine_core.v2.10.4.yaml",
     "process.v4.2.4.yaml",
+    "preferences.v3.3.0.yaml",
     "render.v3.12.2.yaml",
     "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
-    "ui_golden_tests.v0.9.9.json",
     "surface_examples.v1.1.0.md",
+    "ui_golden_tests.v0.9.9.json",
     "manifest.v4.4.0.json",
-    "tests/validate_source_presentation.py"
+    "tests/validate_expanded_profile.py"
   ],
   "notes": [
     "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
@@ -37,6 +38,7 @@
     "The image composer owns acquisition and fallback precedence. Assembly and validation inspect delivered surfaces and return failures to the composer.",
     "Tests verify contract wiring, paths, hashes, routing reference cases, and local fixture operations; they do not execute an LLM devotional generator.",
     "Engine core owns memory, rolling seeds, same-day reuse, subject precedence, and rotation rules. Process supplies execution order; lint verifies the governing contracts without repeating them.",
-    "Engine body_quote_policy governs reader-accessible source material: relevant Scripture wording by default, faithful attributed source paraphrases, and primary-anchor body quotations with inline or footer attribution."
+    "Engine body_quote_policy governs reader-accessible source material: relevant Scripture wording by default, faithful attributed source paraphrases, and primary-anchor body quotations with inline or footer attribution.",
+    "Expanded devotionals use the amended engine-owned word/paragraph bands, extended study pool, influential reference composition, and connected Scripture reasoning. Same-day expansion extends research while preserving the seed and primary anchors."
   ]
 }

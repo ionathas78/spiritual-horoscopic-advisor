@@ -124,7 +124,7 @@ engine_core:
     lookup: newest_final_seed_for_the_same_reader_and_local_date_in_authorized_memory_or_visible_conversation
     default: reuse_existing_seed_and_sources_unless_the_user_specifies_a_new_subject
     reuse:
-      - preserve_the_seed_and_study_source_pool_while_adapting_presentation_to_the_request
+      - preserve_the_seed_and_existing_study_sources_while_extending_the_pool_as_required_by_the_selected_profile
       - select_rendered_references_from_that_pool_by_actual_influence_and_current_profile
       - restore_missing_study_context_from_the_same_sources_or_explain_why_preservation_is_not_possible
     otherwise: build_a_new_seed_under_problem_selection
@@ -217,14 +217,45 @@ engine_core:
         - explicit_user_request
         - persistent_user_preference
       paragraph_target:
-        preferred: 5
-        acceptable: [4, 6]
-      expansion_principle:
-        additional_length_must_result_from_new_reasoning_not_restatement
+        preferred: 7
+        acceptable: [4, 8]
+      expansion_principle: additional_length_must_result_from_new_reasoning_not_restatement
+      study_pass:
+        sources_target:
+          minimum: 5
+          recommended: 7
+          maximum: 10
+          count_scope: distinct_supporting_study_sources_excluding_primary_anchor_and_primary_quote_source
+        source_diversity_authority: engine_core.study_pass.source_diversity_balance
+        method: >-
+          Revisit the existing study material, cross-reference its ideas, and consult
+          additional sources along the same line to build further reasoning and
+          exposition. Preserve the day's seed, quote, and primary biblical anchor;
+          extend the supporting pool when expanding an earlier devotional.
+      scriptural_development: >-
+        Build the central point through a connected chain beginning with the primary
+        anchor, adding a second passage that develops, qualifies, or deepens it, and
+        progressing to a third when warranted. Explain the connections in the prose;
+        other supporting passages may illuminate application without becoming extra
+        steps in that central chain.
+      surface_contract:
+        additional_references:
+          supporting_scripture:
+            minimum: 2
+            maximum: 3
+          other_influential_sources:
+            minimum: 2
+            maximum: 3
+          primary_anchor_and_primary_quote_source_excluded: true
+          supporting_scripture_first: true
+          selection: render_only_materially_influential_sources_with_recognizable_footprints
+          if_inadequate: revisit_study_and_synthesis_without_decorative_padding
+          excess_influential_sources: retain_in_study_brief_and_optional_study_guide
 
   study_pass:
     enabled: true
     position_in_pipeline: after_scripture_selection_before_writing
+    expanded_override_authority: engine_core.output_profiles.expanded.study_pass
     sources_target:
       minimum: 3
       recommended: 5
@@ -453,7 +484,8 @@ engine_core:
       - overlapping_or_equivalent_primary_scripture_ranges
       count_policy:
         condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
-        default_profiles: [standard, expanded]
+        expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+        default_profiles: [standard]
         classification: process_health_metric
         no_required_surface_count: true
         never_pad_to_target: true
@@ -468,6 +500,7 @@ engine_core:
       - preserve_reader_usefulness_over_prestige
       scripture_requirements:
         condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
+        expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
         minimum_rendered_supporting_scripture: 1
         recommended_rendered_supporting_scripture: 2
         primary_anchor_excluded: true
@@ -606,7 +639,7 @@ engine_core:
             - never_repeat_previous_paragraphs
     structural_balance_ratio:
       enabled: true
-      applies_to: [standard, expanded]
+      applies_to: [standard]
       model: golden_ratio_bias
       target_ratios:
         quote: 0.15
@@ -628,11 +661,14 @@ engine_core:
         authority: engine_core.output_profiles.condensed
         placement: insight_before_closing_application
         paragraph_anchor_and_progress_ratio: not_applicable
+      expanded:
+        placement: establish_the_central_point_early_then_develop_it_through_connected_scriptures_before_application
+        fixed_paragraph_anchor_and_progress_ratio: not_applicable
       preferred_anchor:
-        applies_to: [standard, expanded]
+        applies_to: [standard]
         paragraph: 2
         sentence: 1
-      progress_ratio_applies_to: [standard, expanded]
+      progress_ratio_applies_to: [standard]
       target_progress_ratio: 0.62
       acceptable_band:
       - 0.56
@@ -642,7 +678,7 @@ engine_core:
         anchor_sentence: interpretive_turn
         post_anchor_material: application_and_resolution
       enforcement:
-      - for_standard_and_expanded_key_realization_should_appear_by_paragraph_2_sentence_1_when_possible
+      - for_standard_key_realization_should_appear_by_paragraph_2_sentence_1_when_possible
       - final_sentence_should_land_application_not_introduce_main_theme
       - avoid_story_climax_at_last_line
     sentence_integrity:
@@ -656,7 +692,7 @@ engine_core:
       classification: process_health_metric
       preferred_word_bands:
         standard: [180, 270]
-        expanded: [350, 550]
+        expanded: [550, 1200]
 
       condensed_authority: engine_core.output_profiles.condensed
       governing_rule:

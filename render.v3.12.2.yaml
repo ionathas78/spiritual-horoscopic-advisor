@@ -306,7 +306,8 @@ render:
     - omit_overlapping_primary_ranges
     count_policy:
       condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
-      no_fixed_total_count: true
+      expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+      no_fixed_total_count_unless_profile_contract_specifies: true
       never_pad_to_target: true
       minimum_composition_is_enforced_separately: true
       supporting_scripture_minimum_is_a_composition_contract_not_a_total_count_quota: true
@@ -319,6 +320,7 @@ render:
     source_hierarchy_visible: true
     required_composition:
       condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
+      expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
       supporting_scripture:
         minimum: 1
         recommended: 2
@@ -542,7 +544,8 @@ render:
         supporting_scripture_first: true
         patristic_sources_additive_not_substitutive: true
         condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
-        no_fixed_total_reference_count: true
+        expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+        no_fixed_total_reference_count_unless_profile_contract_specifies: true
         minimum_supporting_scripture_is_composition_not_quota: true
     pdf:
       enabled: true
@@ -609,7 +612,8 @@ render:
         supporting_scripture_first: true
         patristic_sources_additive_not_substitutive: true
         condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
-        no_fixed_total_reference_count: true
+        expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+        no_fixed_total_reference_count_unless_profile_contract_specifies: true
         minimum_supporting_scripture_is_composition_not_quota: true
       footnotes:
         enabled_when_footer_attribution_is_used: true

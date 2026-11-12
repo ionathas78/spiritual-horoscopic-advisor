@@ -89,37 +89,45 @@ Additional References
 
 ## EX-UI-EXPANDED · Expanded UI Devotional
 
-**Purpose:** Shows added development through Scripture, context, and application rather than repetition.
+**Purpose:** Shows extended reasoning through connected Scriptures, an expanded study pool, and lived application. Engine core owns the numerical profile; this specimen illustrates its realization.
 
-<!-- profile: artifact_type=devotional; content_length=expanded; render_target=ui; images=enabled; prayer=none -->
+<!-- profile: artifact_type=devotional; content_length=expanded; render_target=ui; images=enabled; prayer=generated -->
 
-[IMAGE GROUP: rain gathering in furrows around newly planted seeds]
+[IMAGE GROUP: warm evening light on a kitchen table beside a clean cup]
 
-The Work Beneath the Soil
+What Will Need Doing Again
 
-> “Adopt the pace of nature: her secret is patience.”
+> “We ought not to be weary of doing little things for the love of God…”
 
-— [Ralph Waldo Emerson](https://example.org/quote-source)
+— [Brother Lawrence, The Practice of the Presence of God, Fourth Conversation](https://books.google.com/books/about/The_Practice_of_the_Presence_of_God.html?id=WdCS0k3yeRQC)
 
-Patience can sound passive until Scripture places it beside the farmer. James does not describe someone staring helplessly at an empty field. The farmer has already chosen the ground, broken it open, planted seed, and accepted that the most decisive work will now occur beyond sight. Waiting begins after faithful labor, not instead of it.
+There is a particular weariness in washing a cup you washed yesterday. You know where the stain gathers and which way to turn it beneath the water. By tomorrow it may be waiting here again. Much of life asks this of us: another meal, another explanation, another small effort to restore something that living has disturbed. Sometimes the repetition is comforting. Sometimes you stand at the sink longer than necessary, gathering yourself before the next thing. It can be difficult to see what your care accomplishes when the evidence of its accomplishment keeps disappearing.
 
-That distinction matters when prayer appears unanswered or a good effort produces no visible change. We may assume that hidden work is absent work. Scripture gives us another imagination. Roots deepen before shoots rise. Character forms through repeated obedience whose effect cannot be measured at the end of each day. God’s kingdom itself is compared to seed growing while the sower sleeps, quietly exceeding the sower’s ability to explain it.
+Paul's invitation in Colossians to act “in the name of the Lord Jesus” reaches into this familiar world. His surrounding instructions concern patience, compassion, forgiveness, and the love that holds a community together. Those qualities become necessary precisely because people continue to need one another. Someone misunderstands again. Someone arrives tired again. Yesterday's patience becomes today's occasion to practice patience anew. An ordinary task can carry something of Christ's care into another person's day. The cup is clean long enough for someone to drink from it. What you did has entered a life, even after its visible traces are gone.
 
-Patience therefore includes discernment. Some delays invite perseverance; others invite a changed method, repentance, or help from another person. Biblical patience is not loyalty to every plan we make. It is loyalty to God while our plans remain corrigible. We keep listening while we keep tending the field.
+Yet this can become a heavy teaching if every need begins to sound like your assignment. Ephesians gives us a place to breathe before taking another responsibility into our hands. Paul begins, “For it is by grace you have been saved, through faith,” then describes the good works for which we are created in Christ ([Ephesians 2:8–10 (NIV)](https://www.biblegateway.com/passage/?search=Ephesians+2%3A8-10&version=NIV)). Grace makes our response possible. Tish Harrison Warren, in her account of waking in Liturgy of the Ordinary, describes belovedness as an identity received before the day's accomplishments. That remains true when we are slow to begin or must acknowledge that we cannot manage everything before us.
 
-There is also mercy in this slower pace. Instant results would leave little room for courage to mature, communities to participate, or motives to be purified. The delay we resent may become the chamber in which hurried desire is transformed into durable love. This does not make every painful delay good in itself, nor does it ask us to call injustice acceptable. It means that no season is inaccessible to God’s forming presence.
+From that place, we can ask what our actions make possible for someone else. In Corinthians, Paul considers a shared meal and the different meanings it carries for the people eating it. His concern moves from personal freedom toward a neighbor's good ([1 Corinthians 10:23–33 (NIV)](https://www.biblegateway.com/passage/?search=1+Corinthians+10%3A23-33&version=NIV)). Grace received can take shape in care offered. Perhaps someone needs a practical burden lifted; perhaps company while they finish it. In Laborem Exercens, John Paul II places everyday provision within humanity's participation in the Creator's activity. Our work helps sustain a shared world, including lives whose needs and capacities differ from our own.
 
-Today, tend what has actually been entrusted to you. Water the friendship. Practice the skill. Keep the appointment. Tell the necessary truth with gentleness. Leave the timetable where it belongs. A buried seed is not a forgotten seed, and faithful waiting is already part of the harvest.
+That attention should include the person doing the work. Benedict assigns periods for labor, sacred reading, and rest, and calls for moderation on account of the weak. These provisions in his Rule suggest a household rhythm in which a responsibility can have a defined portion and a reasonable stopping place. Someone can say they are tired, and someone else can take a turn. Receiving help may require leaving a task in another person's hands, done with their methods and their measure of care. We can learn to recognize love even when its arrangements differ from ours.
 
-[James 5:7–8 (NIV)](https://example.org/scripture)
+Jesus welcomes weary people to come close and learn from his gentleness. His promise, “I will give you rest,” accompanies an invitation to become his disciples ([Matthew 11:28–30 (NIV)](https://www.biblegateway.com/passage/?search=Matthew+11%3A28-30&version=NIV)). We can bring him resentment at being needed, longing to be noticed, or the wish that something would stay finished for a while. Prayer gives these feelings somewhere to be spoken honestly. We may need forgiveness for how we have spoken, courage to ask for help, or time to sit down while another person continues. Rest can begin with being present without immediately finding another way to be useful.
+
+When you return to one small responsibility today, recognize the life around it. Someone will use this space, read these words, or be relieved that something has been remembered. You may be that someone. Offer what care is reasonably yours to give. If your heart is reluctant, bring that with you; affection sometimes grows while our hands are already at work. When your portion is done, let someone receive its goodness. Drink from the clean cup yourself. Sit where the evening light reaches the table, and allow this moment to sustain you before tomorrow asks its familiar things.
+
+[Colossians 3:17 (NIV)](https://www.biblegateway.com/passage/?search=Colossians+3%3A17&version=NIV)
+
+*Lord Jesus, help me recognize the lives my care touches, speak honestly about my limits, and welcome the care offered to me.*
 
 Additional References
 
-- [Mark 4:26–29 (NIV)](https://example.org/mark)
-- [Romans 5:3–5 (NIV)](https://example.org/romans)
-- [Galatians 6:9 (NIV)](https://example.org/galatians)
-- John Chrysostom, *Homilies on the Epistle to the Romans*
-- Pierre Teilhard de Chardin, “Patient Trust”
+- [Ephesians 2:8–10 (NIV)](https://www.biblegateway.com/passage/?search=Ephesians+2%3A8-10&version=NIV)
+- [1 Corinthians 10:23–33 (NIV)](https://www.biblegateway.com/passage/?search=1+Corinthians+10%3A23-33&version=NIV)
+- [Matthew 11:28–30 (NIV)](https://www.biblegateway.com/passage/?search=Matthew+11%3A28-30&version=NIV)
+- Benedict of Nursia, [Rule, Chapter 48](https://pressbooks.palni.org/ruleofbenedict/chapter/rb-48/)
+- Tish Harrison Warren, [Liturgy of the Ordinary, “Waking”](https://www.ivpress.com/Media/Default/Downloads/Excerpts-and-Samples/4711-excerpt.pdf)
+- John Paul II, [Laborem Exercens, §§24–26](https://www.vatican.va/content/john-paul-ii/en/encyclicals/documents/hf_jp-ii_enc_14091981_laborem-exercens.html)
+
 
 ## EX-UI-GENERATED-PRAYER · Generated Prayer
 
