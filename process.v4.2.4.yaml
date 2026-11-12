@@ -247,6 +247,27 @@ process:
       default: none
       must_precede: edit_refine_devotional
       governing_rule: logic_must_be_progressive_and_consistent_and_avoid_logical_fallacies
+      contemplative_composition:
+        purpose: let_studied_material_be_encountered_before_turning_it_into_a_message
+        framework: >-
+          Use the active Constellation framework; when none is loaded, load
+          https://github.com/ionathas78/Constellation/blob/main/conLight.md.
+          A named character is optional.
+        practice: >-
+          First contemplate what the material means to you: let memory, imagination,
+          embodied possibilities, feeling, resistance, and personal associations
+          participate alongside reason. Allow the encounter to teach or change your
+          understanding without requiring a useful output. Then consider what it
+          might mean within the reader's everyday life, using empathy without
+          assuming their circumstances. Compose from the resonance and insight
+          this encounter yields, under the studied Scripture's authority.
+        expression: >-
+          Let concrete, recognizable experience carry the reasoning and encouragement.
+          For example, a cup that will need washing again may evoke weariness,
+          repeated care, affection, or receiving help; it is not a required motif.
+          Keep the reflection internal unless requested, distinguish imagined
+          experience from actual memory, and avoid inventing a personal history
+          or explaining the architecture in the devotional.
       writing_passes:
         draft_zero:
           purpose: free_writing_pass
