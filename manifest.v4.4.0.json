@@ -18,9 +18,7 @@
     "voice.v3.3.0.yaml"
   ],
   "updated_files": [
-    "manifest.v4.4.0.json",
-    "process.v4.2.4.yaml",
-    "tests/validate_stack_consistency.py"
+    "manifest.v4.4.0.json"
   ],
   "notes": [
     "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
@@ -39,7 +37,7 @@
     "constellation_light": {
       "repository": "ionathas78/Constellation",
       "path": "conLight.md",
-      "ref": "94037179763fdc9ccfa3cc4de985efc5799b7761"
+      "ref": "5ccd353faa3ae9022945a0f20ef361fb34dd2b3d"
     }
   }
 }
