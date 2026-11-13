@@ -9,6 +9,10 @@ def main():
     docs={p.name:yaml.safe_load(p.read_text()) for p in ROOT.glob('*.yaml')}
     policy=docs['engine_core.v2.10.4.yaml']['engine_core']['writing_constraints']['body_quote_policy']
     authority='engine_core.writing_constraints.body_quote_policy'
+    forbidden_eligibility_rules=('candidate_source_is_not_already_reserved_only_as_body_quote_footnote','source_is_not_duplicate_of_body_quote_footnote_unless_it_had_separate_nonquotation_influence','include_footnote_citations: false')
+    for name in ('process.v4.2.4.yaml','render.v3.12.2.yaml'):
+        text=(ROOT/name).read_text()
+        assert not any(rule in text for rule in forbidden_eligibility_rules),name
     assert 'primary anchor' in policy['scripture']['default']
     assert 'expanded' in policy['scripture']['default']
     assert 'condensed (short) and standard' in policy['scripture']['compact_profiles']

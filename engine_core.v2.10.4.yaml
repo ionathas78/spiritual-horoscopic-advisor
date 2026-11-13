@@ -218,7 +218,7 @@ engine_core:
         - persistent_user_preference
       paragraph_target:
         preferred: 7
-        acceptable: [4, 8]
+        acceptable_inclusive_range: "[4-8]"
       expansion_principle: additional_length_must_result_from_new_reasoning_not_restatement
       study_pass:
         sources_target:
@@ -462,6 +462,11 @@ engine_core:
       - provide_bridge_to_optional_study_guide
       - support_source_discovery
       - make_source_cycling_auditable
+      body_cited_sources: >-
+        Sources quoted or faithfully paraphrased in the body remain eligible for
+        Additional References when materially influential, including when attributed
+        in footnotes. Consolidate bibliographic entries without suppressing their
+        source lineage or excluding them from the selected profile's reference counts.
       inclusion_rule: 'Render only sources whose influence remains recognizable in the final devotional.
 
         '

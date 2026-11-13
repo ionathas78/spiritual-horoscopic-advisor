@@ -275,6 +275,7 @@ render:
       prayer_must_read_naturally_aloud: true
       source_line_should_not_interrupt_prayer_body: true
   additional_references_rendering:
+    source_eligibility_authority: engine_core.study_transparency.additional_references
     enabled_when_preference_true: true
     default_enabled: true
     omit_when_empty: false
@@ -295,7 +296,6 @@ render:
     - source_is_not_primary_quote_source
     - source_is_not_primary_anchor
     - source_is_not_equivalent_or_overlapping_primary_anchor
-    - source_is_not_duplicate_of_body_quote_footnote_unless_it_had_separate_nonquotation_influence
     exclusion_rules:
     - omit_consulted_only_sources
     - omit_decorative_sources
@@ -603,7 +603,7 @@ render:
         supporting_scriptures_only: false
         include_primary_anchor: false
         include_primary_quote_source: false
-        include_footnote_citations: false
+        body_cited_sources_remain_eligible: true
         omit_when_empty: false
         require_source_footprint_map_entry: true
         prohibit_decorative_or_quota_padding_references: true

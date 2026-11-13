@@ -20,18 +20,16 @@
   "updated_files": [
     "engine_core.v2.10.4.yaml",
     "process.v4.2.4.yaml",
-    "preferences.v3.3.0.yaml",
     "render.v3.12.2.yaml",
-    "lint.v4.4.2.yaml",
     "json_bundle.v3.7.1.json",
-    "surface_examples.v1.1.0.md",
     "ui_golden_tests.v0.9.9.json",
     "manifest.v4.4.0.json",
-    "tests/validate_expanded_profile.py"
+    "tests/validate_expanded_profile.py",
+    "tests/validate_source_presentation.py"
   ],
   "notes": [
     "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
-    "Output axes distinguish devotional/study guide, condensed/standard/expanded, and UI/PDF. Study depth remains independent of rendered length.",
+    "Output axes distinguish devotional/study guide, condensed/standard/expanded, and UI/PDF. All lengths receive full baseline study; expanded devotionals extend it under their profile contract.",
     "Condensed index card devotionals use the engine-owned body and surface contracts, including the explicit rendered-reference range and optional brief generated prayer.",
     "The approved condensed specimen uses Corrie ten Boom, a sixth-grade body, a primary Scripture reference, a generated prayer, and supporting references.",
     "UI is headerless; PDF retains its document header and uses profile-aware primary Scripture expansion. Images are excluded from PDF and study guides.",

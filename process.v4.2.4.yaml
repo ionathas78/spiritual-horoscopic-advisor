@@ -510,23 +510,17 @@ process:
       - candidate_source_is_not_primary_quote_source
       - candidate_source_is_not_primary_scripture_anchor
       - candidate_scripture_does_not_overlap_primary_anchor
-      - candidate_source_is_not_already_reserved_only_as_body_quote_footnote
       - duplicate_sources_are_collapsed
       - liturgical_prayer_source_is_not_added_to_additional_references_unless_it_independently_influenced_devotional_content
       output:
       - final_rendered_references
       - final_source_footprint_map
       - deferred_study_guide_sources
-      supporting_scripture_contract:
-        minimum_rendered: 1
-        recommended_rendered: 2
-        must_precede_non_scriptural_entries: true
-        exclude_primary_anchor: true
-        exclude_overlapping_or_equivalent_primary_ranges: true
-        must_have_recognizable_footprint: true
-      patristic_contract:
-        render_without_fixed_cap_when_materially_influential: true
-        must_be_additive_to_supporting_scripture: true
+      reference_contract:
+        authority: engine_core.study_transparency.additional_references
+        condensed_override_authority: engine_core.output_profiles.condensed.surface_contract.additional_references
+        expanded_override_authority: engine_core.output_profiles.expanded.surface_contract.additional_references
+        derive_eligibility_counts_order_and_deduplication_from_selected_contract: true
     image:
       alias: image_choose_memory_anchors
       purpose: select_images_to_cement_devotional_themes_in_reader_mind

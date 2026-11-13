@@ -41,9 +41,9 @@
     "Makes supporting Scripture explicit in Additional References: at least one required, two preferred, ordered before patristic and other non-scriptural sources; patristic breadth remains additive and uncapped when influential.",
     "Adds orthogonal output-profile contracts and a normative surface-example registry for devotional, study-guide, UI, and PDF realization.",
     "Adds optional prayer output with generated or liturgical modes, Catholic/Anglican tradition selection, date-specific source integrity, generated fallback, and prayer placement before Additional References and footer footnotes.",
-    "Reconciles devotional length handling so paragraph counts and word counts are profile-guided rather than hard-capped, including five-paragraph expanded devotionals and reading-level-sensitive variation.",
+    "Reconciles devotional length handling so paragraph counts and word counts are profile-guided rather than hard-capped, with expanded paragraph targets governed by engine core and reading-level-sensitive variation.",
     "Updates the remaining normative surface-example reference to surface_examples.v1.1.0.md.",
-    "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; standard and expanded profiles retain their existing guidance.",
+    "Condensed index card devotionals follow engine_core.output_profiles.condensed for body shape, synthesis, and full study depth; other profiles follow their own engine-owned contracts.",
     "Approved condensed surface: quote, body, primary Scripture reference, optional brief generated prayer, then influential Additional References. Profile-specific contracts live in engine_core.output_profiles.condensed.surface_contract; other profiles retain their existing behavior.",
     "Memory, seed reuse, subject precedence, and rotation are governed by engine_core; process and lint refer to those contracts.",
     "Expanded study, source composition, and connected biblical development follow engine_core.output_profiles.expanded; shorter profile behavior is preserved."
@@ -984,7 +984,7 @@
     },
     {
       "source_path": "devotional_render_template_v1.1.1.json",
-      "sha256": "9544520ea8cd14092fe7e2c52e2c60571f4f45f4a8ca60c10a0e49dac8709950",
+      "sha256": "738d4d19c2e3ec1cef982b667aefd7a494319841757847021edfb42f19bfa7bf",
       "doc": {
         "template_id": "devotional_render_template",
         "template_version": "1.2.0",
@@ -1327,7 +1327,9 @@
             "supporting_scripture_first": true,
             "patristic_sources_additive_not_substitutive": true,
             "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references",
-            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references"
+            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references",
+            "source_eligibility_authority": "engine_core.study_transparency.additional_references",
+            "body_cited_sources_remain_eligible": true
           }
         },
         "special_rules": {
@@ -1735,7 +1737,7 @@
     },
     {
       "source_path": "devotional_pdf_render_template_v1.0.0.json",
-      "sha256": "dbac140176677ed4a0b680625d522db12442be348aef9fdcbf26faf692dc57cb",
+      "sha256": "ae991a0043c696ee25633b736ffd2be7bcf1b5549a28afab17d3a89ac092e1ae",
       "doc": {
         "template_id": "devotional_pdf_render_template",
         "template_version": "1.2.0",
@@ -1828,7 +1830,9 @@
             "supporting_scripture_first": true,
             "patristic_sources_additive_not_substitutive": true,
             "condensed_override_authority": "engine_core.output_profiles.condensed.surface_contract.additional_references",
-            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references"
+            "expanded_override_authority": "engine_core.output_profiles.expanded.surface_contract.additional_references",
+            "source_eligibility_authority": "engine_core.study_transparency.additional_references",
+            "body_cited_sources_remain_eligible": true
           },
           "footnotes": {
             "required_when": "footer_attribution_is_used",
