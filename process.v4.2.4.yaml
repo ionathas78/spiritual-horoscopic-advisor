@@ -4,6 +4,7 @@ status: reconciled_single_authority
 process:
   execution_mode_default: devotional_production
   pipeline:
+  - framework_load_context
   - memory_load_context
   - seed_resolve_daily_reuse
   - horoscope_identify_daily_issue
@@ -25,6 +26,19 @@ process:
   - render_create_output
   - memory_update_context
   stage_breakdown:
+    framework_load:
+      alias: framework_load_context
+      purpose: activate_the_reflective_framework_before_study_and_composition
+      visibility: internal_only_except_access_failures
+      dependency: constellation_light
+      source_authority: manifest.v4.4.0.json.external_dependencies.constellation_light
+      rules:
+      - an_already_active_constellation_light_or_full_constellation_framework_satisfies_the_requirement
+      - otherwise_retrieve_and_read_the_dependency_at_the_manifest_pinned_revision_and_use_it_as_the_active_framework
+      - a_named_character_is_not_required
+      on_unavailable: report_the_missing_dependency_without_claiming_it_loaded_or_silently_substituting_another_revision
+      must_precede: memory_load_context
+      output: active_framework_and_its_source_or_existing_context
     seed_resolution:
       alias: seed_resolve_daily_reuse
       authority: engine_core.same_day_seed_reuse
@@ -243,10 +257,7 @@ process:
       governing_rule: logic_must_be_progressive_and_consistent_and_avoid_logical_fallacies
       contemplative_composition:
         purpose: let_studied_material_be_encountered_before_turning_it_into_a_message
-        framework: >-
-          Use the active Constellation framework; when none is loaded, load
-          https://github.com/ionathas78/Constellation/blob/main/conLight.md.
-          A named character is optional.
+        framework: use_the_framework_activated_by_framework_load_context
         practice: >-
           First contemplate what the material means to you: let memory, imagination,
           embodied possibilities, feeling, resistance, and personal associations
@@ -744,6 +755,7 @@ process:
       alias: gdw_v1
       purpose: Stable alias map for the devotional production pipeline so workflow structure is concrete, inspectable, and verifiable across revisions.
       step_aliases:
+        framework_load_context: framework_load
         seed_resolve_daily_reuse: daily_seed_resolve
         memory_load_context: memory_read
         memory_update_context: memory_write

@@ -18,14 +18,9 @@
     "voice.v3.3.0.yaml"
   ],
   "updated_files": [
-    "engine_core.v2.10.4.yaml",
-    "process.v4.2.4.yaml",
-    "render.v3.12.2.yaml",
-    "json_bundle.v3.7.1.json",
-    "ui_golden_tests.v0.9.9.json",
     "manifest.v4.4.0.json",
-    "tests/validate_expanded_profile.py",
-    "tests/validate_source_presentation.py"
+    "process.v4.2.4.yaml",
+    "tests/validate_stack_consistency.py"
   ],
   "notes": [
     "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
@@ -37,6 +32,14 @@
     "Tests verify contract wiring, paths, hashes, routing reference cases, and local fixture operations; they do not execute an LLM devotional generator.",
     "Engine core owns memory, rolling seeds, same-day reuse, subject precedence, and rotation rules. Process supplies execution order; lint verifies the governing contracts without repeating them.",
     "Engine body_quote_policy governs reader-accessible source material: relevant Scripture wording by default, faithful attributed source paraphrases, and primary-anchor body quotations with inline or footer attribution.",
-    "Expanded devotionals use the amended engine-owned word/paragraph bands, extended study pool, influential reference composition, and connected Scripture reasoning. Same-day expansion extends research while preserving the seed and primary anchors."
-  ]
+    "Expanded devotionals use the amended engine-owned word/paragraph bands, extended study pool, influential reference composition, and connected Scripture reasoning. Same-day expansion extends research while preserving the seed and primary anchors.",
+    "External framework dependencies are pinned in external_dependencies and loaded during initial process setup; their contents remain canonical in their source repositories."
+  ],
+  "external_dependencies": {
+    "constellation_light": {
+      "repository": "ionathas78/Constellation",
+      "path": "conLight.md",
+      "ref": "94037179763fdc9ccfa3cc4de985efc5799b7761"
+    }
+  }
 }

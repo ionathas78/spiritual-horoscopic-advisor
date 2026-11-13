@@ -45,6 +45,23 @@ def main():
     process = roots['process']
     stage_aliases = {v['alias'] for v in process['stage_breakdown'].values()}
     assert set(process['pipeline']) <= stage_aliases
+    # Dependency declaration is separate from activation and writing behavior.
+    dependency = manifest['external_dependencies']['constellation_light']
+    assert dependency['repository'] == 'ionathas78/Constellation'
+    assert dependency['path'] == 'conLight.md'
+    assert re.fullmatch(r'[0-9a-f]{40}', dependency['ref']), dependency
+    assert 'conLight.md' not in manifest['files']  # Canonical copy remains external.
+    setup = process['stage_breakdown']['framework_load']
+    assert process['pipeline'][0] == setup['alias'] == 'framework_load_context'
+    assert setup['dependency'] == 'constellation_light'
+    assert setup['source_authority'] == 'manifest.v4.4.0.json.external_dependencies.constellation_light'
+    assert process['pipeline'].index(setup['alias']) < process['pipeline'].index('study_gather_source_wisdom')
+    assert any('already_active_constellation_light_or_full_constellation' in rule for rule in setup['rules'])
+    assert 'a_named_character_is_not_required' in setup['rules']
+    assert process['workflow_aliases']['canonical_workflow']['step_aliases'][setup['alias']] == 'framework_load'
+    contemplation = process['stage_breakdown']['write']['contemplative_composition']
+    assert contemplation['framework'] == 'use_the_framework_activated_by_framework_load_context'
+    assert 'github.com/ionathas78/Constellation' not in (ROOT / 'process.v4.2.4.yaml').read_text()
     engine = roots['engine_core']
     assert engine['problem_selection']['explicit_subject']['preserve']
     assert engine['source_cycling']['cross_run_review']['applies_when'] == 'selecting_a_new_seed'
