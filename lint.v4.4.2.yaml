@@ -141,7 +141,7 @@ lint:
     - audience_reading_level_is_preserved_without_clause_packing
     - complete_reasoning_and_practical_response_survive_synthesis
     - every_sentence_advances_the_thought
-    - full_shared_study_depth_is_preserved
+    - shared_study_method_and_selected_profile_source_breadth_are_preserved
     - no_condensed_word_quota_is_applied
     - textual_order_and_reference_composition_match_condensed_surface_contract
     - optional_generated_prayer_matches_condensed_surface_contract
@@ -231,17 +231,14 @@ lint:
       - referenced_example_matches_contract
   study_pass_checks:
     authority: engine_core.study_pass
-    expanded_override_authority: engine_core.output_profiles.expanded.study_pass
+    source_count_authority: engine_core.study_pass.sources_target
     require_source_diversity_balance: true
     minimum_mix:
       scripture_parallel: 1
       historical_or_patristic: 1
       modern_christian_voice: 1
     forbid_duplicate_same_text_different_urls: true
-    minimum_sources: 3
-    recommended_sources: 5
-    soft_maximum_sources: 7
-    allow_above_soft_maximum_when_material_questions_remain: true
+    require_selected_profile_source_bounds: true
     require_responsible_stop_condition: true
     require_source_confidence_map: true
     require_source_weight_map: true
@@ -601,4 +598,3 @@ lint:
     - supporting_scripture_follows_non_scriptural_entry
     - primary_anchor_or_overlap_is_counted_as_supporting_scripture
     - commentary_substitutes_for_supporting_scripture
-

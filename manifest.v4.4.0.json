@@ -18,11 +18,16 @@
     "voice.v3.3.0.yaml"
   ],
   "updated_files": [
-    "manifest.v4.4.0.json"
+    "engine_core.v2.10.4.yaml",
+    "process.v4.2.4.yaml",
+    "lint.v4.4.2.yaml",
+    "preferences.v3.3.0.yaml",
+    "manifest.v4.4.0.json",
+    "tests/validate_expanded_profile.py"
   ],
   "notes": [
     "Manifest-listed files at the resolved commit form one canonical stack; embedded JSON documents retain canonical hashes.",
-    "Output axes distinguish devotional/study guide, condensed/standard/expanded, and UI/PDF. All lengths receive full baseline study; expanded devotionals extend it under their profile contract.",
+    "Output axes distinguish devotional/study guide, condensed/standard/expanded, and UI/PDF. All lengths use the shared study method with profile-owned supporting-source bands, excluding primary Scripture and quotation sources.",
     "Condensed index card devotionals use the engine-owned body and surface contracts, including the explicit rendered-reference range and optional brief generated prayer.",
     "The approved condensed specimen uses Corrie ten Boom, a sixth-grade body, a primary Scripture reference, a generated prayer, and supporting references.",
     "UI is headerless; PDF retains its document header and uses profile-aware primary Scripture expansion. Images are excluded from PDF and study guides.",

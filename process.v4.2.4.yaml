@@ -141,7 +141,7 @@ process:
       default: none
       must_precede: write_compose_devotional
       governing_rule: study_a_diverse_minimum_set_and_continue_until_the_question_is_responsibly_explored
-      length_independence: every_content_length_receives_the_full_shared_study_pass_with_profile_specific_expansion
+      length_independence: every_content_length_uses_the_shared_study_method_with_profile_specific_source_breadth
       agents:
         minimum_total: 5
         recommended_total: 6
@@ -212,7 +212,6 @@ process:
         preserve_same_source_lineage: true
       source_breadth:
         authority: engine_core.study_pass.sources_target
-        expanded_override_authority: engine_core.output_profiles.expanded.study_pass
         derive_counts_review_method_and_stopping_conditions_from_authority: true
       source_assessment:
         influence_weight:
@@ -802,4 +801,3 @@ process:
       - alias_map_must_cover_every_pipeline_step
       - alias_order_must_match_pipeline_order
       - overall_alias_must_be_declared_once
-

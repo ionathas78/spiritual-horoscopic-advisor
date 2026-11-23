@@ -160,7 +160,12 @@ engine_core:
         line_breaks: only_when_they_improve_readability
         reading_level: match_target_audience
         density: high_meaning_per_sentence_with_clear_vocabulary_and_syntax
-      study_depth: full_shared_study_pass
+      study_depth: shared_study_method_with_profile_specific_source_breadth
+      study_pass:
+        sources_target:
+          minimum: 3
+          recommended: 4
+          maximum: 5
       composition:
         - synthesize_the_full_devotional_thought_from_the_study_brief
         - select_the_central_studied_insight_and_its_essential_reasoning_while_retaining_other_findings_in_the_study_brief
@@ -207,6 +212,15 @@ engine_core:
   
     standard:
       purpose: default_daily_devotional
+      study_pass:
+        sources_target:
+          minimum: 4
+          recommended: 5
+          maximum: 7
+        method: >-
+          Revisit the study when expanding a condensed devotional, adding sources
+          as needed to meet this profile and develop additional reasoning rather
+          than lengthening the existing wording.
       paragraph_target:
         preferred: 2
         acceptable: [2, 3]
@@ -225,7 +239,6 @@ engine_core:
           minimum: 5
           recommended: 7
           maximum: 10
-          count_scope: distinct_supporting_study_sources_excluding_primary_anchor_and_primary_quote_source
         source_diversity_authority: engine_core.study_pass.source_diversity_balance
         method: >-
           Revisit the existing study material, cross-reference its ideas, and consult
@@ -255,12 +268,10 @@ engine_core:
   study_pass:
     enabled: true
     position_in_pipeline: after_scripture_selection_before_writing
-    expanded_override_authority: engine_core.output_profiles.expanded.study_pass
     sources_target:
-      minimum: 3
-      recommended: 5
-      soft_maximum: 7
-      expansion_beyond_soft_maximum_allowed_when_material_questions_remain: true
+      authority: engine_core.output_profiles
+      selection: selected_content_length.study_pass.sources_target
+      count_scope: distinct_supporting_study_sources_excluding_primary_anchor_and_primary_quote_source
       stop_condition:
       - source_diversity_minimum_satisfied
       - confidence_is_high_or_best_available
@@ -1404,4 +1415,3 @@ engine_core:
     - supporting_scripture_must_be_gathered_before_non_scriptural_commentary
     - non_scriptural_sources_must_not_substitute_for_supporting_scripture
     - patristic_sources_may_be_numerous_when_influential_but_are_rendered_in_addition_to_supporting_scripture
-

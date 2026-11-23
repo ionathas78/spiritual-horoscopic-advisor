@@ -5,6 +5,21 @@ import yaml
 R=Path(__file__).resolve().parents[1]
 def main():
     e=yaml.safe_load((R/'engine_core.v2.10.4.yaml').read_text())['engine_core']
+    # All lengths share study quality, but each owns its supporting-source band.
+    bands={'condensed':(3,4,5),'standard':(4,5,7),'expanded':(5,7,10)}
+    for profile,expected in bands.items():
+        band=e['output_profiles'][profile]['study_pass']['sources_target']
+        assert tuple(band[k] for k in ('minimum','recommended','maximum'))==expected
+        lo,preferred,hi=expected
+        assert lo <= preferred <= hi
+        for count in (lo-1,lo,preferred,hi,hi+1):
+            assert (band['minimum'] <= count <= band['maximum']) == (lo <= count <= hi)
+    shared=e['study_pass']['sources_target']
+    assert shared['authority']=='engine_core.output_profiles'
+    assert shared['selection']=='selected_content_length.study_pass.sources_target'
+    assert shared['count_scope']=='distinct_supporting_study_sources_excluding_primary_anchor_and_primary_quote_source'
+    assert not any(k in shared for k in ('minimum','recommended','maximum','soft_maximum'))
+    assert 'adding sources' in e['output_profiles']['standard']['study_pass']['method']
     x=e['output_profiles']['expanded']
     assert e['writing_constraints']['devotional_length_guidance']['preferred_word_bands']['expanded']==[550,1200]
     target=x['paragraph_target']
@@ -33,8 +48,14 @@ def main():
     assert render['additional_references_rendering']['required_composition']['expanded_override_authority']==authority
     lint=yaml.safe_load((R/'lint.v4.4.2.yaml').read_text())['lint']
     assert lint['expanded_profile_checks']['authority']=='engine_core.output_profiles.expanded'
+    assert lint['study_pass_checks']['source_count_authority']=='engine_core.study_pass.sources_target'
+    assert lint['study_pass_checks']['require_selected_profile_source_bounds']
+    assert not any(k in lint['study_pass_checks'] for k in ('minimum_sources','recommended_sources','soft_maximum_sources'))
     assert lint['payoff_anchor_checks']['applies_to']==['standard']
     process=yaml.safe_load((R/'process.v4.2.4.yaml').read_text())['process']
+    breadth=process['stage_breakdown']['study']['source_breadth']
+    assert breadth['authority']=='engine_core.study_pass.sources_target'
+    assert 'expanded_override_authority' not in breadth
     finalization=process['stage_breakdown']['reference_lineage']
     assert finalization['reference_contract']['expanded_override_authority']==authority
     assert finalization['reference_contract']['derive_eligibility_counts_order_and_deduplication_from_selected_contract']
@@ -67,5 +88,5 @@ def main():
     refs=text.split('Additional References',1)[1].strip().splitlines()
     entries=[r for r in refs if r.startswith('- ')]
     assert len(entries)==6 and all('(NIV)' in r for r in entries[:3])
-    print(f'PASS: expanded study, reference overrides, same-day continuity, unchanged shorter profiles, and {words}-word/seven-paragraph specimen.')
+    print(f'PASS: all source bands and boundaries, source-count ownership, same-day expansion, reference contracts, and {words}-word/seven-paragraph specimen.')
 if __name__=='__main__':main()
